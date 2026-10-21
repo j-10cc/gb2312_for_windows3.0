@@ -1,0 +1,10 @@
+--- a/OPUS/OPUSCMD2.H
++++ b/OPUS/OPUSCMD2.H
+@@ -0,0 +1,7 @@
++/* This file was created by MKCMD!  Do Not Edit! */
++
++#define cbsytInit       8554
++#define ckmeInit        117
++#define cwsttbMenuBase  4
++#define cbsttbMenuRgbst (584*sizeof(int))
++#define cwmudBase       194

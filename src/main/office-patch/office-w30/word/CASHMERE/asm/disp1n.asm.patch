@@ -1,0 +1,47 @@
+--- a/CASHMERE/asm/disp1n.asm
++++ b/CASHMERE/asm/disp1n.asm
+@@ -2071,6 +2071,34 @@
+ 	movsw
+ 
+ ;	 pchr = &(**vhgrpchr)[0];
++	; The CGA mixed-text overlay does not opaque the full DDK text box
++	; when it suppresses the base renderer. Erase this line's actual clip
++	; once, before collecting movable CHP pointers or drawing any run.
++	cmp	[vfli.fPrintFli],0
++	jne	GbCgaLineClearDone
++	cmp	[vfPrvwDisp],0
++	jne	GbCgaLineClearDone
++	cmp	[vfti.dypInchFti],72
++	jge	GbCgaLineClearDone
++	push	ax
++	push	bx
++	push	cx
++	push	dx
++	push	si
++	push	di
++	push	[hdc]
++	lea	ax,[rcwClipXpLeftRc]
++	push	ax
++	push	[vsci.HI_ropEraseSci]
++	push	[vsci.LO_ropEraseSci]
++	cCall	PatBltRc,<>
++	pop	di
++	pop	si
++	pop	dx
++	pop	cx
++	pop	bx
++	pop	ax
++GbCgaLineClearDone:
+ 	mov	si,[vhgrpchr]
+ 	mov	si,[si]
+ 
+@@ -3392,6 +3420,9 @@
+ 	shl	bx,1
+ 	lea	si,[bx.vfli.rgdxpFli]
+ 	mov	dx,ds
++	; The GB2312 formatter measures a pair as one line unit while retaining
++	; a spacing entry for each byte.  Supply the positions to GDI.
++	jmp	DFC40
+ 	test	bptr ([di.qpsSpaceChp]),maskQpsSpaceChp
+ 	jne	DFC40
+ 	cmp	[vfli.ichSpace2Fli],ichNil

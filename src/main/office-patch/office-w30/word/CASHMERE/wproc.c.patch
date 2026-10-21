@@ -1,0 +1,1697 @@
+--- a/CASHMERE/wproc.c
++++ b/CASHMERE/wproc.c
+@@ -1,3 +1,4 @@
++/* Generated from the unmodified historical wproc.c. */
+ /* W P R O C . C */
+ 
+ #ifdef DEBUG
+@@ -1255,994 +1256,6 @@
+ }
+ 
+ 
+-/* S A V E   M E N U   H E L P   C O N T E X T -      */
+-/* Since we do not want to compute the help context every time the
+-	user pulls down a menu, we will just save the wParam and lParam.
+-	If the user hits F1, and vcxtHelp has not yet been set to something
+-	else, we can compute the context from these saved values.
+-*/
+-/* %%Function:SaveMenuHelpContext  %%Owner:rosiep */
+-SaveMenuHelpContext(wParam,lParam,cxt)
+-WORD      wParam;
+-LONG      lParam;
+-int       cxt;
+-{
+-	Assert(cxt == cxtAppMenuSelect || cxt == cxtDocMenuSelect);
+-
+-	/* if we're exiting Menu Mode, no more help context */
+-	if (HIWORD(lParam) == 0 || wParam == 0)
+-		{
+-		vwParamHelp = 0;
+-		vlParamHelp = 0;
+-		vcxtHelp = cxtNil;
+-		}
+-	else
+-		{
+-		vwParamHelp = wParam;
+-		vlParamHelp = lParam;
+-		vcxtHelp = cxt;
+-		}
+-}
+-
+-
+-
+-#ifdef REFERENCE /* most of these are now in UpdateWindowWw */
+-/* U P D A T E  I N V A L I D  W W */
+-/* Find out what Windows considers to be the invalid range of
+-	the passed window.  Mark it invalid in WWD & blank the area on the screen */
+-
+-/* %%Function:UpdateInvalidWw  %%Owner:NOTUSED */
+-UpdateInvalidWw(ww)
+-int ww;
+-{
+-	struct RC rc, rcwAboveYwMin;
+-	struct WWD **hwwd;
+-	int ypTop;
+-
+-	/* First, get the update rect for the parent.  This will do necessary background
+-	erasure and border validation, the returned rectangle is ignored.
+-	Test for wwCur assures we only do this once per UpdateWindows */
+-
+-	if (ww == wwCur)
+-		GetUpdateRect( vhwndApp, (LPRECT) &rc, fTrue /* fErase */ );
+-
+-	if ((hwwd = mpwwhwwd [ww]) == hNil || (*hwwd)->wk == wkClipboard)
+-		return;
+-
+-	/* Now, do the same for the document window, except that this time we use the
+-	rect to update the invalid band stored in the WWD structure */
+-
+-	Assert( (*hwwd)->hwnd != NULL );
+-	GetUpdateRect( (*hwwd)->hwnd, (LPRECT) &rc, fTrue /* fErase */);
+-
+-	if (FSectRc( PrcSet( &rcwAboveYwMin, 0, 0,
+-			(*hwwd)->xwMac, (*hwwd)->ywMin ),
+-			&rc, &rcwAboveYwMin ))
+-		PatBltRc( (*hwwd)->hdc, &rcwAboveYwMin, vsci.ropErase );
+-
+-	if (vidf.fDead)
+-		{
+-		/* If we are in the process of shutting down, we DONT want to repaint,
+-			but we DO want to erase the bkgrnd and validate the border */
+-		PatBltRc( (*hwwd)->hdc, &rc, vsci.ropErase );
+-		return;
+-		}
+-
+-	/* draw portion of style name window border that extends above ypMin */
+-	/* This is the only drawing/invalidation that we have to do in this area */
+-	if ((*hwwd)->xwSelBar)
+-		PaintStyStub( ww, &rc );
+-	rc.ypTop = max( (*hwwd)->ywMin, rc.ypTop );
+-
+-	if (rc.ypTop < rc.ypBottom)
+-		InvalWwRc(ww, &rc );
+-
+-	/* Since we have found out the invalid rect, and marked it invalid
+-	in our structures, we don't want to hear about it again,
+-	so we tell windows that we have made everything valid */
+-
+-	ValidateRect( (*hwwd)->hwnd, (LPRECT) NULL );
+-}
+-
+-
+-#endif /* REFERENCE */
+-
+-
+-
+-/*  NOTE: Messages bound for this WndProc are filtered in wprocn.asm */
+-
+-/* %%Function:WwPaneWndProc  %%Owner:peterj */
+-long EXPORT FAR PASCAL WwPaneWndProc(hwnd, message, wParam, lParam)
+-HWND      hwnd;
+-unsigned  message;
+-WORD      wParam;
+-LONG      lParam;
+-{
+-	int ww;
+-	struct RC rc;
+-	long RareWwPaneWndProc();
+-
+-#ifdef SHOWPNEMSG
+-	ShowMsg ("pn", hwnd, message, wParam, lParam);
+-#endif /* SHOWPNEMSG */
+-
+-#ifdef RSH
+-	/* BLOCK - log message */
+-		{
+-		int iwm = IScanLprgw((int far *)rgwmRsh,message,iwmMax);
+-		if (iwm >= 0 && iwm < iwmMax)
+-			LogUa(uaWwdMessage+iwm);
+-		}
+-#endif /* RSH */
+-
+-	switch (message)
+-		{
+-	default:
+-		return RareWwPaneWndProc( hwnd, message, wParam,lParam );
+-
+-	case WM_SETFOCUS:
+-		/* The window is getting the focus.  wParam contains the window
+-		** handle of the window that previously had the focus. */
+-		WwPaneGetFocus(hwnd, (HWND)wParam);
+-		break;
+-
+-	case WM_KILLFOCUS:
+-		/* The window is losing the focus.  wParam contains the window
+-		** handle of the window about to get the focus, or NULL. */
+-		if (vidf.fDead)
+-			break;
+-		Debug(vdbs.fShakeHeap ? ShakeHeap() : 0);
+-		WwPaneLoseFocus(hwnd, (HWND)wParam);
+-		break;
+-
+-	case WM_MOUSEACTIVATE:
+-			{ /* reset the wwActivePane of its parent */
+-			int fSscClick = fFalse;
+-
+-			if ((vhwndAppModalFocus != hNil) && !vfHelp)
+-				if (!vfDeactByOtherApp)
+-					return (LONG) MA_NOACTIVATE;
+-				else
+-					goto DefaultProc;
+-
+-			if (vfHelp || (GetMessageTime() < vcmsecHelp))
+-				return(fTrue);
+-
+-			if (GetFocus() != hwnd)
+-				{
+-				int ww = WwFromHwnd(hwnd);
+-
+-				/* we want to gain focus */
+-				if (HIWORD(lParam) == WM_RBUTTONDOWN)
+-					vfRightClick = fTrue;
+-
+-				if (fSscClick = FSscClick())
+-					{
+-					int eid = eidInvalidSelection;
+-
+-					/* Note: Ssc click will do a quickmove/copy
+-						unless selCur.fIns or in dyadic mode or a few
+-						other cases. In those cases cancel the operation.
+-						Better to do it now before we change the activation.
+-						*/
+-					if ( FOutlineEmpty(ww, fFalse) ||
+-							(eid = EidMouseAction()) != eidNil )
+-						{
+-						ErrorEid(eid, "WwPaneWndProc");
+-						return (LONG) MA_NOACTIVATE;
+-						}
+-					else
+-						{
+-						/* a value which is not sscNil. This will keep
+-							NewCurWw from changing selCur.
+-							*/
+-						vssc = sscMouse;
+-						}
+-					}
+-
+-/* Kludge Alert!  Windows has a re-entrancy problem with MA_ACTIVATEANDEAT
+-   such that we cannot call PeekMessage while nested in a WM_MOUSEACTIVATE
+-   message to which we plan to return MA_ACTIVATEANDEAT.  If we do, the
+-   message will stay on the queue.  NewCurWw can cause FMsgPresent to be
+-   called indirectly.  rp - 1/4/89
+-
+-   Dyadic copy formatting, which does some extra NewCurWw calls had a similar
+-   problem with the MOUSEACTIVATE message not getting cleared. Setting the
+-   flag so FMsgPresent will return solved the problem, though I am not sure
+-   why, since the details are a little different that Rosie describes in
+-   Opus bug 5810. bz 4-27-89
+-
+-   Moved setting of flag, now counter, to NewCurWw itself bz 5/10/89  */
+-
+-				NewCurWw(ww, fFalse /*fDoNotSelect*/);
+-				if (fSscClick)
+-					{
+-
+-					/* leave vssc as sscMouse so PselActive will use selDotted */
+-					return(MA_ACTIVATE); /* cause click msg to do dyadic move */
+-					}
+-				else
+-					{
+-					return(MA_ACTIVATEANDEAT);
+-					}
+-				}
+-DefaultProc:    /* All messages not processed come here. */
+-			return (DefWindowProc(hwnd, message, wParam, lParam));
+-			}
+-
+-	case WM_MENUCHAR:
+-			{
+-			LONG lRet = LMenuChar(hwnd, wParam, lParam);
+-			if (lRet != 0)
+-				return lRet;
+-			goto DefaultProc;
+-			}
+-
+-	case WM_SYSCOMMAND:
+-		if ((wParam & 0xfff0) == SC_KEYMENU)
+-			{
+-			if (vfSysMenu || LOWORD(lParam != '-'))
+-				return SendMessage(vhwndApp, message, wParam, lParam);
+-			else  if (vlm == lmPreview)
+-				/* prevent Menu From Nowhere from popping up over the
+-							Preview window */
+-				return (0L);
+-			}
+-
+-#ifdef RSH
+-	/* BLOCK - log command */
+-		{
+-		int isc = IScanLprgw((int far *)rgscRsh,wParam,iscMax);
+-		if (isc >= 0 && isc < iscMax)
+-			LogUa(uaMwdCommand+isc);
+-		}
+-#endif /* RSH */
+-
+-		goto DefaultProc;
+-
+-	case WM_PAINT:
+-		/* Time for the window to draw itself. */
+-		UpdateWindowWw(WwFromHwnd(hwnd));
+-		break;
+-
+-		/* For each of following mouse window messages, wParam contains
+-		** bits indicating whether or not various virtual keys are down,
+-		** and lParam is a POINT containing the mouse coordinates.   The
+-		** keydown bits of wParam are:  MK_LBUTTON (set if Left Button is
+-		** down); MK_RBUTTON (set if Right Button is down); MK_SHIFT (set
+-		** if Shift Key is down); MK_ALTERNATE (set if Alt Key is down);
+-		** and MK_CONTROL (set if Control Key is down). */
+-
+-	case WM_SETCURSOR:
+-		return 0L;
+-	case WM_MOUSEMOVE:
+-		ForceCursorChange(hwnd, &lParam, vidf.fInIdle/*fExact*/);
+-		break;
+-
+-	case WM_LBUTTONDOWN:
+-	case WM_LBUTTONDBLCLK:
+-	case WM_RBUTTONDOWN:
+-
+-#ifdef RSH
+-		{										
+-		int w = 0;								
+-		if (GetKeyState(VK_SHIFT) < 0) w |= 1;	
+-		if (GetKeyState(VK_MENU) < 0) w |= 2;	
+-		if (GetKeyState(VK_CONTROL) < 0) w |= 4;
+-		LogUa(uaKeyState + w);					
+-		}
+-#endif /* RSH */
+-
+-		ww = WwFromHwnd( hwnd );
+-		Assert( ww != wwNil );
+-		WwPaneMouse(ww, message, wParam, MAKEPOINT(lParam));
+-
+-		}
+-	/* A window proc should always return something */
+-	return(0L);
+-}
+-
+-
+-/* %%Function:WwPaneMouse  %%Owner:peterj */
+-void WwPaneMouse(ww, message, wParam, pt)
+-int        ww;
+-unsigned   message;
+-WORD       wParam;
+-POINT      pt;
+-{
+-	BOOL fShift;
+-	BOOL fInStyleName = fFalse;
+-
+-	if ((ww != wwCur) && !vfHelp)
+-		return;
+-
+-	if (vfRecording)
+-		{
+-		Beep();
+-		return;
+-		}
+-	
+-	Assert( message == WM_LBUTTONDOWN || message == WM_RBUTTONDOWN ||
+-			message == WM_LBUTTONDBLCLK );
+-	vfDoubleClick = (message == WM_LBUTTONDBLCLK);
+-	vfRightClick = (message == WM_RBUTTONDOWN);
+-
+-	Assert(hwwdCur != hNil);
+-
+-	if (vfDoubleClick && (GetMessageTime() < vcmsecHelp))
+-		return;
+-
+-	/* styname area? */
+-	if ((*hwwdCur)->xwSelBar > 0)
+-		{
+-		/* styname border? */
+-		if (pt.x <= ((*hwwdCur)->xwSelBar + (vsci.dxpBorder << 1)))
+-			if (vfHelp)
+-				{
+-				GetHelp(cxtStyleArea);
+-				return;
+-				}
+-			else
+-				{
+-				fInStyleName = fTrue;
+-				if (FXpNearStyWndBorder(pt.x, hwwdCur))
+-					{
+-					if (!vhwndCBT || SendMessage(vhwndCBT, WM_CBTSEMEV,
+-						smvTrackStyWnd, 0L))
+-						{
+-						TrackStyWndCursor(pt);
+-						}
+-					return;
+-					}
+-				}
+-		}
+-	fShift = vgrpfKeyBoardState & wKbsShiftMask;
+-
+-	if (vfHelp)
+-		{
+-		GetHelp(CxtFromWwPt(ww, pt));
+-		return;
+-		}
+-
+-	/* the fCommand parameter for Mac is used as fControl in Win */
+-	DoContentHit( pt, fShift, fFalse /* fOption */, vfControlKey /* fCommand */ );
+-
+-	if (!vfBlockSel && vfDoubleClick && fInStyleName)
+-		{
+-		if (!vhwndCBT || SendMessage(vhwndCBT, WM_CBTSEMEV, smvCommand,
+-			MAKELONG(CxtFromBcm(bcmApplyStyleDlg), 2 /* dbl click */)))
+-			{
+-			CmdExecBcmKc(bcmApplyStyleDlg, kcNil);
+-			}
+-		}
+-	return;
+-}
+-
+-
+-/* %%Function:ClearAbortKeyState  %%Owner:peterj */
+-ClearAbortKeyState()
+-{
+-	GetAsyncKeyState(VK_ESCAPE);
+-	GetAsyncKeyState(VK_CANCEL);
+-	GetAsyncKeyState(VK_MENU);
+-}
+-
+-
+-/*  SetOurKeyState
+-	This function is called when ever there is likely to have been
+-	a change in the state of the keyboard.  This function updates
+-	vgrpfKeyBoardState which contains the state of:
+-
+-		Keys:
+-			Shift Key             wKbsShiftMask
+-			Control Key           wKbsControlMask
+-			Alt/Option/menu Key   wKbsOptionMask
+-			Capslock key          wKbsCapsLckMask
+-
+-Note that Extend Mode and Block Selection are not purely toggle key
+-because it could be turned off by switching windows or executing
+-certain commands.
+-*/
+-
+-
+-
+-/* %%Function:SetOurKeyState  %%Owner:peterj */
+-void SetOurKeyState()
+-{
+-#ifdef INTL
+-	extern int vwWinVersion, vkRightBracket;
+-#endif /* INTL */
+-	extern int vgrpfKeyBoardState;
+-	int grpfT = vgrpfKeyBoardState;
+-
+-	vgrpfKeyBoardState  = (GetKeyState(VK_SHIFT) < 0) ? wKbsShiftMask : 0;
+-	vgrpfKeyBoardState |= (GetKeyState(VK_MENU) < 0) ? wKbsOptionMask : 0;
+-	vgrpfKeyBoardState |= (GetKeyState(VK_CONTROL)<0) ? wKbsControlMask : 0;
+-
+-#ifdef CAPSLOCKSFIX /* for intl only */
+-/* localized pre-Win3.0 keyboards don't toggle the caps-lock key!    */
+-/* We detect localalized keyboards by looking at the vk for the ']'. */
+-/* Only for German and French (defined CAPSLOCKSFIX) */
+-	if (vwWinVersion < 0x300 && vkRightBracket >= 0x600)
+-		vgrpfKeyBoardState |= (GetKeyState(VK_CAPITAL) < 0) ? wKbsCapsLckMask : 0;
+-	else
+-#endif /* CAPSLOCKSFIX */
+-
+-	/* VK_CAPITAL is a toggle key, hence we check if it's toggled, not
+-		if it's down */
+-	vgrpfKeyBoardState |= (GetKeyState(VK_CAPITAL) & 1) ? wKbsCapsLckMask : 0;
+-	vgrpfKeyBoardState |= (GetKeyState(VK_NUMLOCK) & 1) ? wKbsNumLckMask : 0;
+-
+-	if (vhwndStatLine != NULL &&
+-			(grpfT & (wKbsCapsLckMask + wKbsNumLckMask)) !=
+-			(vgrpfKeyBoardState & (wKbsCapsLckMask + wKbsNumLckMask)))
+-		{
+-		UpdateStatusLine(usoToggles);
+-		}
+-}
+-
+-
+-
+-
+-/* %%Function:FXpNearStyWndBorder  %%Owner:peterj */
+-FXpNearStyWndBorder(xp, hwwd)
+-int xp;
+-struct WWD **hwwd;
+-{
+-	int xpStyWndBorder = (*hwwd)->xwSelBar;
+-
+-	return( xp <= xpStyWndBorder &&
+-			xp >= xpStyWndBorder - (vsci.dxpBorder << 1));
+-}
+-
+-
+-
+-/* F W H  K E Y */
+-/* Note:  wParam is no longer used.
+-			wCode, if >= 0 will be one of the MSGF_* codes, otherwise
+-				we MUST pass it on to DefHookProc.
+-			HC_'s no longer exist (except internally)
+-	The Windows people are very confused about this too, and it took
+-	me a while to figure it out with Bob Gunderson.
+-*/
+-
+-/* %%Function:FWHKey  %%Owner:peterj */
+-EXPORT long FAR PASCAL FWHKey(wCode, wParam, lpmsg)
+-int wCode, wParam;
+-LPMSG lpmsg;
+-{
+-	int wm;
+-
+-	if (lpmsg != 0L && (wm = lpmsg->message) == WM_QUIT)
+-		{
+-		bltbx(lpmsg, (LPMSG)&vmsgLast, sizeof(MSG));
+-		QuitExit();
+-		Assert(fFalse);
+-		}
+-
+-	switch (wCode)
+-		{
+-	case MSGF_DIALOGBOX:
+-		Assert (lpmsg != 0L);
+-		SetOurKeyState(); /* we don't get a key-up for Alt */
+-		/* We will get this for non-SDM (printer driver) dialog boxes */
+-		if (wm == WM_KEYDOWN && lpmsg->wParam == VK_F1
+-				&& !vfControlKey && !vfOptionKey)
+-			{
+-			GetHelp(vcxtHelp);
+-			}
+-		break;
+-
+-	case MSGF_MESSAGEBOX:
+-		Assert (lpmsg != 0L);
+-
+-		/* GetCapture will return NULL in a message box unless a
+-			key is held down, in which case we don't want to process
+-			a second key.  Excel does this trick, which is where I
+-			got it.  This is to fix a bug where we'd crash if you
+-			pressed a key to dismiss the message box and then
+-			pressed F1 while the first key was still down.  (rp)
+-		*/
+-		if (GetCapture())
+-			break;
+-#ifdef DEBUG
+-		if (!FCheckToggleKeyMessage(lpmsg) &&
+-				wm == WM_KEYDOWN &&
+-				FProcessDbgKey(KcModified(lpmsg->wParam)))
+-			/* special debugging key processing */
+-			return fTrue;
+-#endif /* DEBUG */
+-
+-		/* FALL THROUGH */
+-
+-	case MSGF_MENU:
+-		Assert (lpmsg != 0L);
+-		/** This code will call the help application if the user 
+-		*   selects something from a menu with the keyboard.  Mouse 
+-		*   selection is handled elsewhere  (in the wndproc).  **/
+-		SetOurKeyState();
+-
+-		/** return immediately if it's not the right message **/
+-		if (wm != WM_KEYDOWN  &&  wm != WM_SYSKEYDOWN)
+-			break;
+-
+-		if (vfEmptyMenu && lpmsg->wParam == VK_UP)
+-			return fTrue;
+-
+-
+-		/** Two possible cases:  (1) the user selects something from
+-		*   a menu, then presses F1.  (2) The user is already in help
+-		*   mode, selects something from a menu, presses return.  **/
+-		if ((lpmsg->wParam == VK_F1 && !vfControlKey && !vfOptionKey)
+-				||  (lpmsg->wParam == kcReturn && vfHelp))
+-			{
+-			CmdHelp(NULL);
+-			return fTrue;
+-			}
+-		}   /* end of switch (wCode) */
+-
+-	return DefHookProc(wCode, wParam, lpmsg, (FARPROC FAR *) &vlppFWHChain);
+-}
+-
+-
+-
+-
+-#ifdef NOTUSED
+-/* %%Function:ChFromKc  %%Owner:NOTUSED */
+-ChFromKc(kc)
+-int kc;
+-{
+-	CHAR ch;
+-
+-	switch (kc)
+-		{
+-	case kcPageBreak:
+-		ch = chSect;
+-		break;
+-	case kcColumnBreak:
+-		ch = chColumnBreak;
+-		break;
+-	case kcNonBreakSpace:
+-		ch = chNonBreakSpace;
+-		break;
+-	case kcNonReqHyphen:
+-		ch = chNonReqHyphen;
+-		break;
+-	case kcNonBreakHyphen:
+-		ch = chNonBreakHyphen;
+-		break;
+-	case kcNewLine:
+-		ch = chCRJ;
+-		break;
+-	default:
+-		ch = kc;
+-		}
+-	return (ch);
+-}
+-
+-
+-#endif /* NOTUSED */
+-
+-
+-
+-
+-
+-/* F  C H E C K  T O G G L E  K E Y  M E S S A G E */
+-/* If the passed message is an up- or down- transition of a
+-	keyboard toggle key (e.g. shift), update our global flags & return
+-	fTrue; if not, return fFalse */
+-/* %%Function:FCheckToggleKeyMessage  %%Owner:peterj */
+-FCheckToggleKeyMessage(lpmsg)
+-LPMSG lpmsg;
+-{
+-	switch (lpmsg->message)
+-		{
+-	case WM_SYSKEYDOWN:    /* we'll get WM_SYSKEY messages if no
+-						window has the focus */
+-	case WM_SYSKEYUP:
+-	case WM_KEYDOWN:
+-	case WM_KEYUP:
+-		switch (lpmsg->wParam)
+-			{
+-		case VK_NUMLOCK:
+-		case VK_CAPITAL:
+-		case VK_CONTROL:
+-		case VK_SHIFT:
+-			/* FUTURE: SetOurKeyState will not work in win3 if the msg
+-			   is just peeked at and not removed. We had to add calls
+-			   to do that in the callers, and should remove this call
+-			   once we agree it is safe	 bz
+-			*/
+-
+-
+-			/*            case VK_MENU:*/
+-			SetOurKeyState();
+-			return fTrue;
+-			/* Following returns fFalse iff Alt key is down */
+-			/*                return !(lpmsg->lParam & 0x20000000);*/
+-			}
+-		}
+-
+-	return fFalse;
+-}
+-
+-
+-/* S p e c i a l  S e l  M o d e  E n d */
+-/* cancel special selection modes. Check globals to avoid bringing
+-	in code in the very common case when this routine has nothing to do. */
+-
+-/* %%Function:SpecialSelModeEnd  %%Owner:peterj */
+-SpecialSelModeEnd()
+-{
+-	extern int vfBlockSel;
+-	extern int vfExtendSel;
+-	extern int vssc;
+-
+-	if (vfBlockSel)
+-		BlockModeEnd();
+-	if (vfExtendSel)
+-		ExtendSelEnd();
+-	if (vssc != sscNil)
+-		CancelDyadic();
+-}
+-
+-
+-/* O U R  S E T  C U R S O R */
+-/* %%Function:OurSetCursor  %%Owner:peterj */
+-EXPORT PASCAL OurSetCursor(hc)
+-HCURSOR hc;
+-{
+-	if (vfHelp)
+-		hc = vhcHelp;
+-	else  if (vfInLongOperation)
+-		hc = vhcHourGlass;
+-
+-	if (!vfMouseExist && hc != vhcHourGlass)
+-		hc = NULL;
+-
+-#ifdef DEBUG
+-	else
+-		Assert (hc != NULL || vhcHourGlass == NULL);
+-#endif /* DEBUG */
+-
+-	SetCursor(hc);
+-}
+-
+-
+-
+-/*  these are here for swap-tuning purposes */
+-
+-/*  RestorePrompt
+-	Remove the currently displayed prompt.  If there is some other prompt that
+-	should be displayed (based on the programs global mode) display that
+-	prompt.
+-*/
+-
+-/* %%Function:RestorePrompt   %%Owner:peterj */
+-RestorePrompt ()
+-
+-{
+-#ifdef RSH
+-	StopSubTimer(uasMenu);
+-#endif /* RSH */
+-
+-	/* the following code should check the state of the program and assign to
+-		pmt the new prompt to display. */
+-
+-	vfRestPmtOnInput = fFalse;
+-	vusecTimeoutPrompt = 0;
+-
+-	if (vssc != sscNil)
+-		SetPromptVssc();
+-	else
+-		{
+-		if (vcchStatLinePrompt)
+-			DisplayStatLinePrompt(pdcRestore);
+-		}
+-	if (vhwndPrompt != NULL)
+-		HidePromptWindow();
+-	if (vhwndStatLine)
+-		UpdateWindow(vhwndStatLine);
+-	else
+-		UpdateWindow(vhwndDeskTop);
+-}
+-
+-
+-/* %%Function:HidePromptWindow  %%Owner:peterj */
+-HidePromptWindow()
+-{
+-	Assert(vhpprPRPrompt == hNil);
+-	/* don't really destroy, just hide! */
+-	SetWindowPos(vhwndPrompt, NULL, 0,0,0,0, 
+-			SWP_HIDEWINDOW|SWP_NOZORDER|SWP_NOSIZE|SWP_NOACTIVATE|SWP_NOMOVE);
+-	Assert(vhwndPromptHidden == vhwndPrompt);
+-	vhwndPrompt = NULL;
+-}
+-
+-
+-/*  SetPromptRestore
+-	Set the "restore prompt" information according to pdc.
+-*/
+-
+-/* %%Function:SetPromptRestore   %%Owner:peterj */
+-SetPromptRestore (pdc)
+-int pdc;
+-
+-{
+-
+-	vusecTimeoutPrompt = 0;
+-	vfRestPmtOnInput = fFalse;
+-	if (pdc & pdcmRestore)
+-		{
+-		RestorePrompt();
+-		return;
+-		}
+-	if (pdc & pdcmRestOnInput)
+-		/*  restore on input */
+-		vfRestPmtOnInput = fTrue;
+-	if (pdc & pdcmTimeout)
+-		/*  restore on timeout */
+-		{
+-		vusecTimeoutPrompt = GetTickCount() + usecPromptTimeout;
+-		if (!vusecTimeoutPrompt)
+-			vusecTimeoutPrompt++;
+-		}
+-	/*  else: don't restore */
+-}
+-
+-
+-/* E n s u r e  F o c u s  I n  P a n e */
+-/* This is called by the recipients of some messages which may arrive
+-	while the user is in a ribbon or ruler combo box. It moves the
+-	focus back to the pane, closing the combo, if necessary */
+-
+-/* %%Function:EnsureFocusInPane  %%Owner:peterj */
+-EnsureFocusInPane()
+-{
+-	HWND hwnd;
+-
+-	if (!vfDeactByOtherApp && wwCur != wwNil && 
+-			(hwnd = PwwdWw(wwCur)->hwnd) != GetFocus())
+-		{
+-		if (vidf.fIBDlgMode)
+-			TermCurIBDlg(fFalse);  /* escapes without doing action */
+-		SetFocus(hwnd);
+-		}
+-}
+-
+-
+-/* F  I S  K E Y  M E S S A G E */
+-/* General key message handler.  Pass messages to this and it will return
+-fTrue if it dealt with it, fFalse otherwise.  This function knows about
+-insert mode. */
+-/* %%Function:FIsKeyMessage  %%Owner:peterj */
+-BOOL FIsKeyMessage(lpmsg)
+-LPMSG lpmsg;
+-{
+-	extern BOOL vfInsertMode;
+-	extern KME vkme;
+-
+-#ifdef COMING_SOON_TO_A_WORD_PROCESSOR_NEAR_YOU
+-	/* and when is does, this flag should be part of vrf for 
+-		efficient DS usage */
+-	static BOOL fIconBarPending = fFalse;
+-#endif	
+-	int wm, kc;
+-
+-	wm = lpmsg->message;
+-	kc = lpmsg->wParam;	/* key code or char */
+-
+-
+-#ifdef COMING_SOON_TO_A_WORD_PROCESSOR_NEAR_YOU
+-
+-	/* This is currently commented out due to the fact that Windows seems to
+-	have a bug where they do not tell us when keys are released always... */
+-
+-
+-	ShowMsg("KM", lpmsg->hwnd, wm, kc, lpmsg->lParam);
+-	CommSz(SzShared("\r\n"));
+-
+-	/* Deal with Alt+Shift for IconBarMode */
+-	/*CommSzNum(SzShared("f is "), fIconBarPending);*/
+-	/* What it does: start icon bar mode when Alt and Shift are pressed
+-		and released.
+-			
+-		How it works: fIconBarPending is set whenever both the Alt and 
+-		Shift keys are down and reset when any other key is pressed.  
+-		When both the Alt and Shift keys have been released, 
+-		fIconBarPending is checked.  If it is set, IconBarMode is 
+-		entered. */
+-
+-	if (wm == WM_KEYDOWN || wm == WM_SYSKEYDOWN)
+-		{
+-		fIconBarPending = ((kc == VK_MENU || kc == VK_SHIFT) &&
+-				(GetKeyState(VK_MENU) & 0x8000) && 
+-				(GetKeyState(VK_SHIFT) & 0x8000));
+-		/*CommSzNum(SzShared("set f to "), fIconBarPending);*/
+-		}
+-	else  if (fIconBarPending && (!(GetKeyState(VK_MENU) & 0x8000) &&
+-			!(GetKeyState(VK_SHIFT) & 0x8000)))
+-		{
+-		CommSz(SzShared("Chaining...\r\n"));
+-		ChainCmd(bcmIconBarMode);
+-		fIconBarPending = fFalse;
+-		}
+-#endif /* COMING_SOON___ */
+-
+-
+-
+-	/* FUTURE: TRASH THIS!!! (BAC) */
+-	if (FCheckToggleKeyMessage(lpmsg))
+-		goto LTranslate;
+-
+-
+-	switch (wm)
+-		{
+-	case WM_CHAR:
+-		/* this must come first! */
+-		if (vhwndCBT && !SendMessage(vhwndCBT, WM_CBTSEMEV,
+-				smvWmChar, MAKELONG(kc, 0)))
+-			{
+-			/* if CBT doesn't like it, kill it */
+-			GetMessage(lpmsg, NULL, 0, 0);
+-			return fTrue;
+-			}
+-
+-		if (vlm == lmPreview)
+-			return fTrue;
+-		if (vfInsertMode)
+-			{
+-			GetMessage(lpmsg, NULL, 0, 0);
+-			/* indicate we have a char to insert */
+-			lpmsg->wParam |= 0x8000;
+-			return fTrue;
+-			}
+-
+-LInsert:
+-		if (hwwdCur != hNil && lpmsg->hwnd == (*hwwdCur)->hwnd)
+-			{
+-			if (vfExtendSel) /* catch the extend to alpha case */
+-				{
+-				if (kc != kcBackSpace)
+-					{
+-					ExtendSelToCh(kc);
+-					return fTrue;
+-					}
+-				else
+-					{
+-					/* terminate Extend Mode before going into the insert code */
+-					/* cannot simply add these keys as terminate mode keys in the keymap
+-					because we still want the backspace and delete to be performed */
+-					ExtendSelEnd();
+-					}
+-				}
+-
+-			/* don't allow typing with 2nd sel active */
+-			if (vssc != sscNil)
+-				Beep();
+-			else
+-				InsertLoopCh(kc, bcmNil);
+-
+-			return fTrue;
+-			}
+-		break;
+-
+-	case WM_SYSKEYDOWN:
+-		if (kc == VK_MENU)
+-			{
+-			if (vfInsertMode)
+-				return fFalse;
+-			goto LTranslate;
+-			}
+-
+-	case WM_KEYDOWN:
+-		/* Get Alt key state from message, as vfOptionKey cannot
+-					be trusted. */
+-		if ((lpmsg->lParam & 0x20000000) != 0)
+-			{
+-			vgrpfKeyBoardState |= wKbsOptionMask;
+-			if ((uns)(kc - VK_F1) <= (VK_F2 - VK_F1))
+-				kc += 10; /* assumes VK_Fn's are contiguous */
+-			}
+-		else
+-			{
+-			vgrpfKeyBoardState &= ~wKbsOptionMask;
+-			}
+-
+-		/* Get current Ctrl key state; OurGetKeyState cannot be trusted
+-			(sez bradch(rp)) */
+-		vgrpfKeyBoardState |= (GetKeyState(VK_CONTROL)<0) ? wKbsControlMask : 0;
+-
+-		/* FUTURE: cursor keys will be in keymap someday... */
+-		/* but because they're not, need to special case preview */
+-		if (vlm != lmPreview && FCursKey(kc, !vfInsertMode /*fDoIt*/ ))
+-			return !vfInsertMode;
+-
+-
+-		kc = KcModified(kc); /* Apply Shift, Ctrl, etc. */
+-
+-		if (vfInsertMode)
+-			{
+-			extern KME * PkmeOfKcInChain();
+-			KME * pkme;
+-
+-#ifdef DEBUG	/* special debug key processing */
+-			if (FProcessDbgKey(kc))
+-				{
+-				/* message has been dealt with, throw away! */
+-				GetMessage(lpmsg, NULL, 0, 0);
+-				return fTrue;
+-				}
+-#endif /* DEBUG */
+-
+-			if ((pkme = PkmeOfKcInChain(kc)) == 0)
+-				{
+-				/* key not in table, try to translate */
+-				GetMessage(lpmsg, NULL, 0, 0);
+-				/* Ctrl+ keys are not translated so we do
+-					not have to deal with the CHAR message. */
+-#ifdef INTL
+-				if (!TranslateMessage(lpmsg)) /* no beep on Ctrl+Alt */
+-#else
+-				if ((FCtrlKc(kc) && !FAltKc(kc)) || !TranslateMessage(lpmsg))
+-#endif
+-					Beep();
+-				}
+-			else  if (pkme->kt == ktInsert)
+-				{
+-				/* key is special insert type */
+-				GetMessage(lpmsg, NULL, 0, 0);
+-				/* indicate we have a char to insert */
+-				lpmsg->wParam = pkme->ch | 0x8000;
+-				}
+-			else
+-				{
+-				/* command key not handled yet, tell 
+-					insert loop to stop */
+-				return fFalse;
+-				}
+-			}
+-		else  /* !vfInsertMode */			
+-			{
+-			if (!FExecKc(kc) && vkme.kt == ktInsert)
+-				{
+-				kc = vkme.ch;
+-				goto LInsert;
+-				}
+-			}
+-
+-		return fTrue;
+-
+-		/* FUTURE: trash this when SetOurKeyState() is trashed (BAC) */
+-	case WM_MOUSEMOVE:
+-		if (vfInsertMode)
+-			return fFalse;
+-
+-		/* Windows doesn't give us the shift KEYUP message if 
+-			mouse button is down!! */
+-		SetOurKeyState();
+-		/* FALL THROUGH */
+-
+-	case WM_SYSKEYUP:
+-	case WM_KEYUP:
+-LTranslate:
+-		if (vfInsertMode)
+-			GetMessage(lpmsg, NULL, 0, 0);
+-
+-		  
+-		SetOurKeyState(); /* must be done after msg removed for win3 */
+-		TranslateMessage(lpmsg);
+-		DispatchMessage(lpmsg);
+-
+-		return fTrue;
+-		}
+-
+-	return fFalse;
+-}
+-
+-
+-
+-
+ /*************************************************************************/
+ /**********************  CODE LRU MANIPULATIONS  *************************/
+ /*************************************************************************/
+@@ -2543,694 +1556,3 @@
+ }
+ 
+ 
+-/*
+-Return true if the window is not visible */
+-/* %%Function:FWindowHidden  %%Owner:peterj */
+-FWindowHidden(ww)
+-int ww;
+-{
+-
+-	Assert(ww);
+-	return !IsWindowVisible(PwwdWw(ww)->hwnd);
+-}
+-
+-
+-#ifdef DEBUG  /* debug routines that we would like to be in the core */
+-
+-/* D u m m y */
+-/* A Do-nothing function useful for breakpointing in the middle of
+-	long routines */
+-
+-/* %%Function:Dummy  %%Owner:peterj */
+-Dummy()
+-{
+-}
+-
+-
+-/* %%Function:NatDummy  %%Owner:peterj */
+-NATIVE NatDummy() /* WINIGNORE - DEBUG only */
+-{
+-}
+-
+-
+-ARG_RAREEVENTS RareEvent[RareEventMax];
+-
+-/* F   R A R E   P R O C */
+-/* this procedure returns true if the selected rare event has
+-occured the selected number of times
+-		wEventNumber        identifier of event
+-		wRepetitions        current repetition count
+-		wRepetitionsMac     stop repetition count
+-		fOn                 count on/off flag
+-These variables will be typically set from the debugger or other debug
+-routines.
+-*/
+-/* %%Function:FRareProc  %%Owner:peterj */
+-NATIVE FRareProc(n) /* WINIGNORE - DEBUG only */
+-int n;
+-{
+-	int i;
+-	int fRetVal;
+-
+-	fRetVal = fFalse;
+-
+-	for (i=0; i < RareEventMax; i++)
+-		{
+-		if (RareEvent[i].fOn && (RareEvent[i].wEventNumber == n))
+-			if (RareEvent[i].wRepetitions < RareEvent[i].wRepetitionsMac)
+-				if (++RareEvent[i].wRepetitions == RareEvent[i].wRepetitionsMac)
+-					fRetVal = fTrue;
+-		}
+-
+-	return(fRetVal);
+-}
+-
+-
+-/* %%Function:FRareNULL  %%Owner:peterj */
+-NATIVE FRareNULL(re,w) /* WINIGNORE - DEBUG only */
+-int re;
+-int w;
+-{
+-	int i;
+-	int fRetVal;
+-
+-	fRetVal = w;
+-	if (!fRetVal)
+-		return NULL;
+-
+-	for (i=0; i < RareEventMax; i++)
+-		{
+-		if (RareEvent[i].fOn && (RareEvent[i].wEventNumber == re))
+-			if (RareEvent[i].wRepetitions < RareEvent[i].wRepetitionsMac)
+-				if (++RareEvent[i].wRepetitions == RareEvent[i].wRepetitionsMac)
+-					fRetVal = NULL;
+-		}
+-
+-	return(fRetVal);
+-}
+-
+-
+-
+-
+-/* A s s e r t  H  S z  L n */
+-/* If H is not a valid, nonfree handle, report an Assertion failure
+-	in file szFile, line line */
+-
+-/* %%Function:AssertHSzLn  %%Owner:peterj */
+-AssertHSzLn( h, szFile, line )
+-VOID **h;
+-CHAR szFile[];
+-int line;
+-{
+-	struct DRF *pdrfList;
+-	extern struct SCC vsccAbove;
+-
+-	for (pdrfList = vpdrfHead; pdrfList != NULL; pdrfList = pdrfList->pdrfNext)
+-		if (pdrfList->dr.hplcedl == h)
+-			{
+-			if (!(*((struct PLC **)h))->fExtBase)
+-				break;
+-			Assert (pdrfList->dr.hplcedl == &pdrfList->pplcedl);
+-			Assert (pdrfList->pplcedl == &pdrfList->dr.plcedl);
+-			return;
+-			}
+-
+-	if (!FCheckHandle (sbDds, h))
+-		{
+-		if (!(h == vsccAbove.hplcedl || *h == &vsccAbove))
+-			AssertProc(szFile, line );
+-		}
+-}
+-
+-
+-#endif /* DEBUG */
+-
+-
+-
+-/* %%Function:ForceCursorChange  %%Owner:peterj */
+-ForceCursorChange(hwnd, ppt, fExact)
+-HWND hwnd;
+-struct PT * ppt;
+-BOOL fExact;
+-{
+-	HCURSOR hc = NULL;
+-	struct WWD *pwwd;
+-	BOOL fOtlEmpty;
+-	extern struct SEL selCur;
+-	extern int vfInLongOperation;
+-	extern int mwCur;
+-	extern HWND vhwndPgPrvw;
+-	extern struct WWD **mpwwhwwd[];
+-	extern HCURSOR vhcArrow, vhcRecorder, vhcIBeam, vhcBarCur,
+-	vhcHelp, vhcStyWnd, vhcOtlCross, vhcColumn;
+-	extern BOOL vfHelp, vfRecording;
+-	extern struct WWD **hwwdCur;
+-
+-	vidf.fCorrectCursor = fFalse;
+-
+-	if (vfHelp)
+-		hc = vhcHelp;
+-	else  if (vfInLongOperation)
+-		hc = vhcHourGlass;
+-	else  if (hwnd == NULL || vhwndPgPrvw != NULL)
+-		hc = vhcArrow;
+-	else  if (vfRecording)
+-		hc = vhcRecorder;
+-	if (hc != NULL)
+-		goto lblSet;
+-
+-	hc = vhcArrow;
+-	if (hwwdCur != hNil && hwnd == (pwwd = *hwwdCur)->hwnd)
+-		{
+-		int ww = wwCur;
+-		int xw = ppt->xw;
+-		int dxp = vsci.dxpBorder << 1;
+-
+-		Assert(ww != wwNil);
+-		Assert(wwCur == GetWindowWord(hwnd, IDWWW));
+-		Assert(mwCur == pwwd->mw);
+-
+-		if (pwwd->xwSelBar && xw < pwwd->xwSelBar + dxp)
+-			{
+-			Assert(!pwwd->fPageView);
+-			if (xw <= pwwd->xwSelBar && 
+-					xw >= pwwd->xwSelBar - dxp /* fNearSty */)
+-				{
+-				if (vhcStyWnd == NULL && !FAssureIrcds(ircdsStyWnd))
+-					hc = vhcArrow;
+-				else
+-					hc = vhcStyWnd;
+-				}
+-			else
+-				hc = vhcBarCur;
+-			}
+-		else  if (ppt->yw >= pwwd->ywMin)
+-			{
+-			if (fExact)
+-				{
+-				int idr;
+-				int dl;
+-				struct PLDR **hpldr;
+-				struct PT  ptT;
+-				struct SPT spt;
+-
+-				ptT = *ppt;
+-				if ((fOtlEmpty = FOutlineEmpty(ww, fFalse)) ||
+-						(dl = DlWherePt(ww, &ptT, &hpldr, &idr, &spt, fTrue, fTrue))
+-						== dlNil)
+-					goto lblSet;
+-				if (spt.fWholeColumn)
+-					hc = vhcColumn;
+-				else  if (spt.fSelBar)
+-					{
+-					hc = vhcBarCur;
+-					dl = DlWherePt(ww, &ptT, &hpldr, &idr, &spt, fFalse, fFalse);
+-					if ((*hwwdCur)->fOutline && !fOtlEmpty && dl != dlNil &&
+-							FXwInBullet(ww, dl, ppt->xw))
+-						{
+-						int yp, ywBottom;
+-						struct EDL edl;
+-						GetPlc(PdrGalley(PwwdWw(ww))->hplcedl, dl, &edl);
+-						yp = edl.ypTop + edl.dyp;
+-
+-						ywBottom = 	YwFromYp(((edl.hpldr != hNil) ?
+-								edl.hpldr : HwwdWw(ww)), 0, yp);
+-						if (ppt->yw <= ywBottom)
+-							hc = vhcOtlCross;
+-						}
+-					}
+-				else 					
+-					{
+-					hc = (selCur.fGraphics ? vhcArrow : vhcIBeam);
+-					}
+-				}
+-			else
+-				{
+-				vidf.fCorrectCursor = fTrue;
+-				hc = vhcIBeam;
+-				}
+-			}
+-		}
+-
+-lblSet:
+-	SetCursor( hc );
+-}
+-
+-
+-/* L  M E N U  C H A R */
+-/*
+-	Handle WM_MENUCHAR messages.  Returns 0 if message should be 
+-	passed to DefWindowProc().  Non-0 return values should be returned 
+-	by the window proc receiving the message.
+-*/
+-/* %%Function:LMenuChar  %%Owner:peterj */
+-LONG LMenuChar(hwnd, wParam, lParam)
+-HWND hwnd;
+-WORD wParam;
+-LONG lParam;
+-{
+-	if (vhwndAppModalFocus != NULL)
+-		return MAKELONG(0, 1);
+-
+-	if (wParam == '-' && !(LOWORD(lParam) & MF_POPUP) && hwwdCur != hNil)
+-		{
+-		if (vfSysMenu)
+-			{
+-			if (hwnd == vhwndApp)
+-				return MAKELONG(0,2);
+-
+-			PostMessage(vhwndApp, WM_MENUCHAR, wParam, lParam);
+-			return MAKELONG(0, 1);
+-			}
+-
+-		if (hwnd == vhwndApp)
+-			{
+-			vfChildSysMenu = fTrue;
+-			return MAKELONG(0, 1);
+-			}
+-
+-		return MAKELONG(0, 2);
+-		}
+-
+-	return 0;
+-}
+-
+-
+-/* I N H I B I T  R E C O R D E R */
+-/*
+-   Called to inhibit or allow recording operation for the subsequent
+-   actions. Inhibits when fInhibit is true.  The state of both vfRecording
+-   and vfRecordNext are saved in *pwsave, so the saved value should not
+-   used by any other function.  The saved value will either be 0 if
+-   neither flag was on, 1 if vfRecording if on, or 2 if both flags are on.
+-   Note that vfRecordNext cannot be on if vfRecording is not on, so we can
+-   simply add the flags to give a numerical value of 0, 1, or 2.
+-/*
+-
+-/* %%Function:InhibitRecorder  %%Owner:tonykr */
+-InhibitRecorder(pwSav, fInhibit)
+-BOOL *pwSav, fInhibit;
+-{
+-	Assert(fTrue == 1 && fFalse == 0);
+-	Assert(vfRecording == fTrue || vfRecording == fFalse);
+-	Assert(vfRecordNext == fTrue || vfRecordNext == fFalse);
+-	Assert((2 == 2) == 1);
+-
+-	if (fInhibit)
+-		{
+-		*pwSav = vfRecording + vfRecordNext;
+-		Assert(*pwSav != 1 || !vfRecordNext);
+-		vfRecording = fFalse;
+-		vfRecordNext = fFalse;
+-		}
+-	else
+-		{
+-		if (vhcmr == hNil && !vfRecordNext && *pwSav != 2)
+-			{
+-			vfRecording = fFalse;
+-			vfRecordNext = fFalse;
+-			}
+-		else
+-			{
+-			vfRecordNext = ((*pwSav == 2 || vfRecordNext) && vhcmr == hNil);
+-			vfRecording = (*pwSav != 0 || vfRecording);
+-			}
+-		selCur.fUpdateStatLine = fTrue; /* force a stat line update in Idle */
+-		}
+-}
+-
+-
+-#ifdef DEBUG
+-
+-
+-extern struct PLSBHI ** vhplsbhi;
+-BOOL vfBogusHeapState = fFalse;
+-
+-/* R E P O R T  H E A P */
+-/* %%Function:ReportHeapSz  %%Owner:peterj */
+-ReportHeapSz (sz, cbDiff)
+-CHAR *sz;
+-int cbDiff;
+-{
+-	static uns cbHeapLast = 0;
+-	static uns cbTotalLast = 0;
+-	static long cbFarLast = 0L;
+-
+-	if (vfBogusHeapState)
+-		return;
+-
+-		{
+-		uns cbHeap = CbAvailHeap(sbDds);
+-		uns dcbDS = cbMaxSbDds - CbSizeSb(sbDds);
+-		uns cbTotal = cbHeap + dcbDS;
+-		long cbFarUsed=MemUsed(1)-CbSizeSb(sbDds);
+-		long cbFarAvail=LcbUnusedEmm();
+-		long cbEmmUsed=MemUsed(2)-((long)vbptbExt.ibpMax*cbSector)-cbFarAvail;
+-		long dcbFar;
+-		long cbEmm = smtMemory==smtLIM ? CbFreeEmm() : 0L;
+-		CHAR rgch [100], *pch = rgch;
+-
+-		dcbFar = cbFarUsed + cbEmmUsed - cbFarLast;
+-
+-		if (abs(cbHeap-cbHeapLast)>=cbDiff || abs(cbTotal-cbTotalLast)>=cbDiff
+-				|| dcbFar >= cbDiff || -dcbFar >= cbDiff)
+-			{
+-			SetBytes(rgch, ' ', 100);
+-			CchPchToPpch(sz, &pch);
+-			pch = max (pch, rgch+13);
+-			CchPchToPpch(SzShared(" local="), &pch);
+-			CchUnsToPpch(cbHeap, &pch);
+-			*pch++ = '+';
+-			CchUnsToPpch(dcbDS, &pch);
+-			*pch++ = '=';
+-			*pch++ = ' ';
+-			CchUnsToPpch(cbTotal, &pch);
+-			pch = max (pch, rgch+33);
+-			CchPchToPpch(SzShared("  farUsed="), &pch);
+-			CchLongToPpch(cbFarUsed, &pch);
+-			if (smtMemory==smtLIM)
+-				{
+-				*pch++='+';
+-				CchLongToPpch(cbEmmUsed, &pch);
+-				}
+-			if (smtMemory==smtLIM)
+-				{
+-				pch = max (pch, rgch+59);
+-				CchPchToPpch(SzShared(" emm="), &pch);
+-				CchLongToPpch(cbEmm, &pch);
+-				*pch++='+';
+-				CchLongToPpch(cbFarAvail, &pch);
+-				}
+-			*pch++ = '\r';
+-			*pch++ = '\n';
+-			*pch = 0;
+-			CommSz(rgch);
+-			cbHeapLast = cbHeap;
+-			cbTotalLast = cbTotal;
+-			cbFarLast = cbFarUsed+cbEmmUsed;
+-			}
+-		}
+-}
+-
+-
+-BOOL vfAllocGuaranteed;		/* alloc should succeed unconditionally */
+-BOOL vfInDebug;                 /* in debug code, don't force failures */
+-
+-
+-/* R E P O R T  F A I L  C A L L S */
+-/* %%Function:ReportFailCalls  %%Owner:peterj */
+-ReportFailCalls()
+-{
+-	if (vdbs.cWinCalls || vdbs.cLmemCalls)
+-		{
+-		CHAR rgch[cchMaxSz], *pch = rgch;
+-		CchPchToPpch(SzShared("\r\nMem calls = "), &pch);
+-		CchUnsToPpch(vdbs.cLmemCalls, &pch);
+-		CchPchToPpch(SzShared(" Win calls = "), &pch);
+-		CchUnsToPpch(vdbs.cWinCalls, &pch);
+-		*pch++ = '\r';
+-		*pch++ = '\n';
+-		*pch = 0;
+-		CommSz(rgch);
+-		vdbs.cLmemCalls = 0;
+-		vdbs.cWinCalls = 0;
+-		}
+-}
+-
+-
+-/* F F A I L  L M E M  O P U S */
+-/* Return fTrue to cause lmem allocation to fail, fFalse to allow them to
+-	succeed.
+-*/
+-/* %%Function:FFailLmemOpus   %%Owner:peterj */
+-EXPORT FFailLmemOpus (merr, sb, cbNew, cRetry)
+-WORD merr;
+-SB sb;
+-WORD cbNew;
+-WORD cRetry;
+-{
+-	extern BOOL vfInitializing;
+-	extern BOOL vfInCmd;
+-
+-	if (vfBogusHeapState)
+-		return fFalse;
+-
+-	if (!vfInitializing)
+-		{
+-#ifdef DLMEM
+-		int rgw [5];
+-		rgw[0] = merr;
+-		rgw[1] = sb;
+-		rgw[2] = cbNew;
+-		rgw[3] = CbSizeSb(sb);
+-		rgw[4] = CbAvailHeap(sb);
+-		CommSzRgNum(SzShared("FFailLmemOpus (merr,sb,cbNew,cbSb,cbAvail): "), rgw, 5);
+-#endif /* DLMEM */
+-
+-		if (vdbs.fReportHeap)
+-			ReportHeapSz(SzShared("memory usage."), 200);
+-		}
+-
+-	Assert (vdbs.cLmemSucceed >= 0 && vdbs.cLmemFail >= 0);
+-	Assert (cHpFreeze == 0 || sb != sbDds);
+-
+-	if (vfAllocGuaranteed || vfInDebug)
+-		return fFalse;
+-
+-	Assert(!vfInCommit);
+-
+-	if (vdbs.fOutsideCmd || vfInCmd)
+-		{
+-		if (vdbs.fHeapAct)
+-			CommSz(SzShared("h"));
+-		vdbs.cLmemCalls++;
+-		if (vdbs.cLmemSucceed)
+-			{
+-			if (vdbs.fHeapAct)
+-				CommSz(SzShared("s "));
+-			vdbs.cLmemSucceed--;
+-			return fFalse;
+-			}
+-		if (vdbs.cLmemFail)
+-			{
+-			if (vdbs.fHeapAct)
+-				CommSz(SzShared("f "));
+-			vdbs.cLmemFail--;
+-			if (vdbs.fBreakOnFail)
+-				DebugBreak(1);
+-			if (sb == sbDds)
+-				FreePh(&vmerr.hrgwEmerg1);
+-			return fTrue;
+-			}
+-		if (vdbs.fHeapAct)
+-			CommSz(SzShared(" "));
+-		}
+-
+-	return fFalse;
+-}
+-
+-
+-#endif /* DEBUG */
+-
+-
+-
+-#ifdef DEBUG
+-/* %%Function:CkFarHeaps  %%Owner:peterj */
+-CkFarHeaps()
+-{
+-	struct SBHI *psbhi = PInPl(vhplsbhi, 0);
+-	struct SBHI *psbhiMac = psbhi + (*vhplsbhi)->isbhiMac;
+-	VOID **ppv;
+-	int ch;
+-
+-	while (psbhi < psbhiMac)
+-		{
+-		if (psbhi->fHasHeap)
+-			{
+-			CheckHeap(psbhi->sb);
+-			if (vdbs.fShakeHeap)
+-				ShakeHeapSb(psbhi->sb);
+-			ch = 0;
+-			ppv = NULL;
+-			for (;;)
+-				if ((ppv = PpvWalkHeap(psbhi->sb, ppv)) == NULL)
+-					break;
+-				else
+-					ch++;
+-			Assert(ch == psbhi->ch);
+-			}
+-		else
+-			{
+-			Assert(CbSizeSb(psbhi->sb) > cbMinBig-dcbBigSmall);
+-			Assert(psbhi->ch == 1);
+-			Assert(!psbhi->fHasFixed);
+-			}
+-		/* other checks */
+-		Assert(psbhi->ch || psbhi->fHasFixed);
+-		psbhi++;
+-		}
+-}
+-
+-
+-#endif /* DEBUG */
+-
+-
+-
+-#ifdef DEBUG
+-/* %%Function:SbMgrError  %%Owner:peterj */
+-SbMgrError(sberr, sb)
+-int sberr;
+-SB sb;
+-{
+-	extern BOOL		fElActive;
+-
+-	IdPromptBoxSz(SzShared("SB Manager interface error"),MB_TROUBLE);
+-
+-	if (fElActive)
+-		{
+-		FlagRtError(rerrInternalError);
+-		}
+-}
+-
+-
+-#endif  /* DEBUG */
+-
+-int vfMsg=fFalse;	/* tell caller whether msg arrived */
+-
+-/* F  S t i l l  D o w n  R e p l a y */
+-/* %%Function:FStillDownReplay  %%Owner:peterj */
+-FStillDownReplay( ppt, fRightButton )
+-struct PT   *ppt;
+-BOOL fRightButton;
+-	{   /* This is roughly equivalent to a Mac routine that returns whether
+-		the mouse button is down.  We look for one mouse message from our
+-		window's queue, and return FALSE if it is a BUTTONUP.  We return the
+-		point at which the mouse event occurred through a pointer.  If no
+-		message occurred, we return whether the left button is down
+-		and do not store into the pointer
+-	
+-		Note that we specifically do not return the state of the right button;
+-		our right button processing is handled at the top of DoContentHit, and
+-		we don't want to deal with dragging that button in this loop. (bz).
+-*/
+-	MSG msg;
+-
+-	/* Since re-entrancy can move the heap sometimes, shake it */
+-
+-	Debug(vdbs.fShakeHeap ? ShakeHeap() : 0);
+-
+-	if ( (vfMsg = PeekMessage( (LPMSG)&msg, (HWND)NULL, NULL, NULL, TRUE )) )
+-		{
+-		switch (msg.message) 
+-			{
+-		default:
+-			TranslateMessage( (LPMSG)&msg );
+-			DispatchMessage( (LPMSG)&msg );
+-			break;
+-
+-		case WM_RBUTTONUP:
+-		case WM_LBUTTONUP:
+-			if (fRightButton != (msg.message == WM_RBUTTONUP))
+-				break;
+-
+-			ppt->xp = MAKEPOINT( msg.lParam ).x;
+-			ppt->yp = MAKEPOINT( msg.lParam ).y;
+-			return fFalse;
+-
+-		case WM_LBUTTONDOWN:
+-		case WM_RBUTTONDOWN:
+-		case WM_LBUTTONDBLCLK:
+-
+-		case WM_MOUSEMOVE:
+-			/* A Mouse Move, Mouse Down, or Mouse Up is waiting */
+-			ppt->xp = MAKEPOINT(msg.lParam).x;
+-			ppt->yp = MAKEPOINT(msg.lParam).y;
+-			break;
+-			}
+-		}
+-
+-	return (GetKeyState( fRightButton ? VK_RBUTTON : VK_LBUTTON ) < 0);
+-}
+-
+-
+-/* %%Function:CloseEveryFn %%Owner:peterj */
+-CloseEveryFn( fHardToo )
+-	{   /* Close all files we have open. Close only files on removable media
+-	if fHardToo is FALSE; ALL files if fHardToo is TRUE */
+-	extern int fnMac;
+-	int fn;
+-	struct FCB **hfcb;
+-
+-	for ( fn = 0; fn < fnMac; fn++ )
+-		if ((hfcb = mpfnhfcb [fn]) != NULL)
+-			{
+-			struct FCB *pfcb = *hfcb;
+-			int osfn = pfcb->osfn;
+-
+-			if (osfn != osfnNil)
+-				{
+-				if (fHardToo || !pfcb->ofh.fFixedDisk)
+-					{
+-/* Close may fail if windows already closed the file for us, but that's OK */
+-					FCloseDoshnd( osfn );
+-					pfcb->osfn = osfnNil;
+-					}
+-				}
+-			}
+-}
+-
+-
+-/* E N A B L E  P R E L O A D */
+-/*  Make subsequent accesses to fn load large chunks.
+-	Does not guarantee that preloading will be done for fn (if a
+-	preload is already in progress, this one is ignored).
+-*/
+-/* %%Function:EnablePreload %%Owner:peterj */
+-EnablePreload(fn)
+-int fn;
+-{
+-	if (!vcPreload++)
+-		{
+-		Assert(vfnPreload == fnNil);
+-		vfnPreload = fn;
+-		}
+-}
+-
+-
+-/* %%Function:DisablePreload %%Owner:peterj */
+-DisablePreload()
+-{
+-	if (--vcPreload == 0)
+-		vfnPreload = fnNil;
+-	Assert(vcPreload >= 0);
+-}
+-
+-
+-
+-
+-
+-#ifdef PROFILE
+-/* P C O D E  S T A R T  P R O F I L E R */
+-/* %%Function:PcodeStartProfiler  %%Owner:peterj */
+-PcodeStartProfiler()
+-{
+-}
+-
+-
+-/* P C O D E  S T O P  P R O F I L E R */
+-/* %%Function:PcodeStopProfiler  %%Owner:peterj */
+-PcodeStopProfiler()
+-{
+-}
+-
+-
+-#endif /* PROFILE */
+-
+-
+-#ifdef PROFILE
+-/*  this is here so that appended native code does not appear in previous
+-	function in pcode profiles. */
+-Wproc_Last(){}
+-#endif /* PROFILE */
+-
+-/* ADD NEW CODE *ABOVE* Wproc_Last() */

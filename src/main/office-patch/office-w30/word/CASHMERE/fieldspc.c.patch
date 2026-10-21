@@ -1,0 +1,21 @@
+--- a/CASHMERE/fieldspc.c
++++ b/CASHMERE/fieldspc.c
+@@ -10,6 +10,7 @@
+ #endif /* DEBUG */
+ 
+ #include "word.h"
++#include "gb2312.h"
+ DEBUGASSERTSZ            /* WIN - bogus macro for assert string */
+ #include "heap.h"
+ #include "props.h"
+@@ -1770,6 +1771,10 @@
+ 	pchLim = rgch + cch;
+ 	for (pch = rgch; pch < pchLim; pch++)
+ 		{
++		/* GB bytes overlap Western publishing and visible control glyphs.
++		 * Preserve a complete pair before interpreting single-byte specials. */
++		if (pch + 1 < pchLim && FWordGbPair(*pch, *(pch + 1)))
++			{ pch++; continue; }
+ 		switch (*pch)
+ 			{
+ 		default:

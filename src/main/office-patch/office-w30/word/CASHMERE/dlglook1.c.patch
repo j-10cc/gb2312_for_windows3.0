@@ -1,0 +1,199 @@
+--- a/CASHMERE/dlglook1.c
++++ b/CASHMERE/dlglook1.c
+@@ -279,6 +279,110 @@
+ }
+ 
+ 
++
++/* Phase 5: fit Character on 200-line CGA screens. */
++void CompactCharacterDlg(pdlt)
++DLT *pdlt;
++{
++	static BYTE rg[][5] = {
++		{0, 4, 24, 80, 12},
++		{2, 4, 14, 35, 9},
++		{3, 4, 4, 44, 9},
++		{4, 8, 36, 76, 52},
++		{6, 88, 24, 40, 12},
++		{8, 88, 14, 35, 9},
++		{9, 92, 36, 36, 52},
++		{11, 135, 24, 50, 64},
++		{13, 135, 14, 35, 9},
++		{14, 4, 40, 70, 12},
++		{15, 4, 51, 70, 12},
++		{16, 4, 62, 70, 12},
++		{17, 4, 73, 70, 12},
++		{18, 76, 40, 70, 12},
++		{19, 76, 51, 70, 12},
++		{20, 76, 62, 70, 12},
++		{21, 149, 37, 51, 54},
++		{22, 153, 47, 44, 12},
++		{23, 153, 58, 44, 12},
++		{24, 153, 69, 44, 12},
++		{25, 175, 78, 23, 12},
++		{27, 153, 80, 20, 9},
++		{28, 202, 37, 51, 54},
++		{29, 206, 47, 44, 12},
++		{30, 206, 58, 44, 12},
++		{31, 206, 69, 44, 12},
++		{32, 228, 78, 23, 12},
++		{34, 206, 80, 20, 9},
++		{35, 216, 5, 35, 14},
++		{36, 216, 22, 35, 14}
++	};
++	int i;
++	CRC *pcrc;
++	pdlt->rec.dx = 255;
++	pdlt->rec.dy = 92;
++	for (i = 0; i < sizeof(rg)/sizeof(rg[0]); ++i)
++		{
++		pcrc = (CRC *)&pdlt->rgtm[rg[i][0]].l;
++		pcrc->x = rg[i][1]; pcrc->y = rg[i][2];
++		pcrc->dx = rg[i][3]; pcrc->dy = rg[i][4];
++		}
++}
++
++
++/* Phase 5: fit Paragraph on 200-line CGA screens. */
++void CompactParagraphDlg(pdlt)
++DLT *pdlt;
++{
++	static BYTE rg[][5] = {
++		{0, 4, 13, 88, 55},
++		{1, 4, 2, 48, 9},
++		{2, 8, 22, 78, 12},
++		{3, 8, 33, 78, 12},
++		{4, 8, 44, 78, 12},
++		{5, 8, 55, 78, 12},
++		{6, 96, 5, 90, 48},
++		{7, 145, 16, 37, 12},
++		{9, 100, 16, 44, 9},
++		{10, 145, 28, 37, 12},
++		{12, 100, 28, 44, 9},
++		{13, 145, 40, 37, 12},
++		{15, 100, 40, 44, 9},
++		{16, 96, 55, 90, 48},
++		{17, 145, 66, 37, 12},
++		{19, 100, 66, 44, 9},
++		{20, 145, 78, 37, 12},
++		{22, 100, 78, 44, 9},
++		{23, 145, 90, 37, 12},
++		{25, 100, 90, 44, 9},
++		{26, 192, 14, 48, 12},
++		{27, 192, 4, 48, 9},
++		{28, 192, 27, 48, 24},
++		{30, 4, 70, 88, 33},
++		{31, 8, 78, 80, 12},
++		{32, 8, 90, 80, 12},
++		{33, 190, 54, 104, 49},
++		{34, 238, 63, 51, 12},
++		{36, 194, 63, 43, 9},
++		{37, 238, 76, 51, 12},
++		{39, 194, 76, 43, 9},
++		{40, 194, 89, 49, 12},
++		{41, 244, 89, 47, 12},
++		{42, 248, 7, 43, 14},
++		{43, 248, 23, 43, 14},
++		{44, 248, 39, 43, 14}
++	};
++	int i;
++	CRC *pcrc;
++	pdlt->rec.dx = 300;
++	pdlt->rec.dy = 106;
++	for (i = 0; i < sizeof(rg)/sizeof(rg[0]); ++i)
++		{
++		pcrc = (CRC *)&pdlt->rgtm[rg[i][0]].l;
++		pcrc->x = rg[i][1]; pcrc->y = rg[i][2];
++		pcrc->dx = rg[i][3]; pcrc->dy = rg[i][4];
++		}
++}
++
+ /*  %%Function:  CmdParagraph  %%Owner:  bobz       */
+ 
+ CMD CmdParagraph(pcmb)
+@@ -385,6 +489,8 @@
+ 		Assert (!vfDefineStyle ? vhmpiststcp != hNil : fTrue);
+ 
+ 		BltDlt(dltParaLooks, dlt);
++		if (GetSystemMetrics(SM_CYSCREEN) <= 200)
++			CompactParagraphDlg((DLT *)dlt);
+ 
+ #ifdef DBGYXY
+ 		CommSzNum(SzShared("TmcParagraph: pcmb->hcab = "), pcmb->hcab);
+@@ -722,7 +828,7 @@
+ }
+ 
+ 
+-csconst CHAR stAuto[] = StKey("Auto",AutoDef);
++csconst CHAR stAuto[] = StKey("自动",AutoDef);
+ 
+ /* Character Dialog Stuff */
+ 
+@@ -883,6 +989,8 @@
+ #endif
+ 
+ 		BltDlt(dltCharacter, dlt);
++		if (GetSystemMetrics(SM_CYSCREEN) <= 200)
++			CompactCharacterDlg((DLT *)dlt);
+ 		switch (TmcOurDoDlg(dlt, pcmb))
+ 			{
+ #ifdef DEBUG
+@@ -1897,15 +2005,15 @@
+ 		/* must correspond to ordering in props.h */
+ 	cCharColor,
+ 		{
+-		StKey("Auto",ColorAuto),
+-				StKey("Black",ColorBlack),
+-				StKey("Blue",ColorBlue),
+-				StKey("Cyan",ColorCyan),
+-				StKey("Green",ColorGreen),
+-				StKey("Magenta",ColorMagenta),
+-				StKey("Red",ColorRed),
+-				StKey("Yellow",ColorYellow),
+-				StKey("White",ColorWhite)
++		StKey("自动",ColorAuto),
++				StKey("黑色",ColorBlack),
++				StKey("蓝色",ColorBlue),
++				StKey("青色",ColorCyan),
++				StKey("绿色",ColorGreen),
++				StKey("品红",ColorMagenta),
++				StKey("红色",ColorRed),
++				StKey("黄色",ColorYellow),
++				StKey("白色",ColorWhite)
+ 		}
+ 	 },
+ 	{ 
+@@ -1913,11 +2021,11 @@
+ 			/* Must correspond to ordering
+ 		defined in dlglooks.c */
+ 		{
+-		StKey("None",BrcpNone),
+-				StKey("Box",BrcpBox),
+-				StKey("Bar",BrcpBar),
+-				StKey("Above",BrcpAbove),
+-				StKey("Below",BrcpBelow)
++		StKey("无",BrcpNone),
++				StKey("方框",BrcpBox),
++				StKey("竖线",BrcpBar),
++				StKey("上边框",BrcpAbove),
++				StKey("下边框",BrcpBelow)
+ 		}
+ 	 },
+ 	{ 
+@@ -1925,11 +2033,11 @@
+ 			/* Must correspond to ordering
+ 		defined in dlglooks.c */
+ 		{
+-		StKey("None",BrclNone),
+-				StKey("Single",BrclSingle),
+-				StKey("Thick",BrclThick),
+-				StKey("Double",BrclDouble),
+-				StKey("Shadow",BrclShadow)
++		StKey("无",BrclNone),
++				StKey("单线",BrclSingle),
++				StKey("粗线",BrclThick),
++				StKey("双线",BrclDouble),
++				StKey("阴影",BrclShadow)
+ 		}
+ 	 },
+ 

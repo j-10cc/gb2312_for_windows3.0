@@ -1,0 +1,27 @@
+--- a/CASHMERE/core.h
++++ b/CASHMERE/core.h
+@@ -119,6 +119,7 @@
+ extern int far pascal sdmdir_q();
+ extern int far pascal sdminit_q();
+ extern int far pascal dialog3_q();
++extern int far pascal wproca_q();
+ 
+ 
+ /* This array lists modules that we want to load at some time */
+@@ -271,6 +272,8 @@
+ 			(FARPROC)CHANGEMENU,		
+ #define ihcdUSER_MDKEY	  72
+ 			(FARPROC)GETNEXTDLGGROUPITEM,   
++#define ihcdWproca 73
++			(FARPROC)wproca_q,
+ };
+ #define ihcdEnd	    255
+ 
+@@ -326,6 +329,7 @@
+ 		ihcdFormat,     /* @formatn* */
+ 		ihcdFetch,	    /* @fetchn* */
+ 		ihcdWproc,      /* @wproc* */
++		ihcdWproca,
+ 		ihcdEnd 	    },
+ 	{ /* !CoreLayout */
+ 		ihcdLayout,

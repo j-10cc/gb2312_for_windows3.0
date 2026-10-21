@@ -1,0 +1,6 @@
+--- a/CASHMERE/resource/OPUSMENU.H
++++ b/CASHMERE/resource/OPUSMENU.H
+@@ -0,0 +1,3 @@
++/* This file was created by MKCMD!  Do Not Edit! */
++
++csconst struct CBM rgcbm[] = {

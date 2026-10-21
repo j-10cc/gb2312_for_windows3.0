@@ -1,0 +1,19 @@
+--- a/CASHMERE/idle.c
++++ b/CASHMERE/idle.c
+@@ -1170,6 +1170,7 @@
+ TLV * ptlv;
+ {
+ 	extern int vfAbortInsert, vfOvertypeMode;
++	extern BOOL vfWordGbOvertypePending;
+ 	extern HWND vhwndStatLine;
+ 
+ 	struct DOD **hdod = mpdochdod [PselActive()->doc];
+@@ -1239,7 +1240,7 @@
+ 	Assert(vfInsertMode);
+ #endif /* BOGUS */
+ 
+-	if (ptlv->fReturn || vfOvertypeMode)
++	if (ptlv->fReturn || (vfOvertypeMode && !vfWordGbOvertypePending))
+ 		return fFalse;
+ 
+ 	/* Examine the message that it is waiting */

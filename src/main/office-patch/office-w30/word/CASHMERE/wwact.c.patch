@@ -1,0 +1,17 @@
+--- a/CASHMERE/wwact.c
++++ b/CASHMERE/wwact.c
+@@ -1359,8 +1359,13 @@
+ 	int ikme;
+ 	BOOL fFound;
+ 
+-	fFound = FSearchKmp(hkmp, kc, &ikme);
+ 	pkmp = *hkmp;
++	/* Keep the short keymap search in this code segment.  The historical
++	   P-code cross-segment call to FSearchKmp corrupts the startup map
++	   with the reconstructed linker, even when the empty map is valid. */
++	for (ikme = 0; ikme < pkmp->ikmeMac && pkmp->rgkme[ikme].kc < kc; ikme++)
++		;
++	fFound = ikme < pkmp->ikmeMac && pkmp->rgkme[ikme].kc == kc;
+ 	pkme = &pkmp->rgkme[ikme];
+ 	if (!fFound)
+ 		{

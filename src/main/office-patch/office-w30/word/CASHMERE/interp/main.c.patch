@@ -1,0 +1,7 @@
+--- a/CASHMERE/interp/main.c
++++ b/CASHMERE/interp/main.c
+@@ -1,3 +1,4 @@
++#define NOMINMAX
+ /* misc. OpEL functions */
+ 
+ #include <qwindows.h>

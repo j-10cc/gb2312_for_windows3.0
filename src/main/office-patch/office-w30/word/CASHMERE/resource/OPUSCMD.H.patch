@@ -1,0 +1,15 @@
+--- a/CASHMERE/resource/OPUSCMD.H
++++ b/CASHMERE/resource/OPUSCMD.H
+@@ -0,0 +1,12 @@
++/* This file was created by MKCMD!  Do Not Edit! */
++
++#ifndef DEBUG
++#define USEBCM
++#endif
++#ifdef USEBCM
++#define BcmOfBcmSz(bcm, sz) (bcm)
++#else
++#define BcmOfBcmSz(bcm, sz) BcmOfSz(sz)
++#endif
++
++#define bcmHelp BcmOfBcmSz(0, "Help")

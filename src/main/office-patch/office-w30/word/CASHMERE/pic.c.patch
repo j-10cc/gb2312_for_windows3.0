@@ -1,0 +1,14 @@
+--- a/CASHMERE/pic.c
++++ b/CASHMERE/pic.c
+@@ -1616,6 +1616,11 @@
+ 			goto LNoCache;
+ 			}
+ 		Assert(bmc.hbm != NULL);
++		/* FSendBitmap uses source XNOR destination on a monochrome
++		 * display. A fresh CreateBitmap has undefined pixels; seed it
++		 * with white so the cache receives the source bits unchanged. */
++		if (fBitmap && vsci.fMonochrome)
++			PatBlt(hMDC, 0, 0, dxpPicScl, dypPicScl, WHITENESS);
+ 		StartLongOp();
+ 		wDrawn =
+ 			fBitmap ?

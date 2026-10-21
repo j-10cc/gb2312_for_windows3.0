@@ -1,0 +1,22 @@
+--- a/CASHMERE/help.c
++++ b/CASHMERE/help.c
+@@ -942,7 +942,7 @@
+ 			BuildStMstRgw(mstAboutKB, &l, st, cchMaxSz, hNil);
+ 			}
+ 		else
+-			SzToSt(szNone, st);
++			SzToSt(SzShared("\316\336"), st);
+ 		FSetCabSt(pcmb->hcab, st, Iag(CABABOUT, hszAboutEmem));
+ 
+ 			/*  initialize the mathpack if we haven't done so already to get f8087 */
+@@ -952,8 +952,8 @@
+ 				InitMath();
+ 			}
+ 
+-		FSetCabSz(pcmb->hcab, f8087 ? SzSharedKey("Present", Present) : 
+-				szNone, Iag(CABABOUT, hszAboutMath));
++		FSetCabSz(pcmb->hcab, f8087 ? SzSharedKey("\323\320", Present) :
++				SzShared("\316\336"), Iag(CABABOUT, hszAboutMath));
+ 
+ 		l = LcbDiskFreeSpace(0 /* default drive */) >> 10;
+ 		BuildStMstRgw(mstAboutKB, &l, st, cchMaxSz, hNil);

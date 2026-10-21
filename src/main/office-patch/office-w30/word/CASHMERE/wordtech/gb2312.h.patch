@@ -1,0 +1,20 @@
+--- a/CASHMERE/wordtech/gb2312.h
++++ b/CASHMERE/wordtech/gb2312.h
+@@ -0,0 +1,17 @@
++/* GB2312 byte boundaries for the Word 1.1a document character stream.
++ * Keep this header free of allocations and Win16 calls: it is used on the
++ * 640 KiB real-mode path as well as in protected mode. */
++#ifndef WORD11_GB2312_H
++#define WORD11_GB2312_H
++
++#define FWordGbLead(ch) (((unsigned char)(ch)) >= 0xA1 && \
++                        ((unsigned char)(ch)) <= 0xF7)
++#define FWordGbTrail(ch) (((unsigned char)(ch)) >= 0xA1 && \
++                         ((unsigned char)(ch)) <= 0xFE)
++#define FWordGbPair(lead, trail) (FWordGbLead(lead) && FWordGbTrail(trail))
++
++/* These use document CPs.  Declarations follow word.h, which defines CP. */
++int FWordGbMid();
++CP CpWordGbLim();
++
++#endif

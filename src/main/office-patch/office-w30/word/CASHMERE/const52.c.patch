@@ -1,0 +1,10 @@
+--- a/CASHMERE/const52.c
++++ b/CASHMERE/const52.c
+@@ -0,0 +1,7 @@
++#include "word.h"
++DEBUGASSERTSZ
++int Const146(){return 146;}
++int Const68(){return 68;}
++int Const118(){return 118;}
++int Const150(){return 150;}
++int ConstVar(n) int n;{return n+146;}

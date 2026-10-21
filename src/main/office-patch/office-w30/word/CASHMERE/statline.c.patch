@@ -1,0 +1,68 @@
+--- a/CASHMERE/statline.c
++++ b/CASHMERE/statline.c
+@@ -40,6 +40,7 @@
+ #define NOSOUND
+ 
+ #include "word.h"
++#include "gb2312.h"
+ DEBUGASSERTSZ            /* WIN - bogus macro for assert string */
+ #include "props.h"
+ #include "sel.h"
+@@ -234,6 +235,10 @@
+ 					PatBlt( hdc, 0, 0, rc.xpRight, 1, WHITENESS );
+ 					rc.ypTop = 1;
+ 					}
++				if (vsci.fWin3Visuals)
++					PatBlt(hdc, rc.xpLeft, rc.ypTop,
++						rc.xpRight - rc.xpLeft, rc.ypBottom - rc.ypTop,
++						PATCOPY);
+ 				/* Give a small dx margin and try to center the text in dy */
+ 				ExtTextOut( hdc, xpPromptLeft, ypPromptTop,
+ 					vsci.fWin3Visuals ? NULL : ETO_OPAQUE, &rc, 
+@@ -313,6 +318,12 @@
+ 					}
+ 				GetClientRect( vhwndStatLine, &rc );
+ 				rc.xpRight = vcchStatLinePrompt * vsci.dxpTmWidth;
++				/* CGA's ETO_OPAQUE path leaves old pixels behind when
++				   a GB2312 prompt is shorter than its predecessor. */
++				if (!vsci.fWin3)
++					PatBlt(ps.hdc, rc.xpLeft, rc.ypTop,
++						rc.xpRight - rc.xpLeft, rc.ypBottom - rc.ypTop,
++						WHITENESS);
+ 				StartUMeas(umStatlineTextOut);
+ 				ExtTextOut( ps.hdc, 0, 0, ETO_OPAQUE,
+ 						&rc, &vstPrompt [1],
+@@ -758,6 +769,7 @@
+ 	struct PGD pgd;
+ 	int f;
+ 	int pgn;
++	int ichGb, colGb;
+ 	CP cp;
+ 
+ 	if (uso != usoToggles)
+@@ -787,7 +799,24 @@
+ 	psls->yaPp = vlcb.yaPp;
+ 	psls->lnn = vlcb.lnn;
+ 	if (vlcb.ich != iNil)
+-		psls->col = vlcb.ich + 1;
++		{
++			psls->col = vlcb.ich + 1;
++		/* XpFromDcp reports a byte index into the formatted line.  A
++		 * GB2312 pair advances one visible column even across a CHP run. */
++		if (vfli.doc == selCur.doc && vfli.ww == selCur.ww &&
++			vlcb.ich <= vfli.ichMac)
++			{
++			for (ichGb = 0, colGb = 1; ichGb < vlcb.ich; colGb++)
++				{
++				if (FWordGbLead(vfli.rgch[ichGb]) &&
++					ichGb + 1 < vlcb.ich &&
++					FWordGbTrail(vfli.rgch[ichGb + 1]))
++					ichGb++;
++				ichGb++;
++				}
++			psls->col = colGb;
++			}
++		}
+ 	if (!f)
+ 		return fFalse;	/* interrupted computation */
+ 

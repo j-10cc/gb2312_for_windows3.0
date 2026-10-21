@@ -1,0 +1,49 @@
+--- a/CASHMERE/init2.c
++++ b/CASHMERE/init2.c
+@@ -455,6 +455,13 @@
+ 
+ /* check for unusal conditions: no username, low memory configuration */
+ 
++#ifdef WORD_GB_AUTOTEST
++	/* Give the disposable emulator fixture a first-run name for key replay. */
++	if (vpref.stUsrName [0] == 0)
++		{ vpref.stUsrName[0] = 1; vpref.stUsrName[1] = 'A'; }
++	if (vpref.stUsrInitl [0] == 0)
++		{ vpref.stUsrInitl[0] = 1; vpref.stUsrInitl[1] = 'A'; }
++#endif
+ 	if (vpref.stUsrName [0] == 0 || vpref.stUsrInitl [0] == 0)
+ 		{
+ #ifdef BATCH /* in batch mode, don't require username dialog */
+@@ -742,8 +749,31 @@
+ 	 f = (hSysMenu = GetSystemMenu(vhwndApp, FALSE)) != NULL &&
+ 			ChangeMenu(hSysMenu, 0, NULL, -1,
+ 			MF_APPEND | MF_SEPARATOR) != NULL &&
+-			ChangeMenu(hSysMenu, 0, (LPSTR) SzSharedKey("R&un...",Run),
++			ChangeMenu(hSysMenu, 0, (LPSTR) SzSharedKey("\324\313\320\320&U...",Run),
+ 			bcmControlRun, MF_APPEND | MF_STRING) != NULL;
++
++	/* Application-owned menu captions; command IDs and state are retained. */
++	w = GetMenuState(hSysMenu, 0xF120, MF_BYCOMMAND);
++	if (f && w != -1) ChangeMenu(hSysMenu, 0xF120,
++		(LPSTR) SzShared("\273\271\324\255&R"), 0xF120, MF_CHANGE | (w & 3));
++	w = GetMenuState(hSysMenu, 0xF010, MF_BYCOMMAND);
++	if (f && w != -1) ChangeMenu(hSysMenu, 0xF010,
++		(LPSTR) SzShared("\322\306\266\257&M"), 0xF010, MF_CHANGE | (w & 3));
++	w = GetMenuState(hSysMenu, 0xF000, MF_BYCOMMAND);
++	if (f && w != -1) ChangeMenu(hSysMenu, 0xF000,
++		(LPSTR) SzShared("\264\363\320\241&S"), 0xF000, MF_CHANGE | (w & 3));
++	w = GetMenuState(hSysMenu, 0xF020, MF_BYCOMMAND);
++	if (f && w != -1) ChangeMenu(hSysMenu, 0xF020,
++		(LPSTR) SzShared("\327\356\320\241\273\257&N"), 0xF020, MF_CHANGE | (w & 3));
++	w = GetMenuState(hSysMenu, 0xF030, MF_BYCOMMAND);
++	if (f && w != -1) ChangeMenu(hSysMenu, 0xF030,
++		(LPSTR) SzShared("\327\356\264\363\273\257&X"), 0xF030, MF_CHANGE | (w & 3));
++	w = GetMenuState(hSysMenu, 0xF060, MF_BYCOMMAND);
++	if (f && w != -1) ChangeMenu(hSysMenu, 0xF060,
++		(LPSTR) SzShared("\271\330\261\325&C\011Alt+F4"), 0xF060, MF_CHANGE | (w & 3));
++	w = GetMenuState(hSysMenu, 0xF130, MF_BYCOMMAND);
++	if (f && w != -1) ChangeMenu(hSysMenu, 0xF130,
++		(LPSTR) SzShared("\307\320\273\273\326\301&T\011Ctrl+Esc"), 0xF130, MF_CHANGE | (w & 3));
+ 
+ 	/* change Window's separators' bcms to negative values */
+ 	if (f)

@@ -1,0 +1,11 @@
+--- a/CASHMERE/dlgdoc.c
++++ b/CASHMERE/dlgdoc.c
+@@ -1312,7 +1312,7 @@
+ #define sz st
+ 	GetSzFromSttb(pndd->hsttbAssoc, ibstAssocDot, sz);
+ 	if (sz[0] == 0)
+-		CchCopySz(szNone, sz);
++		CchCopySz(SzSharedKey("нч", NoTemplateDisplay), sz);
+ 	else
+ 		QszUpper(sz);
+ 	SanitizeSz(sz, szClean, cchMaxSz+1, fFalse);

@@ -1,0 +1,37 @@
+--- a/CASHMERE/asm/formatn.asm
++++ b/CASHMERE/asm/formatn.asm
+@@ -96,6 +96,7 @@
+ externFP	<N_FInTableDocCp>
+ externFP	<FAbsPap>
+ externFP	<FMatchAbs>
++externFP	<C_FormatLineDxa>
+ 
+ ifdef DEBUG
+ externFP	<CkVfli,S_FetchCp,S_CachePara>
+@@ -155,6 +156,7 @@
+ ; CODE SEGMENT _FORMAT
+ 
+ sBegin	format
++
+ 	assumes cs,format
+ 	assumes ds,dgroup
+ 	assumes ss,dgroup
+@@ -538,6 +540,10 @@
+ 	localV pap,cbPAPBaseScan
+ 
+ cBegin		; end of local declarations; beginning of FormatLine code
++	; Use the C formatter while GB2312 needs two-byte line boundaries.
++	; The original native implementation remains below for reference.
++	cCall	C_FormatLineDxa,<[ww],[doc],[SEG_cp],[OFF_cp],[dxa]>
++	jmp	LWordGbFormatReturn
+ 
+ 
+ 	;Assembler note: do this just after FL09
+@@ -678,6 +684,7 @@
+ FL027:
+ LEndFormatLine:
+ 	xor	[vrf.fInFormatLineRf],maskfInFormatLineRf
++LWordGbFormatReturn:
+ cEnd
+ 
+ ;/* obtain any format modes from ww */

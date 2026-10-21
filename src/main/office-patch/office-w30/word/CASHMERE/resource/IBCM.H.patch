@@ -1,0 +1,10 @@
+--- a/CASHMERE/resource/IBCM.H
++++ b/CASHMERE/resource/IBCM.H
+@@ -0,0 +1,7 @@
++#define ibcmHelp 0
++#define ibcmHelpContext 1
++#define ibcmHelpUsingHelp 2
++#define ibcmHelpActiveWindow 3
++#define ibcmHelpKeyboard 4
++#define ibcmHelpIndex 5
++#define ibcmHelpTutorial 6

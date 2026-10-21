@@ -1,0 +1,112 @@
+--- a/CASHMERE/wordtech/select.c
++++ b/CASHMERE/wordtech/select.c
+@@ -7,6 +7,7 @@
+ 
+ #define RSHDEFS
+ #include "word.h"
++#include "gb2312.h"
+ DEBUGASSERTSZ            /* WIN - bogus macro for assert string */
+ #include "ch.h"
+ #include "doc.h"
+@@ -209,6 +210,23 @@
+ 
+ 	Assert(cpLim <= CpMacDoc(psel->doc) || psel->fHidden);
+ 	Assert(cpFirst <= cpLim);
++
++#ifdef WIN
++	/* Mouse hit testing and several internal commands supply raw byte CPs.
++	 * Normalize them here so neither a caret nor a selected range can
++	 * expose only one byte of a GB2312 character. */
++	if (cpFirst == cpLim)
++		{
++		if (FWordGbMid(psel->doc, cpFirst))
++			cpFirst = cpLim = cpFirst - 1;
++		}
++	else
++		{
++		if (FWordGbMid(psel->doc, cpFirst))
++			cpFirst--;
++		cpLim = CpWordGbLim(psel->doc, cpLim);
++		}
++#endif
+ 
+ #ifdef MAC
+ /* invalidate any dialog bitmap caches on top of wwCur */
+@@ -2469,6 +2487,52 @@
+ }
+ 
+ 
++/* The document CP counts bytes, while a GB2312 character occupies two CPs.
++ * Keep character-style selections out of the interval between its bytes. */
++#ifdef WIN
++int FWordGbMid(doc, cp)
++int doc;
++CP cp;
++{
++	CP cpRun, cpScan;
++	int ch;
++	if (cp <= cp0 || cp >= CpMacDocEdit(doc))
++		return fFalse;
++	if (!FWordGbTrail(ChFetch(doc, cp, fcmChars)) ||
++		!FWordGbLead(ChFetch(doc, cp-1, fcmChars)))
++		return fFalse;
++	/* A trail byte may itself be a legal lead.  Establish parity from the
++	 * nearest preceding non-GB byte instead of examining only cp-1/cp. */
++	cpRun = cp;
++	while (cpRun > cp0 && FWordGbTrail(ChFetch(doc, cpRun-1, fcmChars)))
++		cpRun--;
++	for (cpScan = cpRun; cpScan < cp; )
++		{
++		ch = ChFetch(doc, cpScan, fcmChars);
++		if (FWordGbLead(ch) && cpScan + 1 <= cp &&
++			FWordGbTrail(ChFetch(doc, cpScan+1, fcmChars)))
++			cpScan += 2;
++		else
++			cpScan++;
++		}
++	return cpScan > cp;
++}
++
++STATIC CP NEAR CpWordGbFirst(doc, cp)
++int doc;
++CP cp;
++{
++	return FWordGbMid(doc, cp) ? cp-1 : cp;
++}
++
++CP CpWordGbLim(doc, cp)
++int doc;
++CP cp;
++{
++	return FWordGbMid(doc, cp) ? cp+1 : cp;
++}
++#endif
++
+ /* C P  L I M  S T Y */
+ /* %%Function:CpLimSty %%Owner:chic */
+ CP CpLimSty(ww, doc, cp, sty, fEnd)
+@@ -2561,9 +2625,9 @@
+ 		else
+ 			cp = caCharBlock.cpFirst;
+ 		if (fEnd)
+-			return ((cp <= cp0) ? cp0 : cp);
++			return sty == styChar ? CpWordGbLim(doc, cp) : ((cp <= cp0) ? cp0 : cp);
+ 		else
+-			return caCharBlock.cpLim;
++			return sty == styChar ? CpWordGbLim(doc, caCharBlock.cpLim) : caCharBlock.cpLim;
+ #else
+ 		return fEnd ? cp : cp + 1;
+ #endif /* WIN */
+@@ -2898,10 +2962,10 @@
+ 		if (fEnd && cp > cp0)
+ 			{
+ 			GetCaCharBlock(ww, doc, cp-1, &caCharBlock, &cpVisi);
+-			return caCharBlock.cpFirst;
++			return sty == styChar ? CpWordGbFirst(doc, caCharBlock.cpFirst) : caCharBlock.cpFirst;
+ 			}
+ 		else
+-			return cp;
++			return sty == styChar ? CpWordGbFirst(doc, cp) : cp;
+ #endif /* WIN */
+ 
+ 	case styNil:

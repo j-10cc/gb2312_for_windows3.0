@@ -1,0 +1,235 @@
+# 全拼（按音节以空格分隔）<TAB>GB2312 词组；同音词按本文件先后排序。
+# 本项目人工整理的基础词表。可增补；构建时核对每字读音、长度和编码。
+zhong wen	中文
+zhong guo	中国
+zhong hua	中华
+zhong yang	中央
+zhong xin	中心
+chong xin	重新
+zhong yao	重要
+zhong dian	重点
+zhong xue	中学
+zhong wu	中午
+zhong wen shu ru	中文输入
+zhong wen ce shi	中文测试
+zhong wen shu ru fa	中文输入法
+jian ti	简体
+jian ti zhong wen	简体中文
+fan ti	繁体
+fan ti zhong wen	繁体中文
+pin yin	拼音
+quan pin	全拼
+ci zu	词组
+han zi	汉字
+shu ru	输入
+shu ru fa	输入法
+shu chu	输出
+ce shi	测试
+ce shi	侧室
+ce shi	策士
+ce shi	侧视
+ni hao	你好
+ni men	你们
+wo men	我们
+ta men	他们
+ta men	她们
+da jia	大家
+nin hao	您好
+xie xie	谢谢
+zai jian	再见
+huan ying	欢迎
+qing wen	请问
+dui bu qi	对不起
+mei guan xi	没关系
+bu ke qi	不客气
+zao shang hao	早上好
+wan shang hao	晚上好
+shi jie	世界
+ren min	人民
+ren min gong he guo	人民共和国
+zhong hua ren min gong he guo	中华人民共和国
+bei jing	北京
+shang hai	上海
+guang zhou	广州
+shen zhen	深圳
+nan jing	南京
+tian jin	天津
+chong qing	重庆
+cheng du	成都
+wu han	武汉
+xi an	西安
+chang an	长安
+hang zhou	杭州
+su zhou	苏州
+xiang gang	香港
+tai wan	台湾
+ao men	澳门
+gong zuo	工作
+gong zuo biao	工作表
+gong zuo bu	工作簿
+wen jian	文件
+wen jian ming	文件名
+wen jian jia	文件夹
+wen dang	文档
+wen ben	文本
+wen zi	文字
+bian ji	编辑
+bian hao	编号
+bian ma	编码
+bao cun	保存
+ling cun wei	另存为
+da kai	打开
+guan bi	关闭
+xin jian	新建
+da yin	打印
+da yin ji	打印机
+ye mian	页面
+ye mei	页眉
+ye jiao	页脚
+ye ma	页码
+fen ye	分页
+fu zhi	复制
+zhan tie	粘贴
+jian qie	剪切
+che xiao	撤销
+hui fu	恢复
+shan chu	删除
+cha ru	插入
+cha zhao	查找
+ti huan	替换
+quan xuan	全选
+xuan ze	选择
+she zhi	设置
+ge shi	格式
+zi ti	字体
+zi hao	字号
+duan luo	段落
+hang ju	行距
+dui qi	对齐
+ju zhong	居中
+zuo dui qi	左对齐
+you dui qi	右对齐
+biao ge	表格
+biao ti	标题
+biao tou	表头
+dan yuan ge	单元格
+gong shi	公式
+han shu	函数
+shu ju	数据
+shu zi	数字
+ji suan	计算
+ji suan ji	计算机
+ping jun	平均
+qiu he	求和
+zong ji	总计
+he ji	合计
+pai xu	排序
+fan wei	范围
+lie kuan	列宽
+hang gao	行高
+tu biao	图表
+tu pian	图片
+tu xing	图形
+chuang kou	窗口
+cai dan	菜单
+gong ju	工具
+gong ju lan	工具栏
+zhuang tai lan	状态栏
+shu biao	鼠标
+jian pan	键盘
+guang biao	光标
+ping mu	屏幕
+xian shi	显示
+fen bian lv	分辨率
+xi tong	系统
+cheng xu	程序
+cheng xu guan li qi	程序管理器
+wen jian guan li qi	文件管理器
+ji shi ben	记事本
+shu xie qi	书写器
+kong zhi mian ban	控制面板
+an zhuang	安装
+xie zai	卸载
+yun xing	运行
+qi dong	启动
+tui chu	退出
+que ding	确定
+qu xiao	取消
+bang zhu	帮助
+cuo wu	错误
+jing gao	警告
+ti shi	提示
+cheng gong	成功
+shi bai	失败
+nei cun	内存
+ci pan	磁盘
+ruan pan	软盘
+ying pan	硬盘
+mu lu	目录
+lu jing	路径
+bei fen	备份
+wang luo	网络
+gong xiang	共享
+du qu	读取
+xie ru	写入
+shi mo shi	实模式
+bao hu mo shi	保护模式
+zhun que	准确
+zheng que	正确
+jian cha	检查
+jian rong	兼容
+zhi chi	支持
+kuai su	快速
+su du	速度
+an quan	安全
+wen ding	稳定
+ri qi	日期
+shi jian	时间
+jin tian	今天
+ming tian	明天
+zuo tian	昨天
+xian zai	现在
+yi jing	已经
+ke yi	可以
+xu yao	需要
+shi yong	使用
+yong hu	用户
+ming cheng	名称
+di zhi	地址
+dian hua	电话
+dan wei	单位
+gong si	公司
+xue xiao	学校
+xue sheng	学生
+lao shi	老师
+xue xi	学习
+jiao yu	教育
+ke xue	科学
+ji shu	技术
+ruan jian	软件
+ying jian	硬件
+kai fa	开发
+she ji	设计
+ji hua	计划
+guan li	管理
+xin xi	信息
+nei rong	内容
+shuo ming	说明
+shou ce	手册
+ban ben	版本
+geng xin	更新
+di yi	第一
+di er	第二
+shang yi ye	上一页
+xia yi ye	下一页
+ying wen	英文
+ying yu	英语
+zhong ying wen	中英文
+shu ru ce shi	输入测试
+pin yin shu ru fa	拼音输入法
+quan pin shu ru	全拼输入
+ci zu shu ru	词组输入
+# Additional everyday words absent from the imported contextual reading table.
+zi yuan	资源
+yin yue	音乐
+sheng huo	生活

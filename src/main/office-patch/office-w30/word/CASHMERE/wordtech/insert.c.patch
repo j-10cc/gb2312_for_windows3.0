@@ -1,0 +1,244 @@
+--- a/CASHMERE/wordtech/insert.c
++++ b/CASHMERE/wordtech/insert.c
+@@ -6,6 +6,7 @@
+ 
+ #define RSHDEFS
+ #include "word.h"
++#include "gb2312.h"
+ DEBUGASSERTSZ            /* WIN - bogus macro for assert string */
+ #include "doc.h"
+ #include "disp.h"
+@@ -121,6 +122,8 @@
+ extern CP		cpInsert; /* Beginning cp of insert block */
+ extern int		vidrInsert;
+ extern CP 		vcpFirstTablePara;
++
++BOOL vfWordGbOvertypePending = fFalse;
+ 
+ 
+ /* B E G I N  I N S E R T */
+@@ -592,6 +595,7 @@
+ 	BOOL fReturn = fFalse;
+ 	int fDirty, fRMBackSpace = fFalse;
+ 	BOOL fSpecialEop;
++	BOOL fGbOvertype = fFalse;
+ 	BOOL fCpEndOutline = fFalse;
+ 	CP dcpRM, cpNew, cpEndOutline;
+ 	struct CA caT;
+@@ -600,6 +604,7 @@
+ 	struct SELS selsBefore;
+ 
+ #ifdef WIN
++	fGbOvertype = vfOvertypeMode && FWordGbLead(ch);
+ 	/* Document is locked (annotations feature) */
+ 	if (PdodDoc(selCur.doc)->fLockForEdit)
+ 		{
+@@ -690,6 +695,20 @@
+ 		}
+ 
+ 
++#ifdef WIN
++	if (fGbOvertype && selCur.fIns &&
++		selCur.cpFirst < CpMacDocEdit(selCur.doc))
++		{
++		/* The visible-character block cache can span more than one byte
++		 * character.  Overtype one document character at this exact CP. */
++		CP cpGbDelTo = CpWordGbLim(selCur.doc, selCur.cpFirst + 1);
++		CachePara(selCur.doc, selCur.cpFirst);
++		if (cpGbDelTo < caPara.cpLim &&
++			FLegalSel(selCur.doc, selCur.cpFirst, cpGbDelTo))
++			Select(&selCur, selCur.cpFirst, cpGbDelTo);
++		}
++#endif
++
+ /* We will not delete if the EOP is selected and we are doing backspace
+ or fail FDeleteCheck.
+ */
+@@ -782,12 +801,17 @@
+ 
+ #ifdef WIN
+ /* BEGIN QUICK-AND-DIRTY OVERTYPE */
+-	if (vfOvertypeMode)
++	if (vfOvertypeMode && !fGbOvertype)
+ 		{
+ 		FC fcT;
+ 		CP cpDelTo;
+ 
+ 		InvalAgain();
++		/* An IME delivers a GB2312 character as two WM_CHAR messages.
++		 * The whole-character selection above is deleted by the normal
++		 * typing path, then the loop ends once both bytes arrive. */
++		if (FWordGbTrail(ch))
++			goto LNoOT;
+ 		/* Some characters do not overtype... */
+ 		switch (ch)
+ 			{
+@@ -832,10 +856,14 @@
+ /* END QUICK-AND-DIRTY OVERTYPE */
+ #endif /* WIN */
+ 
++	vfWordGbOvertypePending = fGbOvertype;
+ 	BeginInsert(&tlv);
+ 
+ 	if (!vfInsertMode)
++		{
++		vfWordGbOvertypePending = fFalse;
+ 		return fFalse;
++		}
+ 
+ /* initialize cp* */
+ 	cpFirstNotInval = tlv.cpStart = cpLimNotInval = tlv.cpLow = 
+@@ -964,7 +992,9 @@
+ 							(fOpenQuote?chSOpenQuote:chSCloseQuote);
+ 					}
+ #endif /* MAC */
+-				if (ichInsert == cchInsertMax)
++				/* Never flush a GB lead byte at the end of the insert buffer.
++				   The following WM_CHAR contains its trail byte. */
++				if (ichInsert >= cchInsertMax - (FWordGbLead(ch) ? 1 : 0))
+ 					EndInsert(fFalse, &tlv);
+ 				rgchInsert[ichInsert++] = ch;
+ 				}
+@@ -976,6 +1006,9 @@
+ /* invalidate the current window */
+ 		tlv.ch = ch;
+ 		InvalInsert(&tlv);
++		if (fGbOvertype && ichInsert >= 2 &&
++			FWordGbPair(rgchInsert[ichInsert-2], rgchInsert[ichInsert-1]))
++			goto LEndInsert;
+ /* ran out of memory; exit insert */
+ 		if (vmerr.fMemFail || !vfInsertMode)
+ 			goto LEndInsert;
+@@ -987,7 +1020,10 @@
+ 		if (!FNextMsgForInsert(&tlv))
+ 			{
+ 			if (fReturn)
++				{
++				vfWordGbOvertypePending = fFalse;
+ 				return;
++				}
+ 			break;
+ 			}
+ 		ch = tlv.ch;
+@@ -1003,14 +1039,18 @@
+ 			ClearSccs();
+ 		}
+ 	EndInsert(fTrue, &tlv);
++	vfWordGbOvertypePending = fFalse;
+ 
+ #ifdef WIN
+ 	if (fRMBackSpace)
+ 		{
+-		selCur.cpFirst--;
+-		selCur.cpLim--;
+-		InvalCp(PcaSetDcp(&caT, selCur.doc, selCur.cpFirst, (CP) 1));
+-		dcpRM += 1;
++		int ccpWordGb = selCur.cpFirst >= 2 &&
++			FWordGbMid(selCur.doc, selCur.cpFirst-1) ? 2 : 1;
++		selCur.cpFirst -= ccpWordGb;
++		selCur.cpLim -= ccpWordGb;
++		InvalCp(PcaSetDcp(&caT, selCur.doc, selCur.cpFirst,
++			(CP)ccpWordGb));
++		dcpRM += ccpWordGb;
+ 		tlv.cpInsertLow = selCur.cpFirst;
+ 		}
+ #endif
+@@ -1881,6 +1921,7 @@
+ 	uns papT [cwPAPBase];
+ 	CHAR chT;
+ 	BOOL fInTable;
++	BOOL fWordGbBackSpace = fFalse;
+ 	CP cpFirstPara;
+ 
+ #ifdef RSH
+@@ -1895,19 +1936,30 @@
+ 
+ 	if (ichInsert > 0)
+ 		{
+-		ichInsert -= 1;
++		int ccpGb = ichInsert >= 2 &&
++			FWordGbPair(rgchInsert[ichInsert-2], rgchInsert[ichInsert-1]) ? 2 : 1;
++		BOOL fCrossBuffer = ichInsert == 1 && cpInsert > 0 &&
++			FWordGbTrail(rgchInsert[0]) &&
++			FWordGbLead(ChFetch(selCur.doc, cpInsert-1, fcmChars));
++		ichInsert -= ccpGb;
+ 
+ #ifdef WIN /* Command recorder */
+ 		if (ichInsert < ptlv->ichFill)
+ 			{
+ 			if (vfRecording)
+-				RecordBksp(ptlv);
++				{
++				int iGb;
++				for (iGb = 0; iGb < ccpGb; iGb++)
++					RecordBksp(ptlv);
++				}
+ 			ptlv->ichFill = ichInsert;
+ 			}
+ #endif
+ 		ptlv->cpLow = CpMin(ptlv->cpLow, cpInsert + ichInsert);
+ 
+-		return bsvNormal;
++		if (!fCrossBuffer)
++			return bsvNormal;
++		/* The lead byte was already flushed; remove it below as well. */
+ 		}
+ 
+ /* Can't delete characters before cp0!  Catch 'em trying here... */
+@@ -1921,6 +1973,8 @@
+ 
+ /* Need to fetch a new batch into rgchInsert */
+ 	ccpBS = 1; /* will be set to ccpEop if we're deleting an EOP */
++	if (cpInsert >= 2 && FWordGbMid(selCur.doc, cpInsert-1))
++		{ ccpBS = 2; fWordGbBackSpace = fTrue; }
+ 
+ 	/* FInTableDocCp caches para */
+ 	fInTable = FInTableDocCp(selCur.doc, cpInsert - 1);
+@@ -2011,6 +2065,8 @@
+ #endif
+ 		}
+ 
++	if (fWordGbBackSpace && cpNew > cpInsert - 2)
++		goto LNoBackSpace;
+ 	if (cpNew >= cpInsert)
+ 		cpNew -= ccpBS;
+ 
+@@ -2039,6 +2095,16 @@
+ 
+ 		CachePara(selCur.doc, vcpFetch + vccpFetch);
+ 		FetchCp(docNil, cpNil, fcmChars + fcmProps);
++		}
++	if (fWordGbBackSpace && vcpFetch + vccpFetch < cpInsert)
++		{
++		/* The GB pair crosses two fetched runs.  Delete both bytes
++		 * directly rather than making ichInsert negative. */
++		rgchInsert[0] = ChFetch(selCur.doc, cpInsert - 2, fcmChars);
++		rgchInsert[1] = ChFetch(selCur.doc, cpInsert - 1, fcmChars);
++		cch = 2;
++		cpNew = cpInsert - 2;
++		FetchCpAndPara(selCur.doc, cpNew, fcmChars + fcmProps);
+ 		}
+ 
+ #ifdef MAC
+@@ -2056,7 +2122,11 @@
+ 		goto LNoBackSpace;
+ 
+ 	if (vfRecording)
+-		RecordBksp(ptlv);
++		{
++		int iGb;
++		for (iGb = 0; iGb < ccpBS; iGb++)
++			RecordBksp(ptlv);
++		}
+ 
+ 	/* if not new text, kill insert loop */
+ 	if (PdodMother(selCur.doc)->dop.fRevMarking && !vchpFetch.fRMark)
+@@ -2065,7 +2135,7 @@
+ 			{
+ 			char grpprl[2];
+ 
+-			PcaSet(&caT, selCur.doc, cpInsert - 1, cpInsert);
++			PcaSet(&caT, selCur.doc, cpInsert - ccpBS, cpInsert);
+ 			if (!FSetUndoB1(ucmTyping, uccFormat, &caT))
+ 				goto LNoBackSpace;
+ 			grpprl[0] = sprmCFStrikeRM;

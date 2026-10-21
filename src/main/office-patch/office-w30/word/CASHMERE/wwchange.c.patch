@@ -1,0 +1,17 @@
+--- a/CASHMERE/wwchange.c
++++ b/CASHMERE/wwchange.c
+@@ -803,8 +803,13 @@
+ CHAR *szDest;
+ int cch;
+ {
++	/* GB2312 bytes are data, even when their value resembles a
++	   lowercase letter in the active ANSI code page. */
+ 	while (cch--)
+-		*(szDest++) = ChUpper(*(szSource++));
++		{
++		unsigned char ch = (unsigned char)*(szSource++);
++		*(szDest++) = ch >= 0x80 ? ch : ChUpper(ch);
++		}
+ }
+ 
+ 

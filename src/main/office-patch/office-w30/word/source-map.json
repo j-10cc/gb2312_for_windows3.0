@@ -1,0 +1,1808 @@
+[
+  {
+    "final": "external/word11a-current/CASHMERE/annot.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/annot.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/asserth.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/asserth.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/auxout.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/auxout.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/clsplcn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/clsplcn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/cmacros.inc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/cmacros.inc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/cmdlookn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/cmdlookn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/consts.inc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/consts.inc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/dialog1n.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/dialog1n.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/disp1n.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/disp1n.asm",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/asm/disp1n.asm.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/disp1n2.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/disp1n2.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/disp2n.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/disp2n.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/disp3n.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/disp3n.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/disptbln.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/disptbln.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/disptbn2.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/disptbn2.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/editn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/editn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/editn2.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/editn2.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/eldden.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/eldden.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/expn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/expn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/fetch2n.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/fetch2n.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/fetchn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/fetchn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/fetchn2.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/fetchn2.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/fetchn3.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/fetchn3.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/fetchtbn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/fetchtbn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/fieldcrn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/fieldcrn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/fieldfmn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/fieldfmn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/fieldspn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/fieldspn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/file2n.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/file2n.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/filewinn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/filewinn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/formatn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/formatn.asm",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/asm/formatn.asm.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/formatn2.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/formatn2.asm",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/asm/formatn2.asm.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/formulan.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/formulan.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/grbitx.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/grbitx.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/grhc.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/grhc.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/grtiff.inc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/grtiff.inc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/index2n.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/index2n.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/inssubsn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/inssubsn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/int3f.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/int3f.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/layout22.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/layout22.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/layout2n.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/layout2n.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/movecmds.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/movecmds.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/natinit.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/natinit.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/nattrans.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/nattrans.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/newexe.inc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/newexe.inc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/noxport.inc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/noxport.inc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/pmword.inc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/pmword.inc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/prln.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/prln.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/profc.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/profc.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/profctl.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/profctl.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/promptn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/promptn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/qplc.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/qplc.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/resn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/resn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/resn2.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/resn2.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/rip.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/rip.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/rtfinn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/rtfinn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/rtfsubsn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/rtfsubsn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/searchn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/searchn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/structs.inc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/structs.inc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/sttbn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/sttbn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/w2.inc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/w2.inc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/windows.inc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/windows.inc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/word.inc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/word.inc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/wordgrep.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/wordgrep.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/asm/wprocn.asm",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/asm/wprocn.asm"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/automcr.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/automcr.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/autosave.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/autosave.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/catalog.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/catalog.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ch.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ch.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/CLIPBORD.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/CLIPBORD.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/CLIPBRD2.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/CLIPBRD2.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/cmb.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/cmb.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/cmd.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/cmd.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/cmd.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/cmd.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/cmd2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/cmd2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/CMD3.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/CMD3.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/cmdcore.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/cmdcore.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/cmdcore.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/cmdlook.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/cmdlook.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/cmdtbl.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/cmdtbl.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/cmdwnd.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/cmdwnd.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/command.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/command.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/command.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/command2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/command2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/compare.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/compare.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/const52.c",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/const52.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/core.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/core.h",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/core.h.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/create.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/create.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/CREATE2.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/CREATE2.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/curswin.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/curswin.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/customiz.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/customiz.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dde.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dde.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ddeclnt.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ddeclnt.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/DDESRVR.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/DDESRVR.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ddesub.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ddesub.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debug.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debug.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debug1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debug1.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debug2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debug2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debugcmd.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debugcmd.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debugdde.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debugdde.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debugdlg.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debugdlg.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debugfn.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debugfn.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debugfnt.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debugfnt.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debuggdi.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debuggdi.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debuginf.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debuginf.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debugrep.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debugrep.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debugscc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debugscc.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debugstr.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debugstr.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debug/debugwin.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debug/debugwin.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/DEBUG.H",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/DEBUG.H"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/debugwin.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/debugwin.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dialog1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dialog1.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/dialog1.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dialog2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dialog2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dialog3.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dialog3.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/dialog3.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dialog4.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dialog4.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/disp1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/disp1.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dispbrc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dispbrc.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dispspec.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dispspec.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/DLBENUM.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/DLBENUM.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dlbenum.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dlbenum.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dlgdoc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dlgdoc.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/dlgdoc.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dlghyph.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dlghyph.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dlglook1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dlglook1.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/dlglook1.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dlglook2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dlglook2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dlgmisc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dlgmisc.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dlgopen.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dlgopen.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dlgrec.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dlgrec.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dlgtable.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dlgtable.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dmdefs.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dmdefs.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/docman1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/docman1.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/docman2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/docman2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/dosfile.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/dosfile.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/doslib.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/doslib.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/EDIT.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/EDIT.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/edmacro.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/edmacro.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/el.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/el.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/eldde.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/eldde.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/eldlg.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/eldlg.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/elfile.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/elfile.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/elmisc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/elmisc.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/elmisc2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/elmisc2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/elsubs.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/elsubs.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/elsubs2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/elsubs2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/elsubs3.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/elsubs3.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/elt.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/elt.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/elxprocs.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/elxprocs.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/err.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/err.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/etcmd.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/etcmd.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/etdefs.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/etdefs.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fedt.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fedt.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ff.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ff.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ffcrypt.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ffcrypt.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ffread.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ffread.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fieldclc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fieldclc.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/FIELDCMD.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/FIELDCMD.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fieldcr.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fieldcr.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fieldfmt.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fieldfmt.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fieldpic.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fieldpic.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fieldprs.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fieldprs.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fieldsc2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fieldsc2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fieldsp.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fieldsp.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fieldspc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fieldspc.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/fieldspc.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/FILE2.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/FILE2.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/filecvt.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/filecvt.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/filecvt.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/filecvt.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/filewin.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/filewin.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fltexp.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fltexp.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fltexp.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fltexp.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/fontwin.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/fontwin.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/formatsp.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/formatsp.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/formula.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/formula.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/glsy.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/glsy.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/grbit.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/grbit.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/GRSPEC.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/GRSPEC.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/grstruct.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/grstruct.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/grswath.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/grswath.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/grtiff.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/grtiff.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/grtiff.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/grtiff.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/hddwin.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/hddwin.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/heap.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/heap.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/help.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/help.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/help.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/help.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/help.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/helpapi.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/helpapi.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ibdefs.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ibdefs.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/iconbar.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/iconbar.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/iconbar1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/iconbar1.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/iconbar2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/iconbar2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/iconbar3.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/iconbar3.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/idd.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/idd.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/idle.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/idle.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/idle.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/idle.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/idle.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ifld.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ifld.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/index.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/index.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/index1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/index1.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/index2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/index2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/init2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/init2.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/init2.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/initwin.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/initwin.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/initwin.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/insfield.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/insfield.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/insfield.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/insfield.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/inter.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/inter.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/inter.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/inter.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/interp/corout.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/interp/corout.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/interp/elcore.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/interp/elcore.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/interp/elcore.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/interp/elinit.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/interp/elinit.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/interp/elinit.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/interp/exectest.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/interp/exectest.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/interp/exp.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/interp/exp.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/interp/exp.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/interp/exptest.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/interp/exptest.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/interp/main.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/interp/main.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/interp/main.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/interp/sym.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/interp/sym.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/interp/sym.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/interp/symtest.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/interp/symtest.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/interp/to.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/interp/to.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/keys.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/keys.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/_exec.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/_exec.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/_exp.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/_exp.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/_sym.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/_sym.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/crmgr.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/crmgr.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/dac.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/dac.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/eltools.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/eltools.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/exp.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/exp.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/lmem.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/lmem.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/mathapi.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/mathapi.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/mathpack.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/mathpack.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/priv.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/priv.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/qsetjmp.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/qsetjmp.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/qwindows.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/qwindows.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/sbmgr.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/sbmgr.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/sdm.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/sdm.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/sdmdefs.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/sdmdefs.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/sdmparse.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/sdmparse.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/sdmproc.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/sdmproc.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/sdmtmpl.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/sdmtmpl.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/sdmver.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/sdmver.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/sym.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/sym.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/lib/uops.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/lib/uops.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/link.mak",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/link.mak"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/LOADFONT.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/LOADFONT.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/looks.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/looks.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/macrocmd.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/macrocmd.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/mathapi.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/mathapi.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/menu.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/menu.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/menu2.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/menu2.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/menuhelp.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/menuhelp.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/menuhelp.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/merge.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/merge.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/message.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/message.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/mouse.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/mouse.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/newexe.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/newexe.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/nsdm.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/nsdm.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/open.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/open.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/open.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/openrare.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/openrare.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/opus.def",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/opus.def"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ourmath.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ourmath.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/outwin.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/outwin.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/pic.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/pic.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/pic.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/PIC.H",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/PIC.H"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/PIC2.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/PIC2.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/PIC3.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/PIC3.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/pictdrag.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/pictdrag.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/preffile.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/preffile.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/preview.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/preview.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/preview.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/preview.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/print.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/print.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/print.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/print.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/print1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/print1.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/print2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/print2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/profile.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/profile.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/profwin.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/profwin.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/profwin2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/profwin2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/prompt.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/prompt.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/prompt.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/prompt.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/prvw2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/prvw2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/quit.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/quit.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/RAREFLAG.H",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/RAREFLAG.H"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/raremsg.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/raremsg.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rcbmp1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rcbmp1.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rcbmp13.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rcbmp13.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rcbmp2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rcbmp2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rcbmp23.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rcbmp23.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rcbmp3.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rcbmp3.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rcbmp4.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rcbmp4.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rcbmp43.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rcbmp43.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rcinit.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rcinit.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/recorder.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/recorder.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/recorder.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/recorder.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/renum.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/renum.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/renum.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/renum.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/replace.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/replace.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rerr.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rerr.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/res.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/res.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/resource/IBCM.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/resource/IBCM.H.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/resource/misc.rc",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/resource/misc.rc"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/resource/OPUSCMD.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/resource/OPUSCMD.H.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/resource/OPUSCMD2.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/resource/OPUSCMD2.H.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/resource/OPUSMENU.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/resource/OPUSMENU.H.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/resource/RGBCM.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/resource/RGBCM.H.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/resource/winrc.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/resource/winrc.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/RESOURCE.H",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/RESOURCE.H"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rgtkr.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rgtkr.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ribbon.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ribbon.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ripaux.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ripaux.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rsb.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rsb.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rsb.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rsb.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/RTF.H",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/RTF.H"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/RTFIN.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/RTFIN.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/RTFIN2.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/RTFIN2.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/RTFOUT.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/RTFOUT.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rtfout2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rtfout2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/RTFRARE.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/RTFRARE.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rtfsubs.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rtfsubs.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/RTFTBL.H",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/RTFTBL.H"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rtftrans.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rtftrans.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/ruler.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/ruler.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rulerdrw.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rulerdrw.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/rulrib.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/rulrib.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/save.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/save.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/savetext.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/savetext.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/SCREEN.H",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/SCREEN.H"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/SCREEN2.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/SCREEN2.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/search.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/search.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/search.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/search.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/sedit.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/sedit.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/SLMVER.H",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/SLMVER.H"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/sort.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/sort.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/sort.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/sort.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/sorttbl.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/sorttbl.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/spelcore.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/spelcore.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/SPELL.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/SPELL.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/SPELL.H",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/SPELL.H"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/splitter.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/splitter.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/splitter.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/splitter.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/splshare.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/splshare.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/srchfmt.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/srchfmt.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/statline.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/statline.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/statline.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/status.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/status.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/strtbl.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/strtbl.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/strtbl.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/strtbl.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/strus.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/strus.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/style.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/style.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/style.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/style.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/stylesub.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/stylesub.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/sumstat.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/sumstat.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/SYSCHG.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/SYSCHG.C"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/tabs.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/tabs.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/tmc.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/tmc.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/toc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/toc.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/toc.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/toc.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/token.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/token.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/util2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/util2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/vars.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/vars.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/version.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/version.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/winddefs.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/winddefs.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/windows.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/windows.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wininfo.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wininfo.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/banter.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/banter.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/banter.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/banter.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/block.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/block.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/border.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/border.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/clsplc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/clsplc.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/compare.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/compare.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/curskeys.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/curskeys.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/disp.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/disp.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/disp2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/disp2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/disp3.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/disp3.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/disptbl.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/disptbl.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/doc.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/doc.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/editspec.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/editspec.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/editsub.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/editsub.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/error.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/error.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/error.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/error.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/fetch.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/fetch.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/fetch1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/fetch1.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/fetch2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/fetch2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/fetchtb.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/fetchtb.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/field.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/field.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/file.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/file.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/fkp.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/fkp.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/footnote.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/footnote.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/format.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/format.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/wordtech/format.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/format.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/format.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/formula.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/formula.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/gb2312.h",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/wordtech/gb2312.h.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/hdd.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/hdd.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/hyph.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/hyph.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/hyph.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/hyph.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/ihdd.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/ihdd.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/insert.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/insert.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/wordtech/insert.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/insert.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/insert.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/inssubs.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/inssubs.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/layout.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/layout.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/layout.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/layout.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/layout1.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/layout1.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/layout2.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/layout2.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/layoutap.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/layoutap.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/outline.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/outline.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/outline.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/outline.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/pagevw.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/pagevw.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/plc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/plc.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/prcsubs.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/prcsubs.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/printsub.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/printsub.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/prl.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/prl.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/prm.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/prm.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/props.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/props.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/savefast.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/savefast.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/savefast.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/savefast.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/scc.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/scc.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/scroll.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/scroll.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/sel.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/sel.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/select.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/select.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/wordtech/select.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/selectsp.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/selectsp.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/selecttb.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/selecttb.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/sttb.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/sttb.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/stysubs.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/stysubs.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/table.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/table.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/tablecmd.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/tablecmd.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/tableins.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/tableins.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/tablesub.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/tablesub.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/undo.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/undo.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/util.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/util.c"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/winkeys.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/winkeys.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordtech/word.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordtech/word.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wordwin.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wordwin.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wproc.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wproc.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/wproc.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wproca.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wproc.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/wproca.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/WPTEST.C",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wproc.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/WPTEST.C.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wwact.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wwact.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/wwact.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wwchange.c",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wwchange.c",
+    "patch": "src/main/office-patch/office-w30/word/CASHMERE/wwchange.c.patch"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wwdlg.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wwdlg.h"
+  },
+  {
+    "final": "external/word11a-current/CASHMERE/wwvk.h",
+    "original": "external/word11a-source/tree/Word 1.1a CHM Distribution/Opus/wwvk.h"
+  },
+  {
+    "final": "external/word11a-current/OPUS/CONST52.C",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/CONST52.C.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/DLGCHECK.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/DLGCHECK.H.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/ELXDEFS.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/ELXDEFS.H.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/ELXINFO.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/ELXINFO.H.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/IBCM.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/IBCM.H.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/MENUHELP.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/MENUHELP.H.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/OPUS.LNK",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/OPUS.LNK.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/OPUSCMD.ASM",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/OPUSCMD.ASM.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/OPUSCMD.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/OPUSCMD.H.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/OPUSCMD2.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/OPUSCMD2.H.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/OPUSMENU.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/OPUSMENU.H.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/OPUSNDB.DEF",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/OPUSNDB.DEF.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/RGBCM.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/RGBCM.H.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/TOOLBOX.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/TOOLBOX.H.patch"
+  },
+  {
+    "final": "external/word11a-current/OPUS/VERDATE.H",
+    "original": null,
+    "patch": "src/main/office-patch/office-w30/word/OPUS/VERDATE.H.patch"
+  }
+]

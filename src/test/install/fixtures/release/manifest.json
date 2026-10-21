@@ -1,0 +1,707 @@
+{
+  "date": "2026-10-18",
+  "inputs": {
+    "W30PY21.ZIP": "a0c48cbdc43a5192c1e32b8e446d4cf4058443307da8dc3c2ac816d603eef3a8",
+    "GB30PY21.ZIP": "77943eee8424a23121bf746a220b20d6a7c16eeb610fb10968676cc1e41093f1"
+  },
+  "terminology_modules": {
+    "CALC.CGA": "079583d778e9c87d58949e0fd7016a2f38ead85d01c5e0d8616ead256ddf2015",
+    "CALC.EXE": "a79b2f880aa74f052c6fd687ddca5578a92d4edd9997faafdca1bd2588bcfe48",
+    "CALENDAR.CGA": "80352a9a11e2bb1df9e876a309f445f2426ecb80b270506767af4898757032ac",
+    "CALENDAR.EXE": "7a3c24e16c02ca135c9d639fb41a709163a8ff6dc9d772a573282fba1888e779",
+    "CARDFILE.CGA": "420b47c4f41cc192b552412534b6dc2852b30d62d56b7e85b38f0ae780249629",
+    "CARDFILE.EXE": "2b018210b70a8902926cecdcc444c91d7801316a1cc005b4e7f416134c42240e",
+    "CHPPCL.DRV": "30beaf806163dd2700739c9d673e28174a5a78e31c501c088980b27c59325a3b",
+    "CLIPBRD.CGA": "82736149e74f00cafcf940bb3adaea214d6a6ce38bb71614ca4a5234916df948",
+    "CLIPBRD.EXE": "e7fb1fe9419922592ad9b6601a247885d7c3277ca9f6aa0a61219376cce35f8b",
+    "CLOCK.EXE": "79ee4fe049d2470dd1c5847c9ff3725488db03807781b80306de9505c3dd5ac4",
+    "CONTROL.CGA": "1e39c89c0754446fb78d0cd9d3828a4509bfbe7bdc87fdfd64030ab5f7642e62",
+    "CONTROL.EXE": "5df485309cd3fc8d87abff6fcde8f27e7f2e210e46583e994a87040933d5ea3d",
+    "CONTROL.TRM": "20005f540920739b0bb41bb39a39dc2780225a847e088af4884e89feb45c1dc2",
+    "FINSTALL.CGA": "7c5c1d5762d2bd2d430aec1e4b588091615f6f812cb1fa9ad62ab6c0b1f28752",
+    "FINSTALL.DLL": "a076354fa884ff39d1bcd7f25e41c4990d54eae8e5493adf71b159d65f9681be",
+    "MSDOS.CGA": "3ea18215a4b0975c0803e7fe375c475ab1f53c1d9948232669a89804a4a145fd",
+    "MSDOS.EXE": "8368560e1a57d0c308c500e16318f1effd0466f3df6ab74b1a32de30ffd7a16d",
+    "MSNET.DRV": "0a9ae66213438756c605b4ee79f5f73b310b2682079e8f46a24885d30e8a66f2",
+    "NOTEPAD.CGA": "ec02f3e089cf745d49f10b349cbfde8656cd0034f9b86feca4ed38da13dfe4c3",
+    "NOTEPAD.EXE": "b25f11fe6c3d9c1c9109d3694a17096daabf9fb8e54558eff6a3af1381f06bfa",
+    "PBRUSH.CGA": "38ea938d5064c27192979e0c0ce298dc207debb497797ac54b884f9ecbe4995a",
+    "PBRUSH.EXE": "2b61a9b0279028f7750c573d543fdc580616cb673aa2228387040e9a14d3ba76",
+    "PIFEDIT.EXE": "264917f707a9a494e5f39065ee0f4d278baa5c3e835426728175e7e565c81cd1",
+    "PIFEDIT.TRM": "f5e4c55a02743c1d01769f263596dc8192072ac6071c7ef7e6a9d3653cc99d87",
+    "PRINTMAN.CGA": "23af5a9b789adbdda1cac4033e8d77295d7df42a07f986b59324fbaa43979138",
+    "PRINTMAN.EXE": "a60e50a3e0de0a3b0f780c5b9a310cc15c95d6fe09c4d982b7aa5b99dc40b982",
+    "PROGMAN.CGA": "c513470997e718620e9324abd49fdca301a903046fb011f784fc2cde6ebd3462",
+    "PROGMAN.EXE": "7c29a48ffeb1b07e66544d5d2eb18f853bd4ffc6459a8d8ea3dfee71766834bc",
+    "RECORDER.CGA": "bc0cf22275177778e5745e18b587c3c62b1f7ec6b786a358de1e52d26d5b0ca8",
+    "RECORDER.EXE": "66246ab36efb97feff258ff78c3f50713826c735fb47371f9d3a27caddd566ea",
+    "REVERSI.EXE": "e1e0d26053f0e9ed01c7682ce1c1e5aa066522c713b471de1dd3d3f7befcb8bd",
+    "SHELL.CGA": "a2dc2adda9d960e9d26041809f1c3121da7e05fedf2f11b5f3950017fcfa939b",
+    "SHELL.DLL": "f0b5cc65eca78e825da23d3924e3651c44ba99738e9bc9ac380ec2e7a5f405e5",
+    "SOL.EXE": "812093eade53bd9c601c70943b62e099c04dc029ee2bcd6b89d984989ae62578",
+    "SWAPFILE.EXE": "c86db791b5a9ae317a918e980c9c3931b17be3d97011833cc7998af4e543e49a",
+    "SYSEDIT.EXE": "6bcdd1ea6b1659aa84d57ddd1383ef507792e33a8f7e08ff14e1369aa49b55d7",
+    "TERMINAL.CGA": "3abf1a28a446ef9b10b4a98643089b5f3c3f9278fe5f38e87c8a1bb999abe721",
+    "TERMINAL.EXE": "7074aa0d4877b68d6770b45f6d64b05bf65500dcd5e5ea842c2285b620b22f50",
+    "USER.EXE": "f8f1f4e61c851947f1562e082aff1f41655eab8988424c5d1dff04a5808161b1",
+    "USERFONT.CGA": "1fe6bc3b0d70fa5d7f9d665023b0cf69ab99b345e868c4cd14eb5209cf7ad30f",
+    "USERFONT.EXE": "3c8895f8fe0aa641772392e34bc8d951633aeef107da2c3858826e179ada15ec",
+    "USERFONT.TRM": "9fb532f2c9a560655354c0f491222e170d0c491776d12c7b59517085c0dc6908",
+    "WIFEMAN.DLL": "d8f1426edbcd3fb0f5745c5c1e9e63e1e5631897f7e025b6aceff611aff1b4cc",
+    "WINFILE.CGA": "8d8095dd3a17bd5a24911d31165a3e97b8188721f084f51f42de6e0c12c07672",
+    "WINFILE.EXE": "73193519a0f0a3cf4b4144cbbcdc058afaa3c093d4d541f16d6d47a7d45aa50c",
+    "WINHELP.CGA": "fa235f76db62f5722c4dcc874b56fb389f06848f4dd8f4cc42a48774ebcae3a0",
+    "WINHELP.EXE": "658deaa4d68c94ec6bb4cd949d4f6ae570f61314a9f5cd82137693cb103c4d09",
+    "WRITE.CGA": "52d3e1d45ca66160f42fb4615c9376335838bc3880ae3b3e918679d7300528bc",
+    "WRITE.EXE": "aac0756f7991e3bf1ffa14a649713a6f61d5ccd7220ac4a11f8cf2670a36fbb6"
+  },
+  "office_guards": [
+    {
+      "file": "USER.EXE",
+      "mode": 1,
+      "sha256": "F8F1F4E61C851947F1562E082AFF1F41655EAB8988424C5D1DFF04A5808161B1"
+    },
+    {
+      "file": "USER.EXE",
+      "mode": 2,
+      "sha256": "F8F1F4E61C851947F1562E082AFF1F41655EAB8988424C5D1DFF04A5808161B1"
+    },
+    {
+      "file": "WIFEMAN.DLL",
+      "mode": 1,
+      "sha256": "D8F1426EDBCD3FB0F5745C5C1E9E63E1E5631897F7E025B6ACEFF611AFF1B4CC"
+    },
+    {
+      "file": "WIFEMAN.DLL",
+      "mode": 2,
+      "sha256": "D8F1426EDBCD3FB0F5745C5C1E9E63E1E5631897F7E025B6ACEFF611AFF1B4CC"
+    },
+    {
+      "file": "PROGMAN.CGA",
+      "mode": 1,
+      "sha256": "C513470997E718620E9324ABD49FDCA301A903046FB011F784FC2CDE6EBD3462"
+    },
+    {
+      "file": "PROGMAN.EXE",
+      "mode": 2,
+      "sha256": "7C29A48FFEB1B07E66544D5D2EB18F853BD4FFC6459A8D8EA3DFEE71766834BC"
+    }
+  ],
+  "installer_sha256": "892238a4da225c4abd5bc8fef20ef5322466358073f430eb7af5777c899eb27a",
+  "pinyin_version": "2.1",
+  "distinct_phrases": 24678,
+  "runtime_ime_sha256": "6dd4480ab91b84de9052c64fdfdb0ce0ff36366afc3c9b60f5288edd9c7f4829",
+  "dictionary_sha256": "ce326c7a824705536fa292eb9e59265d3ceeaa5cec81952fa05b6423a4a98902",
+  "packages": {
+    "W30SC21.ZIP": {
+      "sha256": "724f8557fa7f6fd73ebf2a9eafc0e4126906c0671ea66df64b83c942bf43e324",
+      "bytes": 15478373,
+      "files": 409
+    },
+    "GB30SC21.ZIP": {
+      "sha256": "8121a004cd01e1cd9809b87779eeee2a82a9ff2e21cec7cd632df16a2f5e3b93",
+      "bytes": 6376508,
+      "files": 39
+    }
+  },
+  "terminology_stage": "ZHRES applied by INSTALL/FINALIZE after original GUI Setup",
+  "shell_registration": "96 bytes at offset 6048 preserved by GBTERM; unknown shell images rejected",
+  "verification": {
+    "archive_checks": "PASS: ZIP CRC, all member SHA-256, DOS 8.3, GB2312/CRLF documents",
+    "installations": {
+      "cga": {
+        "status": "PASS",
+        "video": "cga",
+        "original_setup_groups": [
+          "CACCESOR.GRP",
+          "CGAMES.GRP",
+          "CMAIN.GRP"
+        ],
+        "terminology_modules_checked": [
+          "CALC.EXE",
+          "CALENDAR.EXE",
+          "CARDFILE.EXE",
+          "CLIPBRD.EXE",
+          "CLOCK.EXE",
+          "CONTROL.EXE",
+          "FINSTALL.DLL",
+          "MSDOS.EXE",
+          "MSNET.DRV",
+          "NOTEPAD.EXE",
+          "PBRUSH.EXE",
+          "PIFEDIT.EXE",
+          "PRINTMAN.EXE",
+          "PROGMAN.EXE",
+          "RECORDER.EXE",
+          "REVERSI.EXE",
+          "SHELL.DLL",
+          "SOL.EXE",
+          "SYSEDIT.EXE",
+          "TERMINAL.EXE",
+          "USER.EXE",
+          "USERFONT.EXE",
+          "WIFEMAN.DLL",
+          "WINFILE.EXE",
+          "WINHELP.EXE",
+          "WRITE.EXE"
+        ],
+        "shell_registration_preserved": true,
+        "office_plan_install_verify_remove_recover": true,
+        "windows_and_user_files_restored": true,
+        "cpu": "386",
+        "dos": "DOSBox-X internal DOS version API 6.0",
+        "extra_memory": false
+      },
+      "vga": {
+        "status": "PASS",
+        "video": "vga",
+        "original_setup_groups": [
+          "CACCESOR.GRP",
+          "CGAMES.GRP",
+          "CMAIN.GRP"
+        ],
+        "terminology_modules_checked": [
+          "CALC.EXE",
+          "CALENDAR.EXE",
+          "CARDFILE.EXE",
+          "CHPPCL.DRV",
+          "CLIPBRD.EXE",
+          "CLOCK.EXE",
+          "CONTROL.EXE",
+          "FINSTALL.DLL",
+          "MSDOS.EXE",
+          "MSNET.DRV",
+          "NOTEPAD.EXE",
+          "PBRUSH.EXE",
+          "PIFEDIT.EXE",
+          "PRINTMAN.EXE",
+          "PROGMAN.EXE",
+          "RECORDER.EXE",
+          "REVERSI.EXE",
+          "SHELL.DLL",
+          "SOL.EXE",
+          "SYSEDIT.EXE",
+          "TERMINAL.EXE",
+          "USER.EXE",
+          "USERFONT.EXE",
+          "WIFEMAN.DLL",
+          "WINFILE.EXE",
+          "WINHELP.EXE",
+          "WRITE.EXE"
+        ],
+        "shell_registration_preserved": true,
+        "office_plan_install_verify_remove_recover": true,
+        "windows_and_user_files_restored": true,
+        "cpu": "386",
+        "dos": "DOSBox-X internal DOS version API 6.0",
+        "extra_memory": false
+      }
+    },
+    "vga_runtime_mode_flags": {
+      "S": 1045,
+      "R": 1028,
+      "3": 1061
+    },
+    "cga_desktop": "PASS: 8086, /R, memsize=1, XMS/EMS/UMB disabled; Program Manager and Office group visually inspected",
+    "setup": "Original graphical Setup created CMAIN/CACCESOR/CGAMES on fresh E: trees; CGA GUI phase resumed after initial automated key sequence stalled at the original network warning",
+    "scope": "DOSBox-X internal DOS. Office maintenance checks use 386 CPU with extra memory disabled; executables compiled for 8086. No new real MS-DOS/hardware, long-document, printing or full IME replay claims.",
+    "late_changes": "Only GUIDE.TXT and PY21DOC/GUIDE.TXT changed after test extraction; runtime files verified identical to tested media."
+  },
+  "cleanup": {
+    "inventory_bytes": 26624815285,
+    "windows2_and_shared_files_verified": 23361,
+    "missing": 0,
+    "changed": 0
+  },
+  "hp200lx_fix": {
+    "revision": "HP200LX-R2",
+    "previous_packages": {
+      "W30SC21.ZIP": {
+        "sha256": "17796f21b2988c76218a303d87a4b5ca4f12236d7547c8c92e7436923bb7498c",
+        "bytes": 15478462,
+        "files": 408
+      },
+      "GB30SC21.ZIP": {
+        "sha256": "dc34aa85fcf70ae2d41aed642943404cab5b2a9b608e35a9d80737bdea47b8fe",
+        "bytes": 6440663,
+        "files": 39
+      }
+    },
+    "runtime_changes": [
+      "FINALIZE.BAT",
+      "GBPATH.EXE",
+      "INSTALL.BAT",
+      "WINR.BAT"
+    ],
+    "old_gbpath_sha256": "4c595f812205415abe504e67a688a95afed902321e9f56edd1a30c6bebb25f8e",
+    "new_gbpath_sha256": "e372a15deb414416dcfa6bd34119b282144dbedb50d954db2b062893a5a2a985",
+    "focused": {
+      "status": "PASS",
+      "emulator": "DOSBox-X internal DOS API 5.0; A drive; 80186_prefetch; 3000 cycles; no FPU/XMS/EMS/UMB",
+      "new_media_scan_seconds_including_emulator_start": 11.618,
+      "old_media_scan_lower_bound_seconds": 55,
+      "checks": [
+        "both real IME slots and three real driver slots relocated to A:",
+        "80-byte slots straddling read boundaries",
+        "repeat relocation",
+        "duplicate driver path rejected before any IME/driver write",
+        "truncated font rejected and stale success marker removed",
+        "all three complete font banks accepted"
+      ],
+      "old_benchmark_configuration": "8086_prefetch, 3000 cycles; this is a timeout observation, not a same-CPU speed comparison."
+    },
+    "manual_setup_repair": {
+      "status": "PASS",
+      "source": "A:\\W30",
+      "destination": "A:\\WINDOWS",
+      "fixture": "Original Setup copied system files; shell/INI and empty valid groups prepared explicitly. GUI registration was not completed automatically.",
+      "old_finalize": "Completed layout while all three CGA font banks remained absent.",
+      "new_finalize": "All three complete banks copied byte-for-byte; all prior success markers removed before repair and repeat runs, then path, WIFE, CGA and layout markers recreated; IME copies identical; WINR installed.",
+      "repeat_finalize": "PASS",
+      "boot": {
+        "status": "PASS",
+        "configuration": "DOSBox-X CGA, 8086_prefetch, memsize=1, FPU/XMS/EMS/UMB disabled, A drive, WINR invokes WIN /R.",
+        "visual_comparison": "Same prepared system: removing only CHCGA12/10/08 reproduced missing title/menu glyphs. After FINALIZE restored the banks, Program Manager title and File/Options/Window/Help Chinese labels rendered completely.",
+        "missing_screenshot_sha256": "31216aac98db59486d5125e090c9c935b8c20271575b5fa8c4ca5a946461ac4f",
+        "restored_screenshot_sha256": "f89f1b19311e2b4e655bce048defe00e691ab3f7a48419eb83ef1883d60024e2",
+        "limitation": "Prepared recovery fixture, not a full GUI Setup success; real HP 200LX revision retest remains pending."
+      },
+      "old_seconds": 4.849,
+      "new_seconds": 3.053,
+      "repeat_seconds": 2.929
+    },
+    "actual_hardware": "Awaiting user retest of revised media; prior user feedback concerns the previous package.",
+    "unchanged": "All font banks, Windows/IME runtime modules, Word/Excel apps and Office installer binaries; only Windows DOS helper/batches/launcher and installation guides revised."
+  },
+  "previous_verification_scope": {
+    "packages": {
+      "W30SC21.ZIP": {
+        "sha256": "17796f21b2988c76218a303d87a4b5ca4f12236d7547c8c92e7436923bb7498c",
+        "bytes": 15478462,
+        "files": 408
+      },
+      "GB30SC21.ZIP": {
+        "sha256": "dc34aa85fcf70ae2d41aed642943404cab5b2a9b608e35a9d80737bdea47b8fe",
+        "bytes": 6440663,
+        "files": 39
+      }
+    },
+    "note": "Verification recorded before hp200lx_fix applies to the preceding archive hashes. New revision checks are recorded in hp200lx_fix."
+  },
+  "office_dos5_fix": {
+    "revision": "DOS5-R1",
+    "date": "2026-10-19",
+    "minimum_dos": "5.0",
+    "cpu": "8086",
+    "previous_packages": {
+      "W30SC21.ZIP": {
+        "sha256": "d5fd2078be827e056feb121bcfc91e1ef3827008c64cc74912d83fa7a250ed08",
+        "bytes": 15480426,
+        "files": 409
+      },
+      "GB30SC21.ZIP": {
+        "sha256": "533fa8c61d565c675c00174609a90bef29ef1380eb6630e2c177944eed5d181d",
+        "bytes": 6441243,
+        "files": 39
+      }
+    },
+    "previous_installer_sha256": "e01e45440411c9c3a65cb79680392316568dded76d51db2d3759613a35b3c956",
+    "build": "Open Watcom 16-bit DOS; -0 -bt=dos -ml -ot -k24576; 0 warnings, 0 errors.",
+    "current_installer_sha256": "603ad96fff80a8ecdb1b280b5d18566e40fd98703d6b9b6b6b52afb69a96c356",
+    "changes": {
+      "W30SC21": [
+        "GUIDE.TXT"
+      ],
+      "GB30SC21": [
+        "GUIDE.TXT",
+        "INSTALL.EXE",
+        "RECOVER.EXE",
+        "REMOVE.EXE"
+      ]
+    },
+    "verification": {
+      "status": "PASS",
+      "environment": "DOSBox-X internal DOS API 5.0; 640 KB conventional memory; FPU/XMS/EMS/UMB/LFN disabled; A drive. DOS gate/startup and complete CGA read-only plan use 8086_prefetch; transaction lifecycle uses dynamic 386 CPU for test speed. All executable code compiled for 8086.",
+      "hardware": "Real HP 200LX DOS 5.0 retest pending.",
+      "tests": [
+        {
+          "status": "PASS",
+          "video": "CGA",
+          "fixture": "Package-derived native Windows guards and explicitly prepared INI files; not a full Windows installation test.",
+          "checks": [
+            "old DOS6 guard reproduced",
+            "DOS4 rejected",
+            "DOS5 CANCEL read-only",
+            "DOS5 install and VERIFY",
+            "application bytes match",
+            "installed REMOVE and standalone transaction RECOVER",
+            "all Windows/user bytes restored",
+            "injected mid-deploy interruption recovered",
+            "old R6 install upgraded from DOS6 to new maintenance on DOS5"
+          ]
+        },
+        {
+          "status": "PASS",
+          "video": "VGA",
+          "fixture": "Package-derived native Windows guards and explicitly prepared INI files; not a full Windows installation test.",
+          "checks": [
+            "old DOS6 guard reproduced",
+            "DOS4 rejected",
+            "DOS5 CANCEL read-only",
+            "DOS5 install and VERIFY",
+            "application bytes match",
+            "installed REMOVE and standalone transaction RECOVER",
+            "all Windows/user bytes restored"
+          ]
+        }
+      ]
+    },
+    "transaction_format": "Existing GB30TX-6.4-R6 layout retained; prior published maintenance hash accepted for explicit UPGRADE.",
+    "unchanged": "All Word/Excel app binaries, input method, dictionaries, fonts, Windows runtime files and Windows DOS helpers/batches.",
+    "source_sha256": {
+      "group64.h": "7c45b242b868d6d557ca5d3e53e90ae6f7478dec9059b22b7985908276bd5db8",
+      "ini62.h": "25eff7c0e25a8d6f45c3bc186ba659050ab1ba7c7f003c926ac1b1b81f6198e7",
+      "install62.c": "735acb023f8147133bf3ce8636a3c4ea9982531753a905d30eb0dbc93769a84d",
+      "sha62.h": "26d8b429e04dc6bdea26f34ed1cddcdda3862ced728f2d6123775b5720da05bd",
+      "tables62.h": "4987605cfff9671e0c38071254139313ece4c30c947e3ea60cef2c20078176d8"
+    },
+    "superseded_by": "DOS5-R2; historical checks apply to the DOS5-R1 maintenance hash.",
+    "source_retention": "Superseded installer sources removed at user request on 2026-10-20."
+  },
+  "office_progress_fix": {
+    "revision": "DOS5-R2",
+    "date": "2026-10-19",
+    "minimum_dos": "5.0",
+    "cpu": "8086",
+    "previous_packages": {
+      "W30SC21.ZIP": {
+        "sha256": "40086e72dfbfd0920147d93fc6b8f4702858e57666be40cc9285ec783f29af0d",
+        "bytes": 15480704,
+        "files": 409
+      },
+      "GB30SC21.ZIP": {
+        "sha256": "13e8d620f0399917a386cffaefff91bb74dbb8615621594a4c8cde9603cee0ae",
+        "bytes": 6441785,
+        "files": 39
+      }
+    },
+    "previous_installer_sha256": "603ad96fff80a8ecdb1b280b5d18566e40fd98703d6b9b6b6b52afb69a96c356",
+    "build": "Open Watcom 16-bit DOS; -0 -bt=dos -ml -ot -k24576; 0 warnings, 0 errors.",
+    "current_installer_sha256": "6f5824009dc64db9d49c7dac5895e1fbc79736e371cd5d2cfbdb456851a86c12",
+    "changes": {
+      "W30SC21": [
+        "GUIDE.TXT"
+      ],
+      "GB30SC21": [
+        "GUIDE.TXT",
+        "INSTALL.EXE",
+        "RECOVER.EXE",
+        "REMOVE.EXE"
+      ]
+    },
+    "verification": {
+      "status": "PASS",
+      "environment": "DOSBox-X internal DOS API 5.0; 640 KB conventional memory; FPU/XMS/EMS/UMB/LFN disabled; A drive. DOS gate/startup and complete CGA read-only plan use 8086_prefetch; transaction lifecycle uses dynamic 386 CPU for test speed. All executable code compiled for 8086.",
+      "hardware": "Real HP 200LX DOS 5.0 retest pending.",
+      "tests": [
+        {
+          "status": "PASS",
+          "video": "CGA",
+          "fixture": "Package-derived native Windows guards and explicitly prepared INI files; not a full Windows installation test.",
+          "live_progress": {
+            "status": "PASS",
+            "configuration": "8086_prefetch, 3000 cycles, DOS API 5.0",
+            "seconds_observed": 18,
+            "frames": 16,
+            "target_changes": false,
+            "note": "Stopped during read-only core verification; console frames require visual review.",
+            "visual_review": {
+              "status": "PASS",
+              "method": "Visual inspection of DOS console captures; byte counters advanced on USER.EXE. Version and stage prefixes confirmed in completed plan log.",
+              "frames": {
+                "install_005.png": {
+                  "sha256": "870bf0bca0381f9a15ca6e2f1ecfe7f68bc0a5db3f1ecc9b45aa855d9971c3ab",
+                  "observed_user_exe_bytes": 41472
+                },
+                "install_015.png": {
+                  "sha256": "ff7639abdc3d845979ab0de9034b1cf03b5444789b5a9155a2b394b7ebecbb9a",
+                  "observed_user_exe_bytes": 146432
+                }
+              }
+            }
+          },
+          "checks": [
+            "old DOS6 guard reproduced",
+            "DOS4 rejected",
+            "DOS5 CANCEL read-only",
+            "DOS5 install and VERIFY",
+            "application bytes match",
+            "installed REMOVE and standalone transaction RECOVER",
+            "all Windows/user bytes restored",
+            "injected mid-deploy interruption recovered",
+            "old R6 install upgraded from DOS6 to new maintenance on DOS5",
+            "DOS5-R1 maintenance upgraded to DOS5-R2"
+          ]
+        },
+        {
+          "status": "PASS",
+          "video": "VGA",
+          "fixture": "Package-derived native Windows guards and explicitly prepared INI files; not a full Windows installation test.",
+          "live_progress": null,
+          "checks": [
+            "old DOS6 guard reproduced",
+            "DOS4 rejected",
+            "DOS5 CANCEL read-only",
+            "DOS5 install and VERIFY",
+            "application bytes match",
+            "installed REMOVE and standalone transaction RECOVER",
+            "all Windows/user bytes restored"
+          ]
+        }
+      ]
+    },
+    "sha256_checks": {
+      "status": "PASS",
+      "vectors": 16,
+      "sizes": [
+        0,
+        1,
+        3,
+        55,
+        56,
+        63,
+        64,
+        65,
+        127,
+        128,
+        4095,
+        4096,
+        4097,
+        16384,
+        131072,
+        1000000
+      ],
+      "reference": "Python hashlib SHA-256",
+      "cpu": "DOSBox-X 8086_prefetch; no FPU/XMS/EMS/UMB; DOS API 5.0",
+      "benchmark": "Same 16384-byte input, 3000 cycles, BIOS timer ticks; excludes emulator startup.",
+      "ticks": {
+        "OLD": 35,
+        "FAST": 29
+      },
+      "old_over_new": 1.21,
+      "limitation": "Emulated timing; not HP 200LX hardware timing."
+    },
+    "progress": "Version banner, phase, file path, timer-throttled byte counter for hashing and copy. No transaction writes during read-only planning.",
+    "transaction_format": "Existing GB30TX-6.4-R6 layout retained; prior published maintenance hash accepted for explicit UPGRADE.",
+    "unchanged": "All Word/Excel app binaries, input method, dictionaries, fonts, Windows runtime files and Windows DOS helpers/batches.",
+    "source_sha256": {
+      "group64.h": "7c45b242b868d6d557ca5d3e53e90ae6f7478dec9059b22b7985908276bd5db8",
+      "ini62.h": "25eff7c0e25a8d6f45c3bc186ba659050ab1ba7c7f003c926ac1b1b81f6198e7",
+      "install62.c": "426e92c9104a7bfedf0fdeed6bcbf3c8a962f2b9af54c7a0430842dcde40e4ad",
+      "sha62.h": "6b3ec9750642faa538ca2bbf3fb401b6e80a36003836197f7c31297b4789685d",
+      "sha8086.h": "ca17a729adc903af1310f3e1dbfe6ba4c082d610b6b770084bdd5e3baa1abc2a",
+      "tables62.h": "9b0baabb899452bd9130304208df6eea3e19af0c6601367769b4264617f6eb39"
+    },
+    "superseded_by": "DOS5-R3; historical SHA checks apply to DOS5-R2 only.",
+    "source_retention": "Superseded installer sources removed at user request on 2026-10-20."
+  },
+  "office_crc_fix": {
+    "revision": "DOS5-R3",
+    "date": "2026-10-19",
+    "minimum_dos": "5.0",
+    "cpu": "8086",
+    "previous_packages": {
+      "W30SC21.ZIP": {
+        "sha256": "4ecf3f6eb120e4c97ed4d36df98fda69337c13800ec54bbd9484970ab2739206",
+        "bytes": 15481133,
+        "files": 409
+      },
+      "GB30SC21.ZIP": {
+        "sha256": "bd317900fb4771f139654144b7727a5e7b39cf757aed3ee04c949c27acbb140d",
+        "bytes": 6443712,
+        "files": 39
+      }
+    },
+    "previous_installer_sha256": "6f5824009dc64db9d49c7dac5895e1fbc79736e371cd5d2cfbdb456851a86c12",
+    "build": "Open Watcom -0 -bt=dos -ml -ot -k24576; 0 warnings, 0 errors.",
+    "current_installer_sha256": "283da9b7b1b59ccd28384c1aca3c1b1fcb143a3d03a3bdb2bed948d20795841a",
+    "changes": {
+      "W30SC21": [
+        "GUIDE.TXT"
+      ],
+      "GB30SC21": [
+        "GUIDE.TXT",
+        "INSTALL.EXE",
+        "RECOVER.EXE",
+        "REMOVE.EXE"
+      ]
+    },
+    "verification": {
+      "status": "PASS",
+      "runtime_checksum": "CRC32 and length; no SHA-256 code or file passes",
+      "tests": [
+        {
+          "status": "PASS",
+          "video": "CGA",
+          "plan_seconds": 117.139,
+          "cpu": "8086_prefetch; no FPU/XMS/EMS/UMB/LFN; DOSBox-X internal DOS API 5.0",
+          "plan_cycles": 3000,
+          "checks": [
+            "same-size native/module corruption rejected",
+            "CANCEL read-only",
+            "same-size media corruption rejected",
+            "install and VERIFY",
+            "app bytes identical",
+            "C1 CRC journal",
+            "installed REMOVE and standalone RECOVER",
+            "Windows/user files restored",
+            "new interrupted deploy recovered",
+            "old SHA transaction recovered without SHA",
+            "old interrupted preparation aborted without SHA",
+            "DOS5-R2 upgrade"
+          ],
+          "fixture": "Explicitly prepared native prerequisites and INI, not a full Windows Setup test."
+        },
+        {
+          "status": "PASS",
+          "video": "VGA",
+          "plan_seconds": 6.795,
+          "cpu": "8086_prefetch; no FPU/XMS/EMS/UMB/LFN; DOSBox-X internal DOS API 5.0",
+          "plan_cycles": "max",
+          "checks": [
+            "same-size native/module corruption rejected",
+            "CANCEL read-only",
+            "same-size media corruption rejected",
+            "install and VERIFY",
+            "app bytes identical",
+            "C1 CRC journal",
+            "installed REMOVE and standalone RECOVER",
+            "Windows/user files restored"
+          ],
+          "fixture": "Explicitly prepared native prerequisites and INI, not a full Windows Setup test."
+        }
+      ],
+      "hardware": "HP 200LX real-machine retest pending.",
+      "extra_checks": [
+        "corrupt C1 transaction checksum rejected before writes",
+        "out-of-root recovery target rejected before writes"
+      ]
+    },
+    "checksum_benchmark": {
+      "status": "PASS",
+      "vectors": 15,
+      "reference": "Python zlib.crc32 and byte length",
+      "benchmark": "Same 65536-byte input, 8086_prefetch, 3000 cycles, BIOS timer ticks, excludes startup",
+      "ticks": {
+        "SHA": 113,
+        "CRC": 11
+      },
+      "sha_over_crc": 10.27,
+      "limitation": "CPU checksum benchmark only; not whole-install or HP 200LX hardware timing."
+    },
+    "runtime_tables": {
+      "status": "PASS",
+      "algorithm": "CRC32 plus byte length; no DOS SHA computation",
+      "available_host_digests": 431,
+      "unavailable_historical_variants": 28,
+      "scope": "Current final Windows/Office payloads, their unlocalized native inputs, DOS5-R1/R2 and preceding R6 maintenance binaries. Older unavailable experiments are not accepted."
+    },
+    "runtime_checks": "CRC32 plus byte length, DOS paths/attributes/free space, boot configuration and transaction structure. No SHA-256 code or file passes.",
+    "distribution_checks": "ZIP/member SHA-256 retained for host-PC verification.",
+    "transaction_format": "GB30TX-6.4-C1; CRC32/length. Normal legacy R1-R6 journals checked against readable mirror and bounded backups, converted in memory without SHA. Legacy pre-ready preparation can be aborted. Already-started legacy merge journals require the recorded old recovery program.",
+    "unchanged": "Word/Excel application and shared runtime bytes, fonts, IME, Windows DOS helpers and Windows 2.x.",
+    "source_sha256": {
+      "crcfast.h": "493c091324dee6d50575fbdc82cf9df18dd2a5bcc7c47808504a71d2bd924165",
+      "group64.h": "7c45b242b868d6d557ca5d3e53e90ae6f7478dec9059b22b7985908276bd5db8",
+      "ini62.h": "25eff7c0e25a8d6f45c3bc186ba659050ab1ba7c7f003c926ac1b1b81f6198e7",
+      "install62.c": "a6f056c455863b922bd21f2ffb030cb3d09a0763168c298daf07bebe05daf552",
+      "tables62.h": "e68b337d8504a3be149ea594347b82288086ea53dd4f817cd577bfab81381389"
+    },
+    "superseded_by": "DOS5-R4; CRC checks apply to historical R3 only.",
+    "source_retention": "Superseded installer sources removed at user request on 2026-10-20."
+  },
+  "installer_no_checks": {
+    "date": "2026-10-20",
+    "windows_revision": "HP200LX-R3",
+    "office_revision": "DOS5-R4",
+    "runtime_checksums": "none; no SHA, CRC, file-length fingerprint or content comparison passes",
+    "windows_changes": "Fixed IME/driver path offsets; no font-bank validation, group checksum verification, media inventory or SHELL byte comparison.",
+    "office_changes": "Copy selected files from media to targets once; edit required INI/group configuration. Existing-file backups retained; no payload postimage copies or verification rereads.",
+    "current_installer_sha256": "892238a4da225c4abd5bc8fef20ef5322466358073f430eb7af5777c899eb27a",
+    "gbpath_sha256": "7fe9b4b84129845934ddaaae98d437ded58410299f86feb48eb592278adc2aa1",
+    "gbterm_sha256": "29041119c09619cd0ded9f2c0f0eebf3a4cd515d4441853deaed601a06843889",
+    "previous_packages": {
+      "W30SC21.ZIP": {
+        "sha256": "281a666cb2687047032ea5516d867031a1edd9be1a9ea243604f6a3bb3096e31",
+        "bytes": 15481142,
+        "files": 409
+      },
+      "GB30SC21.ZIP": {
+        "sha256": "93ee47c4c40c34237cc4a5fede8893d63402ea5fc3df1b336c3efcec6fb56bb3",
+        "bytes": 6436281,
+        "files": 39
+      }
+    },
+    "changes": {
+      "W30SC21": [
+        "FINALIZE.BAT",
+        "GBPATH.EXE",
+        "GBTERM.EXE",
+        "GUIDE.TXT",
+        "INSTALL.BAT"
+      ],
+      "GB30SC21": [
+        "GUIDE.TXT",
+        "INSTALL.EXE",
+        "RECOVER.EXE",
+        "REMOVE.EXE"
+      ]
+    },
+    "verification": {
+      "status": "PASS",
+      "tests": [
+        {
+          "video": "CGA",
+          "status": "PASS",
+          "dos": "DOSBox-X DOS API 5.0; strict 8086; no FPU/XMS/EMS/UMB/LFN",
+          "scope": "Current Windows path update and FINALIZE on prepared Setup fixture; current Office install, exact copied apps and required configuration.",
+          "excluded": "No full graphical Windows Setup, real HP200LX test, old-version recovery or performance benchmark."
+        },
+        {
+          "video": "VGA",
+          "status": "PASS",
+          "dos": "DOSBox-X DOS API 5.0; strict 8086; no FPU/XMS/EMS/UMB/LFN",
+          "scope": "Current Windows path update and FINALIZE on prepared Setup fixture; current Office install, exact copied apps and required configuration.",
+          "excluded": "No full graphical Windows Setup, real HP200LX test, old-version recovery or performance benchmark."
+        }
+      ]
+    },
+    "source_sha256": {
+      "group64.h": "dc59f6c6dc40471cc150710bdfc3dd709585898393dd26b78276305a98f5d96b",
+      "ini62.h": "e3031cbd7a7a8c117f9f843532da19b39debf808ece360ced25aa3e9b4826538",
+      "install62.c": "3d5fa2160ff9cae5d009c65fdc228e04e362773781140bb08d612ae042e42d86",
+      "tables62.h": "c7e3c3b7b254ef80b1c83b962c4f2ae8eaea820a7f9755cc6eed8224cc192ad3"
+    },
+    "windows_source_sha256": {
+      "FINALIZE.BAT": "95f8fafdd287a31a835a59519a1c85ba16038f7b62ffb31c48077c3c297fd909",
+      "GBPATH.C": "a2061adc5069f8b6bee54dca0a13b25684c21ac773fb8eeff3717db2711e59d3",
+      "GBTERM.C": "d35a31b9803659e1de982f0c124323305eb4290f301e01811d4cff4cf7c92241",
+      "INSTALL.BAT": "460a26488b3d2884568f1226f0e23b8d66213a68058c8604bbe82c4931b23c09"
+    },
+    "build": "Open Watcom, 8086 DOS targets; zero compiler warnings/errors.",
+    "unchanged": "Windows/Office application payloads, fonts, Pinyin 2.1, and all Windows 2.x files."
+  },
+  "layout": {
+    "date": "2026-10-20",
+    "release": "ZIP files only",
+    "packages": [
+      "release/W30SC21.ZIP",
+      "release/GB30SC21.ZIP"
+    ],
+    "delivery_metadata": "docs/release/manifest.json",
+    "source": "src/main",
+    "tests": "src/test",
+    "office_source": "src/main/office-patch/office-w30",
+    "installer_build_work": "src/test/install/work/build"
+  }
+}

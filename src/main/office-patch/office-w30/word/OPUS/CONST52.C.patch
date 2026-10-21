@@ -1,0 +1,8 @@
+--- a/OPUS/CONST52.C
++++ b/OPUS/CONST52.C
+@@ -0,0 +1,5 @@
++int Const146(){return 146;}
++int Const68(){return 68;}
++int Const118(){return 118;}
++int Const150(){return 150;}
++int ConstVar(n) int n;{return n+146;}

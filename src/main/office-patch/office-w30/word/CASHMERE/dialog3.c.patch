@@ -1,0 +1,20 @@
+--- a/CASHMERE/dialog3.c
++++ b/CASHMERE/dialog3.c
+@@ -702,7 +702,7 @@
+ }
+ 
+ 
+-csconst CHAR stAuto[] = StKey("Auto",AutoDef);
++csconst CHAR stAuto[] = StKey("×Ô¶¯",AutoDef);
+ 
+ 
+ /*  %%Function:  WParseOptRange  %%Owner:  bobz       */
+@@ -864,7 +864,7 @@
+ 	szCopy[cch] = '\0';
+ 	bltbx((char far *) stAuto + 1, (char far *) szAutoCopy, *stAuto);
+ 	szAutoCopy[*stAuto] = '\0';
+-	return FEqNcSz(szCopy, szAutoCopy);
++	return FEqNcSz(szCopy, szAutoCopy) || FEqNcSz(szCopy, "Auto");
+ }
+ 
+ 

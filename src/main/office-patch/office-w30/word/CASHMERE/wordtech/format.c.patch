@@ -1,0 +1,292 @@
+--- a/CASHMERE/wordtech/format.c
++++ b/CASHMERE/wordtech/format.c
+@@ -17,6 +17,7 @@
+ #include "debug.h"
+ #include "compare.h"
+ #include "screen.h"
++#include "gb2312.h"
+ 
+ #ifdef MAC
+ #define FONTS
+@@ -37,6 +38,33 @@
+ #undef DxuExpand
+ #define DxpFromCh	C_DxpFromCh
+ #define DxuExpand	C_DxuExpand
++#undef FfcFormatFieldPdcp
++#define FfcFormatFieldPdcp GbField
++/* Keep this helper in p-code.  @ symbols are packed p-code tokens,
++ * not far code addresses; an assembly @GbField JMP is not a callable
++ * interpreter entry.  Use the existing registered field primitives. */
++int GbField();
++extern int wwCur;
++#ifdef WORD_GB_C_FORMAT
++
++HANDNATIVE int UMultDivNR(w, numer, denom)
++unsigned int w, numer, denom;
++{
++	unsigned long result;
++	if (denom == 0)
++		return 0xffff;
++	result = ((unsigned long)w * numer) / denom;
++	return result > 0xffffL ? 0xffff : (int)result;
++}
++HANDNATIVE int FNeChp(pchp1, pchp2)
++int *pchp1, *pchp2;
++{
++	if (((*pchp1++ ^ *pchp2++) & ~maskFs) != 0)
++		return fTrue;
++	return FNeRgw(pchp1, pchp2, cwCHP - 1);
++}
++
++#endif
+ #endif /* WIN */
+ 
+ #ifdef MAC
+@@ -440,6 +468,72 @@
+ #endif /* DEBUGORNOTWIN */
+ 
+ 
++GbField (pdcp, ww, doc, cp, ch)
++CP *pdcp;
++int ww, doc;
++CP cp;
++CHAR ch;
++{
++	int flt;
++	int ifld;
++	BOOL ffcReturn = ffcSkip;
++	BOOL fResult;
++	struct FLCD flcd;
++	struct EFLT eflt;
++
++	Assert (doc != docNil && cp < CpMacDoc (doc) && cp >= cp0);
++
++
++	Scribble (ispFieldFormat1, 'F');
++
++	if ((ifld = IfldFromDocCp (doc, cp, fTrue)) != ifldNil)
++		FillIfldFlcd (PdodDoc(doc)->hplcfld, ifld, &flcd);
++
++	flt = flcd.flt;
++
++	if ((ifld == ifldNil || flcd.fDirty) && (ch == chFieldBegin))
++		/* field is dead or must be parsed, try to parse it */
++		{
++		flt = FltParseDocCp (doc, cp, ifld, ww==wwCur /* fChgView */, fFalse /* fEnglish */);
++		if ((ifld = IfldFromDocCp (doc, cp, fTrue)) != ifldNil)
++		/* Note: FltParseDocCp may initialize hplcfld, so we need
++		   to do another PdodDoc(doc) here */
++			FillIfldFlcd (PdodDoc(doc)->hplcfld, ifld, &flcd);
++		}
++
++	if (ifld == ifldNil)
++		{  /* dead field */
++		/*  handles the case where the parse call caused the field to be
++			vanished. */
++		ffcReturn = ffcShow;
++		*pdcp = cp0;
++		goto LReturn;
++		}
++
++	Assert (ifld != ifldNil && flcd.flt >= fltMin && flcd.flt < fltMax);
++
++	fResult = FShowResultPflcdFvc (&flcd, ww/*fvcScreen*/);
++	*pdcp = DcpSkipFieldChPflcd (ch, &flcd, fResult, fFalse/*fFetch*/);
++
++	eflt = EfltFromFlt(flt);
++	if (fResult && eflt.fDisplay)
++		{
++		/* display type fields may have a CHRDF/CHRFG to build */
++		ffcReturn = FfcFormatDisplay (ch, doc, &flcd, pdcp);
++		}
++	else  if (*pdcp == 0)
++		ffcReturn = ffcShow;
++
++LReturn:
++	Assert (!(ffcReturn == ffcShow ^ *pdcp == 0));
++
++	Scribble (ispFieldFormat1, ' ');
++
++
++	return ffcReturn;
++
++}
++
+ /* F O R M A T  L I N E  D X A */
+ /* formats line in ww in doc starting at cp with column width dxa. */
+ 
+@@ -469,6 +563,12 @@
+ 	uns dxt;
+ 	uns dxp;
+ 	int ch;
++	int fWordGbPair;
++	int fWordGbCrossRun;
++	int chWordGbTrail;
++	int dxpWordGbLead;
++	int dcpWordGbExtra;
++	CP cpWordGbCur, cpWordGbRunLim;
+ 	int dypBefore;
+ 	DYY dyyAscent;
+ 	DYY dyyDescent;
+@@ -869,6 +969,40 @@
+ 
+ 		ch = *hpch++;
+ LHaveCh:
++		fWordGbPair = fFalse;
++		fWordGbCrossRun = fFalse;
++		/* Never leave one byte of a GB character at the line-buffer limit. */
++		if (FWordGbLead(ch) && ich + 1 >= ichMaxLine)
++			{ hpch--; goto LEndBreak0; }
++		if (FWordGbLead(ch) && hpch < hpchLim &&
++			FWordGbTrail(*hpch))
++			{
++			fWordGbPair = fTrue;
++			chWordGbTrail = (unsigned char)*hpch;
++			}
++		else if (FWordGbLead(ch) && hpch == hpchLim &&
++			(docNext == docNil || docNext == doc))
++			{
++			/* A piece or property run may end between two bytes.  Peek
++			 * at the next CP, then restore the current fetch before using
++			 * hpch/vhpchFetch again.  The logical extra CP is accounted for
++			 * until the next LFetch. */
++			cpWordGbCur = (hpch-vhpchFetch) + vcpFetch - 1;
++			if (cpWordGbCur + 1 < caPara.cpLim &&
++				cpWordGbCur + 1 < CpMacDocEdit(doc))
++				{
++				cpWordGbRunLim = (hpchLim-vhpchFetch) + vcpFetch;
++				chWordGbTrail = (unsigned char)
++					ChFetch(doc, cpWordGbCur+1, fcm);
++				fWordGbCrossRun = FWordGbTrail(chWordGbTrail) &&
++					!vchpFetch.fSpec && !vchpFetch.fVanish &&
++					!vchpFetch.fFldVanish;
++				FetchCp(doc, cpWordGbCur, fcm);
++				hpch = vhpchFetch + (int)(cpWordGbCur+1-vcpFetch);
++				hpchLim = vhpchFetch + (int)(cpWordGbRunLim-vcpFetch);
++				fWordGbPair = fWordGbCrossRun;
++				}
++			}
+ 		vfli.rgch[ich] = ch;
+ 
+ /* calculate the dxp and dxt width of ch */
+@@ -895,11 +1029,34 @@
+ 		dxt = dxp = DxpFromCh(ch, &vfti);
+ 		if (fDxt)
+ 			dxt = DxpFromCh(ch, &vftiDxt);
++		if (fWordGbPair)
++			{
++			dxpWordGbLead = dxp;
++			dxp += DxpFromCh(chWordGbTrail, &vfti);
++			dxt += DxpFromCh(chWordGbTrail, fDxt ? &vftiDxt : &vfti);
++			if (!fDxt)
++				dxt = dxp;
++			}
+ #endif
+ LHaveDxp:
+ 		xp += dxp;
+ 		xt += dxt;
+-		vfli.rgdxp[ich++] = dxp;
++		vfli.rgdxp[ich++] = fWordGbPair ? dxpWordGbLead : dxp;
++		if (fWordGbPair)
++			{
++			/* The GDI DBCS driver consumes one spacing entry per byte.
++			 * Keep the pair intact and preserve its total measured width. */
++			vfli.rgch[ich] = chWordGbTrail;
++			vfli.rgdxp[ich++] = dxp - dxpWordGbLead;
++			if (fWordGbCrossRun)
++				{
++				dcpWordGbExtra = 1;
++				cpNext = cpWordGbCur + 2;
++				docNext = doc;
++				}
++			else
++				hpch++;
++			}
+ /* now we are at the right of the current character */
+ 
+ #ifdef MAC
+@@ -971,7 +1128,7 @@
+ LBreak:
+ /* printable character with right edge beyond right margin */
+ 				vfli.dcpDepend =
+-						(hpch - vhpchFetch) + vcpFetch - vfli.cpMac;
++						(hpch - vhpchFetch) + vcpFetch + dcpWordGbExtra - vfli.cpMac;
+ #ifdef MAC
+ #ifdef FUTURE
+ /* in hyphenation mode, a character which could be replaced by a hyphen
+@@ -998,11 +1155,12 @@
+ 					{
+ /* there is no break opportunity to the left of xt */
+ /* break to the right of the character if first ch on line, else to its left */
+-					if (ich != 1)
++					if (ich != (fWordGbPair ? 2 : 1))
+ 						{
+ 						struct CHR *pchrT = &(**vhgrpchr)[bchrPrev];
+-						hpch--;
+-						ich--;
++						hpch -= fWordGbPair ? (fWordGbCrossRun ? 1 : 2) : 1;
++						dcpWordGbExtra = 0;
++						ich -= fWordGbPair ? 2 : 1;
+ 						if (pchrT->ich == ich && pchrT->chrm != chrmVanish)
+ 							vbchrMac = bchrPrev;
+ 						xp -= dxp;
+@@ -1010,14 +1168,14 @@
+ #ifdef WIN
+ 					else  if (ffs.fFormatting)
+ 						{
+-						if ((hpch-vhpchFetch)+vcpFetch
++						if ((hpch-vhpchFetch)+vcpFetch+dcpWordGbExtra
+ 								+ 1 == CpLimField(doc,
+ 								ffs.ifldFormat))
+ 							goto LPChar;
+ 						}
+ #endif /* WIN */
+ 
+-					vfli.cpMac = (hpch - vhpchFetch) + vcpFetch;
++					vfli.cpMac = (hpch - vhpchFetch) + vcpFetch + dcpWordGbExtra;
+ 					vfli.ichMac = ich;
+ 					vfli.dcpDepend = 1;
+ 					vfli.xpRight = xp;
+@@ -1690,6 +1848,7 @@
+ 			}
+ /* read next run sequentially, unless docNext, cpNext has been set */
+ LFetch:
++		dcpWordGbExtra = 0;
+ 
+ #ifdef MAC
+ 		if (cpNext >= caPara.cpLim)
+@@ -2314,6 +2473,7 @@
+ 					Win(bchrChp = -1);
+ 					Mac(hpch++);
+ 					ch = 'a';	/* this is bogus but safe */
++					fWordGbPair = fWordGbCrossRun = fFalse;
+ 					goto LHaveDxp;
+ 					}
+ 				} /* new chrmChp */
+@@ -2324,7 +2484,7 @@
+ LEndBreak0:
+ 		vfli.dcpDepend = 0;
+ LEndBreak:
+-		vfli.cpMac = (hpch - vhpchFetch) + vcpFetch;
++		vfli.cpMac = (hpch - vhpchFetch) + vcpFetch + dcpWordGbExtra;
+ LEndBreakCp:
+ LEndBreakPara:
+ 		vfli.xpRight = xp;
+@@ -2886,7 +3046,7 @@
+ 
+ #ifdef WIN
+ 
+-#ifdef DEBUG
++#ifdef WORD_GB_C_FORMAT
+ /* Given char, ptr to fti, return width of char */
+ /* D X P  F R O M  C H */
+ /* %%Function:C_DxpFromCh %%Owner:bryanl */
+@@ -2896,7 +3056,7 @@
+ 		{
+ 		return pfti->rgdxp [ch] + pfti->dxpExpanded;
+ 		}
+-#endif /* DEBUG */
++#endif /* DEBUG || WORD_GB_C_FORMAT */
+ 
+ #ifdef DEBUG
+ /* D X U  E X P A N D */

@@ -1,0 +1,115 @@
+--- a/CASHMERE/command.c
++++ b/CASHMERE/command.c
+@@ -409,13 +409,13 @@
+ }  /* SetAppMenu */
+ 
+ 
+-csconst CHAR szCsStopRecorder[] = SzKey("Stop Re&corder",StopRecorder);
+-csconst CHAR szCsRecordMacro[] = SzKey("Re&cord Macro...",RecordMacro);
+-csconst CHAR szCsRecord[] = SzKey("Re&cord...",Record);
+-csconst CHAR szCsPasteCells[] = SzKey("&Paste Cells",PasteCells);
+-csconst CHAR szCsPaste[] = SzKey("&Paste",Paste);
+-csconst CHAR szCsTableToText[] = SzKey("&Table to Text...",TableToText);
+-csconst CHAR szCsTable[] = SzKey("&Table...", Table);
++csconst CHAR szCsStopRecorder[] = SzKey("&R 停止录制",StopRecorder);
++csconst CHAR szCsRecordMacro[] = SzKey("&M 录制宏...",RecordMacro);
++csconst CHAR szCsRecord[] = SzKey("&R 录制...",Record);
++csconst CHAR szCsPasteCells[] = SzKey("&P 粘贴单元格",PasteCells);
++csconst CHAR szCsPaste[] = SzKey("&P 粘贴",Paste);
++csconst CHAR szCsTableToText[] = SzKey("&T 转换为文本...",TableToText);
++csconst CHAR szCsTable[] = SzKey("&T 表格...", Table);
+ 
+ /* S E T  B C M  M E N U  K E Y S */
+ /* %%Function:SetBcmMenuKeys %%Owner:bradch */
+@@ -589,6 +589,7 @@
+ 			bcmFormatting,		istUndoFormatting,
+ 			bcmRRFormat,		istUndoFormatting,
+ 			bcmDeleteSel,		istUndoDelete,
++			bcmClear,		istUndoDelete,
+ 			bcmCutBlock,		-bcmCut,
+ 			bcmPasteBlock,		-bcmPaste,
+ 			bcmChangeBkmk,		istUndoChangeBkmk,
+@@ -622,25 +623,25 @@
+ 
+ csconst CHAR rgstUndo [] [] =
+ {
+-	StSharedKey("Typing",UndoTypingDef),
+-			StSharedKey("Formatting",UndoFormattingDef),
+-			StSharedKey("Delete",UndoDeleteDef),
+-			StSharedKey("Change Bookmark",UndoChangeBkmkDef),
+-			StSharedKey("Insertion",UndoInsertionDef),
+-			StSharedKey("Move",UndoMoveDef),
+-			StSharedKey("Revision",UndoRevMarkDef),
+-
+-			StSharedKey("Edit",UndoEditDef),
+-			StSharedKey("CopyToFrom",UndoCopyTFDef),
+-			StSharedKey("Expand Glossary",UndoExpGlsDef),
+-			StSharedKey("Define Glossary",UndoDefineGlsDef),
+-			StSharedKey("Page Break",UndoPgBreakDef),
+-			StSharedKey("Replace",UndoReplaceDef),
+-			StSharedKey("Edit Table",UndoEditTableDef),
+-			StSharedKey("Promote/Demote",UndoProDemoteDef),
+-			StSharedKey("Format Table",UndoFormatTableDef),
+-			StSharedKey("Insert Table",UndoInsertTableDef),
+-			StSharedKey("Split Table",UndoSplitTableDef)
++	StSharedKey("输入",UndoTypingDef),
++			StSharedKey("格式",UndoFormattingDef),
++			StSharedKey("删除",UndoDeleteDef),
++			StSharedKey("更改书签",UndoChangeBkmkDef),
++			StSharedKey("插入",UndoInsertionDef),
++			StSharedKey("移动",UndoMoveDef),
++			StSharedKey("修订",UndoRevMarkDef),
++
++			StSharedKey("编辑",UndoEditDef),
++			StSharedKey("复制",UndoCopyTFDef),
++			StSharedKey("展开图文集",UndoExpGlsDef),
++			StSharedKey("定义图文集",UndoDefineGlsDef),
++			StSharedKey("分页符",UndoPgBreakDef),
++			StSharedKey("替换",UndoReplaceDef),
++			StSharedKey("编辑表格",UndoEditTableDef),
++			StSharedKey("提升/降低",UndoProDemoteDef),
++			StSharedKey("设置表格格式",UndoFormatTableDef),
++			StSharedKey("插入表格",UndoInsertTableDef),
++			StSharedKey("拆分表格",UndoSplitTableDef)
+ };
+ 
+ 
+@@ -662,18 +663,22 @@
+ 	pch = &sz[0];
+ 	/* bcmNil check is safety net. "should not happen" bz */
+ 	if (fUndo && (vuab.uac == uacNil || bcm == bcmNil))
+-		pch += CchCopySz( SzFrameKey( "Can't &Undo", CantUndo ), pch );
++		pch += CchCopySz( SzFrameKey( "&U 无法撤销", CantUndo ), pch );
+ 	else  if (!fUndo && bcm == bcmNil)
+-		pch += CchCopySz( SzFrameKey( "Can't &Repeat",CantRepeat ), pch );
++		pch += CchCopySz( SzFrameKey( "&R 无法重复",CantRepeat ), pch );
+ 	else
+ 		{
+ #ifdef VERBFIRST
+-		pch += CchCopySz( fUndo ? SzFrameKey( "&Undo ",UndoSp ):
+-				SzFrameKey( "&Repeat ", RepeatSp ),
++		pch += CchCopySz( fUndo ? SzFrameKey( "&U 撤销 ",UndoSp ):
++				SzFrameKey( "&R 重复 ", RepeatSp ),
+ 				pch );
+ #endif
+ 		if (fUndo && vuab.fRedo)
+-			bcm = bcmUndo;
++			{
++			*(long *)pch = *(long *)(pch - 5);
++			cchT = 4;
++			goto LGotSz;
++			}
+ 		else
+ 			{
+ /* check for bcms that need undo strings other than their command names */
+@@ -796,8 +801,8 @@
+ 	used in the Assign to Menu dialog's command list. */
+ 
+ csconst CHAR csszDashes [] =     SzKey("--------------------",Dashes);
+-csconst CHAR csszFileDashes [] = SzKey("---- File List -----",FileList);
+-csconst CHAR csszWindDashes [] = SzKey("--- Window List ----",WindowList);
++csconst CHAR csszFileDashes [] = SzKey("---- 文件列表 ----",FileList);
++csconst CHAR csszWindDashes [] = SzKey("--- 窗口列表 ----",WindowList);
+ #define ichMacDashes 20
+ 
+ 

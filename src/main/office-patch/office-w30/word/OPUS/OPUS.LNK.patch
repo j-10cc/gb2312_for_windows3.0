@@ -1,0 +1,66 @@
+--- a/OPUS/OPUS.LNK
++++ b/OPUS/OPUS.LNK
+@@ -0,0 +1,63 @@
++rcbmp13.obj rcbmp23.obj rcbmp43.obj +
++toolbox.obj +
++pcodemap.obj+
++banter.obj block.obj clsplc.obj curskeys.obj        +
++disp3.obj disptbl.obj disp2.obj 	       +
++edit.obj editspec.obj editsub.obj error.obj fetch1.obj fetch2.obj +
++openrare.obj footnote.obj formatsp.obj format.obj +
++hdd.obj hyph.obj ihdd.obj insert.obj           +
++inssubs.obj layout.obj layout1.obj +
++layoutap.obj outline.obj pagevw.obj prcsubs.obj    +
++printsub.obj savefast.obj scroll.obj               +
++select.obj selectsp.obj sttb.obj stysubs.obj               +
++tablecmd.obj tableins.obj tablesub.obj                      +
++undo.obj wwact.obj fetchtb.obj selecttb.obj+
++annot.obj catalog.obj clipbord.obj +
++elcore.obj elinit.obj exp.obj main.obj sym.obj +
++clipbrd2.obj cmd.obj cmd2.obj dlglook1.obj dlglook2.obj cmdwnd.obj cmd3.obj +
++cmdcore.obj command2.obj command.obj compare.obj +
++create.obj create2.obj curswin.obj +
++dialog1.obj dialog2.obj dialog3.obj +
++customiz.obj ddeclnt.obj ddesrvr.obj ddesub.obj disp1.obj +
++dispspec.obj dispbrc.obj dlbenum.obj dlgdoc.obj dlghyph.obj +
++        dlgmisc.obj dlgopen.obj dlgtable.obj docman1.obj +
++        docman2.obj edmacro.obj eldde.obj elfile.obj +
++elmisc.obj elsubs.obj eldlg.obj elmisc2.obj +
++etcmd.obj ffcrypt.obj +
++ffread.obj fieldclc.obj fieldcmd.obj fieldfmt.obj fieldcr.obj +
++fieldpic.obj fieldprs.obj fieldsp.obj fieldspc.obj file2.obj +
++filecvt.obj filewin.obj fltexp.obj glsy.obj fieldsc2.obj +
++hddwin.obj help.obj iconbar1.obj iconbar2.obj +
++iconbar3.obj idle.obj rcbmp1.obj rcbmp2.obj rcbmp3.obj rcbmp4.obj +
++index1.obj index2.obj initwin.obj rcinit.obj init2.obj +
++insfield.obj spelcore.obj menu.obj +
++menuhelp.obj merge.obj +
++open.obj outwin.obj pic.obj pic2.obj pictdrag.obj +
++preview.obj prvw2.obj print.obj print1.obj print2.obj prompt.obj quit.obj +
++raremsg.obj recorder.obj renum.obj replace.obj res.obj +
++rtfin.obj rtfout.obj rtfsubs.obj rtfrare.obj rtftrans.obj +
++rulerdrw.obj rulrib.obj save.obj savetext.obj +
++screen2.obj search.obj +
++sort.obj spell.obj splitter.obj srchfmt.obj statline.obj +
++strtbl.obj style.obj stylesub.obj syschg.obj +
++tabs.obj toc.obj token.obj util2.obj +
++wproc.obj wproca.obj elsubs2.obj elsubs3.obj +
++wwchange.obj mathapi.obj rsb.obj +
++grtiff.obj grspec.obj grswath.obj grbit.obj +
++formula.obj dlgrec.obj+
++disp1n.obj disp1n2.obj disp3n.obj fetchn.obj fetchn2.obj +
++fieldfmn.obj fieldcrn.obj file2n.obj filewinn.obj +
++formatn.obj formatn2.obj formulan.obj movecmds.obj +
++eldden.obj natinit.obj promptn.obj resn.obj resn2.obj +
++searchn.obj wordgrep.obj wprocn.obj opuscmd.obj +
++nattrans.obj inssubsn.obj expn.obj fetchn3.obj editn.obj +
++layout2n.obj grbitx.obj grhc.obj disp2n.obj layout22.obj +
++fieldspn.obj fetch2n.obj disptbln.obj clsplcn.obj +
++fetchtbn.obj rtfinn.obj rtfsubsn.obj prln.obj disptbn2.obj +
++sttbn.obj editn2.obj dialog1n.obj index2n.obj
++C:\OPUS\PROGRAM\WINWORD.exe
++C:\OPUS\PROGRAM\WINWORD /m /NOD /NOE /ALIGN:16 /SEGMENTS:245
++winter.w86 sbmgr.w86 lmem.w86 sdm.lib crmgr.w86  math.w86 appload.w86 +
++init.w86 mlibw.lib mlibc.w86 mwlibc.lib libh.lib
++opusndb.def
++

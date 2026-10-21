@@ -1,0 +1,12 @@
+# External source distributions, installation media and local toolchains.
+external/
+
+# Local Python caches and compiler intermediates.
+*.pyc
+__pycache__/
+*.OBJ
+
+# Test/build scratch stays separate from source and final ZIPs.
+src/test/**/work/
+release/**
+external/**

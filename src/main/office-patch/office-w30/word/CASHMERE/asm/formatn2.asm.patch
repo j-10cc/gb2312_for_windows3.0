@@ -1,0 +1,39 @@
+--- a/CASHMERE/asm/formatn2.asm
++++ b/CASHMERE/asm/formatn2.asm
+@@ -861,6 +861,20 @@
+         push    ax
+ 	cCall	GetTextMetrics,<>
+ 
++	; The native CGA Chinese glyph raster is taller than the mapped 8-row
++	; Latin font. Expand the cached line box for the default Chinese face.
++	test	[di.fPrinterFti],maskfPrinterFti
++	jnz	GbCgaMetricsDone
++	cmp	[di.dypInchFti],72
++	jge	GbCgaMetricsDone
++	cmp	bptr ([fcid.HI_lFcid]),0
++	jne	GbCgaMetricsDone
++	mov	ax,12
++	sub	ax,[tm.tmHeight]
++	jle	GbCgaMetricsDone
++	add	[tm.tmAscent],ax
++	add	[tm.tmHeight],ax
++GbCgaMetricsDone:
+ 	mov	bx,di	;save pfti
+ 	push	si	;save pfce
+ 	push	ss
+@@ -1082,6 +1096,15 @@
+ 	pop	es
+ 	mov	di,[pfti]
+ LF21:
++	; CEPSON can report a negative synthesized-bold overhang. Its raw
++	; value has already corrected GetCharWidth above. It is not a valid
++	; geometric overhang for DisplayFliCore's left-clipping optimization.
++	test	[di.fPrinterFti],maskfPrinterFti
++	jz	GbPrinterOverhangDone
++	cmp	[si.dxpOverhangFce],0
++	jge	GbPrinterOverhangDone
++	mov	[si.dxpOverhangFce],0
++GbPrinterOverhangDone:
+ 	
+ ; 
+ ;  /* Now built fcidActual according to the properties of the font we got */

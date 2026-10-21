@@ -1,0 +1,12 @@
+--- a/OPUS/IBCM.H
++++ b/OPUS/IBCM.H
+@@ -0,0 +1,9 @@
++#define ibcmHelp 0
++#define ibcmHelpContext 6
++#define ibcmHelpUsingHelp 2
++#define ibcmHelpActiveWindow 5
++#define ibcmHelpKeyboard 3
++#define ibcmHelpIndex 14
++#define ibcmHelpTutorial 4
++
++#define ibcmUserDialog 4908

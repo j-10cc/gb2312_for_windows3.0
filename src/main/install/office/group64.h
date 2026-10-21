@@ -1,0 +1,22 @@
+/* Windows 3.0 PMCC groups: retain all unowned items, icon planes and positions. */
+static unsigned gw(INI *x,unsigned at){if(at+2>x->n)die("Truncated group");return (unsigned char)x->p[at]|((unsigned)(unsigned char)x->p[at+1]<<8);}
+static void sw(INI *x,unsigned at,unsigned v){if(at+2>x->n)die("Group bounds");x->p[at]=v;x->p[at+1]=v>>8;}
+static char *gs(INI *x,unsigned at){unsigned i;if(at>=x->n)die("Group string bounds");for(i=at;i<x->n;i++)if(!x->p[i])return x->p+at;die("Unterminated group string");return "";}
+static void gcheck(INI *x){unsigned n;if(x->n<34||memcmp(x->p,"PMCC",4)||gw(x,6)!=x->n)die("Unsupported group format/extensions");n=gw(x,32);if(n>128||34+n*2>x->n)die("Group table bounds");gs(x,gw(x,22));}
+static unsigned ga(INI *out,const char *p,unsigned n){unsigned at=out->n;ireplace(out,at,at,p,n);return at;}
+static int gowned(INI *x,unsigned it){char a[100],b[100];char *cmd=gs(x,gw(x,it+20)),*name=gs(x,gw(x,it+18)),*icon=gs(x,gw(x,it+22));sprintf(a,"%s\\WINWORD.EXE",office);sprintf(b,"%s\\EXCEL.EXE",office);if(!stricmp(cmd,a)&&!stricmp(icon,a)&&(!strcmp(name,"Word")||!strcmp(name,"Word \316\304\327\326\264\246\300\355")))return 1; sprintf(a,"%s\\XLCORE.EXE",office);return !stricmp(cmd,b)&&!stricmp(icon,a)&&(!strcmp(name,"Excel")||!strcmp(name,"Excel \265\347\327\323\261\355\270\361"));}
+
+static void gitem(INI *out,INI *in,unsigned it,unsigned slot,int patch){char zero[24]={0},value[100];unsigned off=ga(out,zero,24),i,n,p;memcpy(out->p+off,in->p+it,24);sw(out,34+slot*2,off);
+for(i=0;i<3;i++){n=gw(in,it+6+i*2);p=gw(in,it+12+i*2);if(p+n>in->n)die("Group icon bounds");sw(out,off+12+i*2,ga(out,in->p+p,n));}
+for(i=0;i<3;i++){char *v=gs(in,gw(in,it+18+i*2));if(patch&&i>0){sprintf(value,"%s\\%s",office,patch==1?"WINWORD.EXE":(i==1?"EXCEL.EXE":"XLCORE.EXE"));v=value;}sw(out,off+18+i*2,ga(out,v,strlen(v)+1));}}
+static INI gmerge(INI *cur,INI *model,int removing,int *retained){INI out;unsigned n=0,i,it,cap,slot=0;char zero[290]={0};if(cur->n)gcheck(cur);gcheck(model);for(i=0;cur->n&&i<gw(cur,32);i++){it=gw(cur,34+i*2);if(it&&!gowned(cur,it))n++;}*retained=n!=0;if(!removing)n+=2;cap=((n+15)/16)*16;if(!cap)cap=16;if(cap>128)die("Group item capacity exceeded");out=imem(zero,34+cap*2);memcpy(out.p,(cur->n?cur:model)->p,34);sw(&out,32,cap);sw(&out,22,ga(&out,gs(cur->n?cur:model,gw(cur->n?cur:model,22)),strlen(gs(cur->n?cur:model,gw(cur->n?cur:model,22)))+1));
+for(i=0;cur->n&&i<gw(cur,32);i++){it=gw(cur,34+i*2);if(it&&!gowned(cur,it))gitem(&out,cur,it,slot++,0);}
+if(!removing){unsigned k=0;for(i=0;i<gw(model,32);i++){it=gw(model,34+i*2);if(it){if(++k>2)die("Unexpected model items");gitem(&out,model,it,slot++,k);}}if(k!=2)die("Incomplete model group");}
+sw(&out,6,out.n);sw(&out,4,0);n=0;for(i=0;i<out.n;i+=2)n+=(unsigned char)out.p[i]|(i+1<out.n?((unsigned)(unsigned char)out.p[i+1]<<8):0);sw(&out,4,0-n);gcheck(&out);return out;}
+
+/* Icon ownership uses semantic fields. Position and cached bitmap packing are
+ * rewritten by Program Manager during ordinary use and are not identity. */
+static int gequal(INI *a,unsigned ai,INI *b,unsigned bi){unsigned i;if(gw(a,ai+4)!=gw(b,bi+4))return 0;for(i=0;i<3;i++){char *x=gs(a,gw(a,ai+18+i*2)),*y=gs(b,gw(b,bi+18+i*2));if(i?stricmp(x,y):strcmp(x,y))return 0;}return 1;}
+static int ginpost(INI *cur,unsigned it,INI *post,unsigned *used){unsigned i,p;for(i=0;i<gw(post,32);i++){p=gw(post,34+i*2);if(p&&!used[i]&&gowned(post,p)&&gequal(cur,it,post,p)){used[i]=1;return 1;}}return 0;}
+
+static INI gundo(INI *cur,INI *before,INI *post,int *retained){INI out;unsigned i,it,n=0,cap,slot=0,sum=0,used[128];char zero[290]={0};memset(used,0,sizeof(used));gcheck(cur);gcheck(post);if(before->n)gcheck(before);for(i=0;i<gw(cur,32);i++){it=gw(cur,34+i*2);if(it&&!ginpost(cur,it,post,used))n++;}for(i=0;before->n&&i<gw(before,32);i++){it=gw(before,34+i*2);if(it&&gowned(before,it))n++;}*retained=n!=0;cap=((n+15)/16)*16;if(!cap)cap=16;if(cap>128)die("Too many user group items");out=imem(zero,34+cap*2);memcpy(out.p,cur->p,34);sw(&out,32,cap);sw(&out,22,ga(&out,gs(cur,gw(cur,22)),strlen(gs(cur,gw(cur,22)))+1));memset(used,0,sizeof(used));for(i=0;i<gw(cur,32);i++){it=gw(cur,34+i*2);if(it&&!ginpost(cur,it,post,used))gitem(&out,cur,it,slot++,0);}for(i=0;before->n&&i<gw(before,32);i++){it=gw(before,34+i*2);if(it&&gowned(before,it))gitem(&out,before,it,slot++,0);}sw(&out,6,out.n);sw(&out,4,0);for(i=0;i<out.n;i+=2)sum+=(unsigned char)out.p[i]|(i+1<out.n?((unsigned)(unsigned char)out.p[i+1]<<8):0);sw(&out,4,0-sum);gcheck(&out);return out;}

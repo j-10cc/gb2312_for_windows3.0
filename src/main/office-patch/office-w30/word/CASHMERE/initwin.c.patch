@@ -1,0 +1,18 @@
+--- a/CASHMERE/initwin.c
++++ b/CASHMERE/initwin.c
+@@ -1449,11 +1449,11 @@
+ 
+ 	/*  Tms Rmn */
+ 		pffn->cbFfnM1 = CbFfnFromCchSzFfn(
+-				CchCopySz( SzSharedKey("Tms Rmn",TmsRmn),
++				CchCopySz( "CFShouSung",
+ 				((struct FFN *)rgbFfn)->szFfn ) /* +1 */) /* -1 */;
+-		pffn->ffid = FF_ROMAN;
+-		pffn->prq = VARIABLE_PITCH;
+-		ChsPffn(pffn) = ANSI_CHARSET;
++		pffn->ffid = FF_DONTCARE;
++		pffn->prq = DEFAULT_PITCH;
++		ChsPffn(pffn) = 1;
+ 		AssertDo( IbstAddStToSttb( vhsttbFont, rgbFfn ) == ibstFontDefault );
+ 
+ 	/*  Symbol */

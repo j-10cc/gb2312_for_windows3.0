@@ -1,0 +1,39 @@
+--- a/OPUS/VERDATE.H
++++ b/OPUS/VERDATE.H
+@@ -0,0 +1,36 @@
++/* THIS IS A GENERATED FILE -- DO NOT EDIT */
++
++#ifdef RSH
++#define szVersionDef  "Research Version 1.1a"
++#else
++#ifdef DEMO
++#define szVersionDef  "Demonstration Version 1.1a"
++#else
++#ifdef DEBUG
++#define szVersionDef	"Debug Version 1.1a (2401)"
++#else
++#ifdef HYBRID
++#define szVersionDef	"Hybrid Version 1.1a (2401)"
++#else
++#ifdef SHIP
++#define szVersionDef	"Version 1.1a"
++#else /* FAST */
++#define szVersionDef	"Preview Version 1.1a (2401)"
++#endif /* ~SHIP */
++#endif /* ~HYBRID */
++#endif /* ~DEBUG */
++#endif /* ~DEMO */
++#endif /* ~RSH */
++
++#define nRevProduct (2401/100)
++#define nIncrProduct (2401%100)
++#define nRelProduct (2401)
++
++#define szDisableWarningDef "WarnVersion2401"
++
++#define szDateBuiltDef "10/13/126"
++#define nMonthBuilt 10
++#define nYearBuilt 126
++#define nDayBuilt 13
++
++#define szVerDateDef "October 13, 2026 GB2312 Word 1.1a Build Probe"

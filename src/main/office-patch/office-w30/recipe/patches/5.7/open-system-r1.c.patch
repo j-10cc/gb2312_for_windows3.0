@@ -1,0 +1,38 @@
+--- a/CASHMERE/open.c
++++ b/CASHMERE/open.c
+@@ -436,20 +436,20 @@
+ 			goto FailExit;
+ 
+ 		if (!ChangeMenu(hMwMenu, SC_RESTORE, 
+-				(LPSTR)SzSharedKey("&Restore",Restore), bcmRestoreWnd, MF_CHANGE) ||
++				(LPSTR)SzSharedKey("\273\271\324\255&R",Restore), bcmRestoreWnd, MF_CHANGE) ||
+ 				!ChangeMenu(hMwMenu, SC_MOVE, 
+-				(LPSTR)SzSharedKey("&Move",Move), bcmMoveWnd, MF_CHANGE) ||
++				(LPSTR)SzSharedKey("\322\306\266\257&M",Move), bcmMoveWnd, MF_CHANGE) ||
+ 				!ChangeMenu(hMwMenu, SC_SIZE, 
+-				(LPSTR)SzSharedKey("&Size",Size), bcmSizeWnd, MF_CHANGE) ||
++				(LPSTR)SzSharedKey("\264\363\320\241&S",Size), bcmSizeWnd, MF_CHANGE) ||
+ 				!ChangeMenu(hMwMenu, SC_MINIMIZE, 
+ 				(LPSTR)NULL, -1, MF_DELETE) ||
+ 				!ChangeMenu(hMwMenu, SC_MAXIMIZE, 
+-				(LPSTR)SzSharedKey("Ma&ximize",Maximize), bcmZoomWnd, MF_CHANGE) ||
++				(LPSTR)SzSharedKey("\327\356\264\363\273\257&X",Maximize), bcmZoomWnd, MF_CHANGE) ||
+ 				!ChangeMenu(hMwMenu, SC_CLOSE, 
+-				(LPSTR)SzSharedKey("&Close",CloseMenu), bcmCloseWnd, MF_CHANGE) ||
++				(LPSTR)SzSharedKey("\271\330\261\325&C",CloseMenu), bcmCloseWnd, MF_CHANGE) ||
+ 				!ChangeMenu(hMwMenu, 0, (LPSTR)NULL, -1, MF_APPEND | MF_SEPARATOR) ||
+ 				!ChangeMenu(hMwMenu, 0, 
+-				(LPSTR)SzSharedKey("Spli&t",Split), bcmSplit, MF_APPEND | MF_STRING))
++				(LPSTR)SzSharedKey("\262\360\267\326&T",Split), bcmSplit, MF_APPEND | MF_STRING))
+ 			{
+ 			goto FailExit;
+ 			}
+@@ -470,7 +470,7 @@
+ 		*/
+ 		if (vwWinVersion >= 0x0300)
+ 			if (!ChangeMenu(hMwMenu, SC_TASKLIST, 
+-					(LPSTR)SzSharedKey("&Next Window",NextWindow), bcmNextMwd, MF_CHANGE))
++					(LPSTR)SzSharedKey("\317\302\322\273\264\260\277\332&N",NextWindow), bcmNextMwd, MF_CHANGE))
+ 				{
+ 				goto FailExit;
+ 				}

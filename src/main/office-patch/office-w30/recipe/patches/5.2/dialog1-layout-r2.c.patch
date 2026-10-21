@@ -1,0 +1,72 @@
+--- a/CASHMERE/dialog1.c
++++ b/CASHMERE/dialog1.c
+@@ -45,7 +45,7 @@
+ extern BOOL vfDeactByOtherApp;
+ extern int vcInMessageBox;
+ 
+-char szOk[] = SzGlobalKey("OK", SdmOk);
++char szOk[] = SzGlobalKey("È·¶¨", SdmOk);
+ char szCancel[] = SzGlobalKey("Cancel", SdmCancel);
+ 
+ /*  %%Function:  FSdmDoIdle  %%Owner:  bobz       */
+@@ -203,6 +203,7 @@
+ 		goto LRetErr;  /* not safe to call TmcDoDlgDli at oom */
+ 		}
+ 
++	if (GetSystemMetrics(SM_CYSCREEN) <= 200) CompactDialog52(*hdlt);
+ 	pcmb->tmc = TmcDoDlgDli(hdlt, pcmb->hcab, &dli);
+ 
+ #ifdef RSH
+@@ -2035,3 +2036,52 @@
+ 
+ 
+ #endif
++
++
++/* CGA-only geometry: mutate the existing local template, retain CAB/TMC order. */
++CompactDialog52(pdlt)
++DLT *pdlt;
++{
++ TM *ptm;
++ CRC *pcrc;
++ int dy;
++ if (pdlt->hid == IDDSaveAs)
++  {
++	pdlt->rgtm[9].l = 150L;
++	pdlt->rgtm[10].l = 0x094106A0L;
++	pdlt->rgtm[11].l = 0x288712A0L;
++	pdlt->rgtm[13].l = 0x0C8434A0L;
++	pdlt->rgtm[14].l = 0x0C8442A0L;
++	pdlt->rgtm[15].l = 0x0C8450A0L;
++
++  }
++ if (pdlt->hid == IDDDefineStyle)
++  {
++  pdlt->rec.dy = 114;
++  pdlt->rgtm[12].l = 112L;
++  pdlt->rgtm[29].l = 112L;
++	pdlt->rgtm[13].l = 0x0C650FC0L;
++	pdlt->rgtm[14].l = 0x096404C0L;
++	pdlt->rgtm[15].l = 0x205D1BC4L;
++	pdlt->rgtm[17].l = 0x0C6532C0L;
++	pdlt->rgtm[18].l = 0x096427C0L;
++	pdlt->rgtm[19].l = 0x205D3EC4L;
++	pdlt->rgtm[21].l = 0x0C6441C0L;
++	pdlt->rgtm[26].l = 0x0E1E50C0L;
++	pdlt->rgtm[27].l = 0x0E1B50E0L;
++	pdlt->rgtm[28].l = 0x0E2C50FCL;
++	pdlt->rgtm[30].l = 0x0E3262C0L;
++
++  }
++ dy = pdlt->rec.dy;
++ if (dy <= 118) return;
++ for (ptm = pdlt->rgtm; ptm->tmt != tmtEnd; ++ptm)
++  if ((ptm->tmt >= tmtNormalMin && ptm->tmt < tmtNormalIgnore)
++      || ptm->tmt == tmtExtDummyText)
++   {
++   pcrc = (CRC *)&ptm->l;
++   pcrc->y = ((unsigned)pcrc->y * 118) / dy;
++   pcrc->dy = ((unsigned)pcrc->dy * 118) / dy;
++   }
++ pdlt->rec.dy = 118;
++}
