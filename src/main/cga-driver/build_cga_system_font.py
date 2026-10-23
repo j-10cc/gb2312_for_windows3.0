@@ -29,9 +29,26 @@ FNT = ROOT / "external/win30ddk/fonts/system/ega/egasys.fnt"
 OUT = _LAYOUT_ROOT / "src/test/native-gb2312/work/build/fonts/CGAS12.FON"
 
 
+def gb2312_metrics(font: bytes) -> bytes:
+    """Match the overlay's 8-pixel advance for each GB2312 source byte.
+
+    GDI measures captions using this proportional FNT, before the display
+    overlay sees them. Keeping the English high-byte widths can make a
+    Chinese caption's clip narrower than its actual 16-pixel cells. ASCII
+    widths, character bitmap offsets and the bitmap bank remain untouched.
+    """
+    if (font[:2] != b'\x00\x02' or struct.unpack_from('<H', font, 86)[0] != 0
+            or font[95] > 0xA1 or font[96] < 0xFE):
+        raise ValueError('expected a proportional FNT covering GB2312 bytes')
+    result = bytearray(font)
+    for code in range(0xA1, 0xFF):
+        struct.pack_into('<H', result, 118 + 4 * (code - font[95]), 8)
+    return bytes(result)
+
+
 def main() -> None:
     data = bytearray(CONTAINER.read_bytes())
-    font = FNT.read_bytes()
+    font = gb2312_metrics(FNT.read_bytes())
     entries = {entry.kind: entry for entry in resources(data)
                if entry.kind in (7, 8)}
     if set(entries) != {7, 8}:

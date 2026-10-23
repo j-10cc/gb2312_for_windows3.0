@@ -94,13 +94,13 @@
   "dictionary_sha256": "ce326c7a824705536fa292eb9e59265d3ceeaa5cec81952fa05b6423a4a98902",
   "packages": {
     "W30SC21.ZIP": {
-      "sha256": "724f8557fa7f6fd73ebf2a9eafc0e4126906c0671ea66df64b83c942bf43e324",
-      "bytes": 15478373,
+      "sha256": "92c17f6b7dd7622a0ac14cc0efe4911063c5d0fad742688f80949c92876ec718",
+      "bytes": 15696360,
       "files": 409
     },
     "GB30SC21.ZIP": {
-      "sha256": "8121a004cd01e1cd9809b87779eeee2a82a9ff2e21cec7cd632df16a2f5e3b93",
-      "bytes": 6376508,
+      "sha256": "ac1e44b56c093b4526e12a86de7c3ea159c6668b92a6a68c6e992ac54540ca38",
+      "bytes": 6466776,
       "files": 39
     }
   },
@@ -703,5 +703,45 @@
     "tests": "src/test",
     "office_source": "src/main/office-patch/office-w30",
     "installer_build_work": "src/test/install/work/build"
+  },
+  "cga_caption_fix": {
+    "date": "2026-10-23",
+    "revision": "CGA-ICON-R1",
+    "font_sha256": "2326d6f7a0182dce565612244a5bcd2397a131848e9205838dbc29b0951fb8cc",
+    "font_bytes": 6848,
+    "previous_packages": {
+      "W30SC21.ZIP": "724f8557fa7f6fd73ebf2a9eafc0e4126906c0671ea66df64b83c942bf43e324",
+      "GB30SC21.ZIP": "8121a004cd01e1cd9809b87779eeee2a82a9ff2e21cec7cd632df16a2f5e3b93"
+    },
+    "trace": {
+      "before": {
+        "drawn_glyphs": 26,
+        "right_clipped_glyphs": 1
+      },
+      "after": {
+        "drawn_glyphs": 26,
+        "right_clipped_glyphs": 0
+      }
+    },
+    "verification": {
+      "font_static": "PASS: 7445 GB2312 pair advances, ASCII and bitmap bytes unchanged",
+      "runtime": "PASS: Program Manager, selected/unselected captions and minimized Games group; original system and Office release drivers",
+      "environment": "DOSBox-X, DOS 5.0 API, 8086_prefetch, CGA, WIN /R, no FPU/XMS/EMS/UMB",
+      "excluded": "No full graphical Setup, Office application regression, VGA runtime regression or HP200LX hardware validation"
+    },
+    "captures": {
+      "before.png": "c9ca3c55137a26e70d35c180430f9ca39a4f18dd89cfed726cfabc38b8bd1366",
+      "after.png": "fd63d79f68e6da343c6091a8d05963273faf29e6169ca71b23ac99fa5e923eaa",
+      "finalsys.png": "fd63d79f68e6da343c6091a8d05963273faf29e6169ca71b23ac99fa5e923eaa",
+      "finalsys2.png": "4c01b89024b25d69642bda60a2aa7f81b9fd55fc2167acd37910efefc9bcb55f",
+      "finaloff.png": "fd63d79f68e6da343c6091a8d05963273faf29e6169ca71b23ac99fa5e923eaa",
+      "finaloff2.png": "4c01b89024b25d69642bda60a2aa7f81b9fd55fc2167acd37910efefc9bcb55f"
+    },
+    "source_sha256": "4e28f35319b0dd0ff1fc42d6fa2a328d4823181fae72cf16647ffa7d5c0c18aa",
+    "changed_payloads": [
+      "W30SC21.ZIP/CGAS12.FON",
+      "GB30SC21.ZIP/DEPEND/FONTS/CGAS12.FON"
+    ],
+    "unchanged": "Display drivers, installers, application executables, IME, dictionary and VGA fonts"
   }
 }

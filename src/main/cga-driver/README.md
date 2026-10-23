@@ -28,3 +28,5 @@ python src/main/cga-driver/build_cga_driver.py
 系统字体输入为 `src/test/native-gb2312/work/build/expanded/chinese/EGASYS.FON` 和 DDK 的 `fonts/system/ega/egasys.fnt`。驱动输入还包括 `work/build/fonts/CHCGA12.FNT`、`CHCGA10.FNT`、`CHCGA08.FNT`；字体生成方法见 [native-gb2312](../native-gb2312/README.md)。
 
 脚本在 DOSBox-X 内调用 DDK 的 MASM、LINK4 和 RC。字体输出至 `work/build/fonts/CGAS12.FON`，驱动输出至 `work/build/driver/CGA.DRV`。添加 `--trace` 可生成独立诊断驱动。
+
+系统字体的 `A1–FE` 字节宽度固定为 8 像素，与覆盖绘制的每汉字 16 像素步进一致；ASCII 宽度和点阵不变。不能直接用未修正的英文 EGA 字体宽度表替代，否则程序管理器可能按较小的测量宽度裁掉标题末字。原因和验证见 [CGA 图标标题修复记录](../../../docs/review/cga-icon-captions.md)，测试入口见 [CGA 探针](../../test/cga-driver/README.md)。

@@ -47,6 +47,16 @@ def verify():
             assert '\n' not in text.replace('\r\n','')
         packages[archive.stem] = data
     w,o = packages['W30SC21'], packages['GB30SC21']
+    if 'cga_caption_fix' in meta:
+        font=w['CGAS12.FON']
+        assert font==o['DEPEND/FONTS/CGAS12.FON']
+        assert sha(font)==meta['cga_caption_fix']['font_sha256']
+        import struct
+        from patch_resources import resources
+        bitmap=next(e for e in resources(font) if e.kind==8)
+        f=font[bitmap.offset:bitmap.offset+bitmap.length]
+        for code in range(0xA1,0xFF):
+            assert struct.unpack_from('<H',f,118+4*(code-f[95]))[0]==8
     for name in ['PHON.IME','GBPY.DAT','WINNLS.DLL','IMEINFO.INI']:
         assert w[name] == o['DEPEND/IME/'+name]
     assert sha(w['PHON.IME']) == meta['runtime_ime_sha256']
